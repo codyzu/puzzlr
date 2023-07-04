@@ -36,44 +36,34 @@ export default defineConfig({
         },
       },
     }),
-    // PresetWebFonts({
-    //   // Prefer bunny provider, but it seems to be broken with 2 theme overrides (only loads the first)
-    //   provider: 'google',
-    //   fonts: {
-    //     mono: ['Inconsolata'],
-    //     sans: [
-    //       // {
-    //       //   name: 'Jura',
-    //       //   weights: ['400', '600'],
-    //       // },
-    //       // {
-    //       //   name: 'Saira Condensed',
-    //       //   weights: ['400', '600'],
-    //       // },
-    //       {
-    //         name: 'Saira',
-    //         weights: ['400', '500'],
-    //       },
-    //       // I like Abel, but it is only 400 weight and the bold is ugly on safari.
-    //       // {
-    //       //   name: 'Abel',
-    //       //   weights: ['400', '600'],
-    //       // },
-    //     ],
-    //     // Sans: ['Saira', 'Abel:400,600'],
-    //     inter: [
-    //       {
-    //         name: 'Inter',
-    //         weights: ['400', '600', '700'],
-    //         italic: true,
-    //       },
-    //       {
-    //         name: 'sans-serif',
-    //         provider: 'none',
-    //       },
-    //     ],
-    //   },
-    // }),
+    presetWebFonts({
+      // Prefer bunny provider, but it seems to be broken with 2 theme overrides (only loads the first)
+      provider: 'google',
+      fonts: {
+        // Mono: ['Inconsolata'],
+        sans: [
+          {
+            name: 'Open Sans',
+            weights: ['400', '500'],
+          },
+        ],
+        heading: [
+          {
+            name: 'Montserrat',
+            weights: ['400', '600', '700'],
+            italic: true,
+          },
+          {
+            name: 'Open Sans',
+            weights: ['400', '600', '700'],
+          },
+          {
+            name: 'sans-serif',
+            provider: 'none',
+          },
+        ],
+      },
+    }),
   ],
   transformers: [transformerDirectives(), transformerVariantGroup()],
   shortcuts: {
