@@ -1,7 +1,7 @@
-import {useRef, useState} from 'react';
-import {Canvas, useFrame, type Vector3} from '@react-three/fiber';
+import {useRef} from 'react';
+import {Canvas, /* useFrame, */ type Vector3} from '@react-three/fiber';
 import {OrbitControls} from '@react-three/drei';
-import {Vector3 as V3, type Mesh, Group} from 'three';
+import {Vector3 as V3, type Mesh /* , Group */} from 'three';
 
 export default function Cube() {
   const v1 = new V3(1, 0, 0);
@@ -59,8 +59,8 @@ function Box({position}: {position: Vector3}) {
   // This reference gives us direct access to the THREE.Mesh object
   const ref = useRef<Mesh>(null!);
   // Hold state for hovered and clicked events
-  const [hover, setHover] = useState(false);
-  const [clicked, setClicked] = useState(false);
+  // const [hover, setHover] = useState(false);
+  // const [clicked, setClicked] = useState(false);
   // Subscribe this component to the render-loop, rotate the mesh every frame
   // useFrame((_state, delta) => {
   //   ref.current.rotation.x += delta;
@@ -71,18 +71,18 @@ function Box({position}: {position: Vector3}) {
   return (
     <mesh
       ref={ref}
-      scale={clicked ? 1.5 : 1}
+      // Scale={clicked ? 1.5 : 1}
       // eslint-disable-next-line react/no-unknown-property
       position={position}
       // OnClick={() => {
       //   setClicked(!clicked);
       // }}
-      onPointerOver={() => {
-        setHover(true);
-      }}
-      onPointerOut={() => {
-        setHover(false);
-      }}
+      // onPointerOver={() => {
+      //   setHover(true);
+      // }}
+      // onPointerOut={() => {
+      //   setHover(false);
+      // }}
       // {...props}
     >
       {/* eslint-disable-next-line react/no-unknown-property */}
@@ -95,10 +95,10 @@ function Box({position}: {position: Vector3}) {
 
 function BoxGroup({position}: {position: Vector3}) {
   // This reference gives us direct access to the THREE.Mesh object
-  const ref = useRef<Mesh>(null!);
+  // const ref = useRef<Mesh>(null!);
   // Hold state for hovered and clicked events
-  const [hover, setHover] = useState(false);
-  const [clicked, setClicked] = useState(false);
+  // const [hover, setHover] = useState(false);
+  // const [clicked, setClicked] = useState(false);
   // Subscribe this component to the render-loop, rotate the mesh every frame
   // useFrame((_state, delta) => {
   //   ref.current.rotation.x += delta;
@@ -107,6 +107,7 @@ function BoxGroup({position}: {position: Vector3}) {
   // });
   // Return the view, these are regular Threejs elements expressed in JSX
   return (
+    // eslint-disable-next-line react/no-unknown-property
     <group position={position} rotation={[90, 0, 180]}>
       <Box position={[0, 0, 0]} />
       <Box position={[0, 0, 1]} />
