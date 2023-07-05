@@ -31,13 +31,39 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: "pnpm"
+
+      - name: Output debugging info
+        run: node -v && npm -v && pnpm -v
+
+      - name: Install
+        run: pnpm install
+
+      - name: Lint
+        run: pnpm run lint
+
+      - name: Build
+        run: pnpm run build
+
       - name: Setup Pages
         uses: actions/configure-pages@v3
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
           # Upload entire repository
-          path: './doesnotexist'
+          path: './dist'
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
