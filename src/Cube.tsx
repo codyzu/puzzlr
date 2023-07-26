@@ -2,11 +2,19 @@ import {useRef} from 'react';
 import {Canvas, /* useFrame, */ type Vector3} from '@react-three/fiber';
 import {OrbitControls} from '@react-three/drei';
 import {Vector3 as V3, type Mesh /* , Group */} from 'three';
+import Shape, {type Shape3d} from './Shape';
+import Shapes from './Shapes';
 
 export default function Cube() {
   const v1 = new V3(1, 0, 0);
   const v2 = new V3(0, 1, 0);
   const v3 = new V3();
+  const center = new V3(0, 0, 0);
+  const offset = new V3(-1.5, -1.5, -1.5);
+
+  const p = center.clone().add(offset);
+
+  console.log({center, offset, p});
   v3.crossVectors(v1, v2);
   console.log(v3);
   return (
@@ -49,7 +57,10 @@ export default function Cube() {
       <Box position={[-1, -1, 0]} />
       <Box position={[-1, -1, 1]} />
       <Box position={[-1, -1, -1]} /> */}
-      <BoxGroup position={[0, 0, 0]} />
+      {/* <BoxGroup position={[0, 0, 0]} /> */}
+
+      <Shapes position={[-1.5, -1.5, -1.5]} />
+
       <OrbitControls />
     </Canvas>
   );
@@ -58,6 +69,8 @@ export default function Cube() {
 function Box({position}: {position: Vector3}) {
   // This reference gives us direct access to the THREE.Mesh object
   const ref = useRef<Mesh>(null!);
+
+  ref.current.geometry.center();
   // Hold state for hovered and clicked events
   // const [hover, setHover] = useState(false);
   // const [clicked, setClicked] = useState(false);
