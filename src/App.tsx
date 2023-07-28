@@ -1,6 +1,5 @@
 import Cube from './Cube';
 import SinglePieceRendered from './SinglePieceRendered';
-import logo from './logo.svg';
 
 function App() {
   const pieceClasses =
@@ -8,7 +7,7 @@ function App() {
   return (
     <div className="gap-4 p-2 w-full">
       <div className="flex flex-row gap-2">
-        <img src={logo} className="h-10 w-10" />
+        <img src='/logo-p-500.png' className="h-10 w-10" />
         <div className="font-heading text-3xl font-700">NodeConf EU 2023</div>
       </div>
       <div className="font-heading font-600">
