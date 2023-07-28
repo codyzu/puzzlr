@@ -1,6 +1,6 @@
 import {useFrame, type Color, type Vector3} from '@react-three/fiber';
-import {type ReactNode, useRef, useEffect, useState} from 'react';
-import {type Mesh, type Group, Box3, Vector3 as V3} from 'three';
+import {useRef, useEffect} from 'react';
+import {type Group, Box3} from 'three';
 
 export type Point = 0 | 1;
 export type Piece1D = [Point, Point, Point];
@@ -63,30 +63,19 @@ export const pieces: Record<PieceColor, ColoredPiece> = {
 
 function Piece({
   piece,
-  position,
+  // Position,
   color,
 }: {
   piece: Piece2D;
-  position: Vector3;
+  // Position: Vector3;
   color: Color;
 }) {
   const innerGroupRef = useRef<Group>(null!);
   const pivotGroupRef = useRef<Group>(null!);
-  console.log('piece ref', innerGroupRef.current);
 
-  const [groupPosition, setGroupPosition] = useState<Vector3>([0, 0, 0]);
+  // Const [groupPosition, setGroupPosition] = useState<Vector3>([0, 0, 0]);
 
   useEffect(() => {
-    console.log('group', innerGroupRef.current);
-    // Const bbox = new Box3().setFromObject(ref.current);
-    // const size = new V3();
-    // bbox.getSize(size);
-    // console.log('size', size);
-    // setGroupPosition([
-    //   -(bbox.min.x + bbox.max.x) / 2,
-    //   -(bbox.min.y + bbox.max.y) / 2,
-    //   -(bbox.min.z + bbox.max.z) / 2,
-    // ]);
     const bbox = new Box3().setFromObject(innerGroupRef.current);
     bbox.getCenter(innerGroupRef.current.position);
     innerGroupRef.current.position.multiplyScalar(-1);
@@ -96,23 +85,13 @@ function Piece({
     // Ref.current.rotation.x += 0.1;
     pivotGroupRef.current.rotation.x += delta;
     pivotGroupRef.current.rotation.y += delta;
-    // PivotGroupRef.current.rotation.z += delta;
-    // Ref.current.rotation.z += delta;
-    // Ref.current.rotation.x += delta;
-    // ref.current.rotation.y += delta;
-    // ref.current.rotation.z += delta;
-    // Const bbox = new Box3().setFromObject(ref.current);
-    // const size = new V3();
-    // bbox.getSize(size);
-    // ref.current.position.x = -(bbox.min.x + bbox.max.x) / 2;
-    // ref.current.position.y = -(bbox.min.y + bbox.max.y) / 2;
-    // ref.current.position.z = -(bbox.min.z + bbox.max.z) / 2;
   });
 
   return (
     <group ref={pivotGroupRef} scale={1.5}>
-      {/* eslint-disable-next-line react/no-unknown-property */}
-      <group ref={innerGroupRef} position={groupPosition}>
+      {/* deslint-disable-next-line react/no-unknown-property */}
+      {/* <group ref={innerGroupRef} position={groupPosition}> */}
+      <group ref={innerGroupRef}>
         {piece.map((dim1, dim1Index) =>
           dim1.map((point, pointIndex) => {
             if (point === 0) {

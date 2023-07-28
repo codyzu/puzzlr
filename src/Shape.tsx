@@ -1,9 +1,6 @@
-import {
-  /* Canvas, */ /* useFrame, */ type Color,
-  type Vector3,
-} from '@react-three/fiber';
+import {type Color, type Vector3} from '@react-three/fiber';
 import {useRef} from 'react';
-import {Vector3 as V3, type Mesh /* , Group */} from 'three';
+import {type Mesh} from 'three';
 
 export type Point = 0 | 1;
 export type Line = [Point, Point, Point];

@@ -1,5 +1,4 @@
 import {Canvas} from '@react-three/fiber';
-import {OrbitControls, OrthographicCamera} from '@react-three/drei';
 import {type PieceColor, pieces} from './Piece';
 
 export default function SinglePieceRendered({piece}: {piece: PieceColor}) {
