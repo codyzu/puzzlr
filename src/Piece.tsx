@@ -9,7 +9,7 @@ export type Piece2D = [Piece1D, Piece1D, Piece1D];
 const allPieceColors = ['purple', 'green', 'pink', 'orange', 'blue'] as const;
 type PieceColorTuple = typeof allPieceColors;
 export type PieceColor = PieceColorTuple[number];
-
+// #A0C539
 const PurplePieceMap: Piece2D = [
   [0, 0, 0],
   [0, 0, 0],
@@ -45,19 +45,19 @@ type ColoredPiece = (props: ColoredPieceProps) => JSX.Element;
 
 export const pieces: Record<PieceColor, ColoredPiece> = {
   purple: (props: ColoredPieceProps) => (
-    <Piece piece={PurplePieceMap} color="purple" {...props} />
+    <Piece piece={PurplePieceMap} color="#9752BB" {...props} />
   ),
   green: (props: ColoredPieceProps) => (
-    <Piece piece={GreenPieceMap} color="green" {...props} />
+    <Piece piece={GreenPieceMap} color="#A0C539" {...props} />
   ),
   pink: (props: ColoredPieceProps) => (
-    <Piece piece={PinkPieceMap} color="pink" {...props} />
+    <Piece piece={PinkPieceMap} color="#DE52C4" {...props} />
   ),
   orange: (props: ColoredPieceProps) => (
-    <Piece piece={OrangePieceMap} color="orange" {...props} />
+    <Piece piece={OrangePieceMap} color="#E68C00" {...props} />
   ),
   blue: (props: ColoredPieceProps) => (
-    <Piece piece={BluePieceMap} color="blue" {...props} />
+    <Piece piece={BluePieceMap} color="#00ACA7" {...props} />
   ),
 };
 
