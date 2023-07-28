@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="gap-4 p-2 w-full">
       <div className="flex flex-row gap-2">
-        <img src='/logo-p-500.png' className="h-10 w-10" />
+        <img src="/logo-p-500.png" className="h-10 w-auto" />
         <div className="font-heading text-3xl font-700">NodeConf EU 2023</div>
       </div>
       <div className="font-heading font-600">
