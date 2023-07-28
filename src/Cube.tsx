@@ -59,7 +59,7 @@ export default function Cube() {
       <Box position={[-1, -1, -1]} /> */}
       {/* <BoxGroup position={[0, 0, 0]} /> */}
 
-      <Shapes position={[-1.5, -1.5, -1.5]} />
+      <Shapes position={[0, 0, 0]} />
 
       <OrbitControls />
     </Canvas>

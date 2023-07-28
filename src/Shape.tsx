@@ -36,6 +36,7 @@ export default function Shape({
             return (
               <mesh
                 ref={ref}
+                // eslint-disable-next-line react/no-array-index-key
                 key={`cube-${plainIndex}-${lineIndex}-${pointIndex}`}
                 // Ref={ref}
                 // eslint-disable-next-line react/no-unknown-property
