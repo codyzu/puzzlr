@@ -66,8 +66,8 @@ function Piece({
   const innerGroupRef = useRef<Group>(null!);
   const pivotGroupRef = useRef<Group>(null!);
 
-  // Const [groupPosition, setGroupPosition] = useState<Vector3>([0, 0, 0]);
-
+  // https://stackoverflow.com/a/28860849
+  // https://stackoverflow.com/a/54611417
   useEffect(() => {
     const bbox = new Box3().setFromObject(innerGroupRef.current);
     bbox.getCenter(innerGroupRef.current.position);
