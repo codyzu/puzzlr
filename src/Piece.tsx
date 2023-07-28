@@ -1,15 +1,8 @@
 import {useFrame, type Color, type Vector3} from '@react-three/fiber';
 import {useRef, useEffect} from 'react';
 import {type Group, Box3} from 'three';
+import {type PieceColor, type Piece2D} from './piece-types';
 
-export type Point = 0 | 1;
-export type Piece1D = [Point, Point, Point];
-export type Piece2D = [Piece1D, Piece1D, Piece1D];
-
-const allPieceColors = ['purple', 'green', 'pink', 'orange', 'blue'] as const;
-type PieceColorTuple = typeof allPieceColors;
-export type PieceColor = PieceColorTuple[number];
-// #A0C539
 const PurplePieceMap: Piece2D = [
   [0, 0, 0],
   [0, 0, 0],

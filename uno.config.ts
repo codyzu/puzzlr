@@ -67,18 +67,19 @@ export default defineConfig({
   ],
   transformers: [transformerDirectives(), transformerVariantGroup()],
   shortcuts: {
-    'border-primary': 'rounded-md border-2 border-teal',
-    'shadow-primary': 'shadow-xl shadow-teal-800',
-    'border-focus': 'rounded-md border-2 border-violet-700',
-    'shadow-focus': 'shadow-xl shadow-violet-700',
-    'outline-focus': 'outline outline-2 outline-gray-200',
-    btn: 'py-2 px-4 font-medium shadow-primary  border-primary bg-black',
-    input:
-      'p-2 shadow-primary border-primary bg-gray-900 text-white focus-visible:(border-focus outline-focus shadow-focus)',
-    header:
-      'text-2xl border-primary border-t-none rounded-t-none shadow-primary text-center py-2 font-medium',
-    'nav-active': 'border-b-2 border-teal shadow-md shadow-teal-800',
-    'nav-inactive': 'border-b-2 border-black shadow-none',
+    btn: 'bg-[#f08] p-4 rounded-lg font-heading tracking-[2px] font-semibold text-base uppercase hover:bg-[#c51774]',
+    // 'border-primary': 'rounded-md border-2 border-teal',
+    // 'shadow-primary': 'shadow-xl shadow-teal-800',
+    // 'border-focus': 'rounded-md border-2 border-violet-700',
+    // 'shadow-focus': 'shadow-xl shadow-violet-700',
+    // 'outline-focus': 'outline outline-2 outline-gray-200',
+    // btn: 'py-2 px-4 font-medium shadow-primary  border-primary bg-black',
+    // input:
+    //   'p-2 shadow-primary border-primary bg-gray-900 text-white focus-visible:(border-focus outline-focus shadow-focus)',
+    // header:
+    //   'text-2xl border-primary border-t-none rounded-t-none shadow-primary text-center py-2 font-medium',
+    // 'nav-active': 'border-b-2 border-teal shadow-md shadow-teal-800',
+    // 'nav-inactive': 'border-b-2 border-black shadow-none',
   },
   // https://github.com/unocss/unocss/discussions/2012
   theme: {
