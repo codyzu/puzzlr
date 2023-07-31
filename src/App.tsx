@@ -1,4 +1,4 @@
-import {type MutableRefObject, useRef, lazy, useEffect} from 'react';
+import {useRef, lazy, useEffect} from 'react';
 import {useSearchParams} from 'react-router-dom';
 import logo from './assets/logo.png';
 import {db} from './db';
