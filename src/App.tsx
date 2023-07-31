@@ -1,40 +1,99 @@
+import {type MutableRefObject, useRef} from 'react';
+import {Canvas} from '@react-three/fiber';
+import {OrbitControls, PerspectiveCamera, View} from '@react-three/drei';
 import AllPiecesCanvas from './AllPiecesCanvas';
 import logo from './assets/logo.png';
 import Cube from './Cube';
 import {db} from './db';
 import SinglePieceRendered from './SinglePieceRendered';
+import {pieces} from './Piece2';
+import {type PieceColor} from './piece-types';
+import Shapes from './Shapes';
+import SingleShape from './SingleShapeDom';
+
+const OrangePiece = pieces.orange;
 
 function App() {
+  const mainRef = useRef<HTMLDivElement>(null!);
+  const trackingRef = useRef<HTMLDivElement>(null!);
+  const orangeRef = useRef<HTMLDivElement>(null!);
+  const greenRef = useRef<HTMLDivElement>(null!);
+  const blueRef = useRef<HTMLDivElement>(null!);
+  const purpleRef = useRef<HTMLDivElement>(null!);
+  const pinkRef = useRef<HTMLDivElement>(null!);
+  const cubeRef = useRef<HTMLDivElement>(null!);
+
+  const pieceRefs: {[key in PieceColor]: MutableRefObject<HTMLDivElement>} = {
+    orange: orangeRef,
+    green: greenRef,
+    blue: blueRef,
+    purple: purpleRef,
+    pink: pinkRef,
+  };
+
   return (
-    <div className="gap-4 p-2 w-full">
-      <AllPiecesCanvas />
-      <div className="flex flex-row gap-2">
-        <img src={logo} className="h-10 w-auto" />
-        <div className="font-heading text-3xl font-700">NodeConf EU 2023</div>
+    <div className="w-full">
+      <div ref={mainRef} className="gap-4 p-2 w-full max-w-screen-sm">
+        <div className="flex flex-row gap-2">
+          <img src={logo} className="h-10 w-auto" />
+          <div className="font-heading text-3xl font-700">NodeConf EU 2023</div>
+        </div>
+        <div className="font-heading font-600">
+          at the Lyrath Estate, Kilkenny, Ireland
+        </div>
+        <div className="flex flex-row w-full items-stretch">
+          <div className="gap-2">
+            {Object.entries(pieceRefs).map(([color, ref]) => (
+              <SingleShape key={color} ref={ref} color={color as PieceColor} />
+            ))}
+          </div>
+          <div ref={cubeRef} className="flex-grow-1" />
+        </div>
+        <div className="prose">Find the pieces to complete the cube</div>
+        <button
+          type="button"
+          className="btn"
+          onClick={() => {
+            void db.transaction('rw', [db.pieces], async () =>
+              db.pieces.clear(),
+            );
+          }}
+        >
+          clear
+        </button>
       </div>
-      <div className="font-heading font-600">
-        at the Lyrath Estate, Kilkenny, Ireland
-      </div>
-      <div className="w-400px h-400px ">
-        <Cube />
-      </div>
-      <div className="prose">Find the pieces to complete the cube</div>
-      <div className="flex flex-row flex-wrap justify-center max-w-screen-md">
-        <SinglePieceRendered piece="blue" />
-        <SinglePieceRendered piece="pink" />
-        <SinglePieceRendered piece="green" />
-        <SinglePieceRendered piece="orange" />
-        <SinglePieceRendered piece="purple" />
-      </div>
-      <button
-        type="button"
-        className="btn"
-        onClick={() => {
-          void db.transaction('rw', [db.pieces], async () => db.pieces.clear());
-        }}
+      <Canvas
+        // EventSource={mainRef}
+        eventSource={document.querySelector<HTMLElement>('#root')!}
+        className="important-absolute top-0 left-0 w-screen h-screen"
       >
-        clear
-      </button>
+        {Object.entries(pieceRefs).map(([color, ref]) => {
+          const Piece = pieces[color as PieceColor];
+          return (
+            <View key={color} track={ref}>
+              {/* eslint-disable-next-line react/no-unknown-property */}
+              <ambientLight intensity={0.5} />
+              {/* eslint-disable-next-line react/no-unknown-property */}
+              <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
+              {/* eslint-disable-next-line react/no-unknown-property */}
+              <pointLight position={[-10, -10, -10]} />
+              {/* <OrbitControls /> */}
+              <Piece x={0} y={0} z={0} />
+            </View>
+          );
+        })}
+
+        <View track={cubeRef}>
+          {/* eslint-disable-next-line react/no-unknown-property */}
+          <ambientLight intensity={0.5} />
+          {/* eslint-disable-next-line react/no-unknown-property */}
+          <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
+          {/* eslint-disable-next-line react/no-unknown-property */}
+          <pointLight position={[-10, -10, -10]} />
+          {/* <OrbitControls /> */}
+          <Shapes position={[0, 0, 0]} />
+        </View>
+      </Canvas>
     </div>
   );
 }

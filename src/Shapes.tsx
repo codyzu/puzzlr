@@ -83,9 +83,9 @@ export default function Shapes({position}: {position: Vector3}) {
 
   return (
     // <group position={position} rotation={[90, 0, 180]}>
-    <group ref={pivotRef}>
+    <group ref={pivotRef} scale={1}>
       {/* eslint-disable-next-line react/no-unknown-property */}
-      <group ref={shapeRef} position={position}>
+      <group ref={shapeRef} position={position} scale={0.8}>
         <Shape coordinates={orange} position={[0, 0, 0]} color="orange" />
         <Shape coordinates={blue} position={[0, 0, 0]} color="blue" />
         <Shape coordinates={green} position={[0, 0, 0]} color="green" />

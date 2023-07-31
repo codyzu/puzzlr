@@ -38,6 +38,7 @@ export default function Shape({
                 // Ref={ref}
                 // eslint-disable-next-line react/no-unknown-property
                 position={[pointIndex, lineIndex, plainIndex]}
+                scale={0.92}
               >
                 {/* eslint-disable-next-line react/no-unknown-property */}
                 <boxGeometry args={[1, 1, 1]} />

@@ -1,4 +1,4 @@
-import {useFrame, type Color} from '@react-three/fiber';
+import {useFrame, type Color, useThree} from '@react-three/fiber';
 import {useRef, useEffect, useState} from 'react';
 import {type Group, Box3, Vector3 as V3} from 'three';
 import {useAspect} from '@react-three/drei';
@@ -74,6 +74,8 @@ function Piece({
   const [moveDistance, setMoveDistance] = useState<number>();
   const [moveDirection, setMoveDirection] = useState<V3>();
   const [moveBackDirection, setMoveBackDirection] = useState<V3>();
+  const {viewport, camera} = useThree();
+  // Console.log('viewport', viewport);
 
   // https://stackoverflow.com/a/28860849
   // https://stackoverflow.com/a/54611417
@@ -124,7 +126,7 @@ function Piece({
   // const scale = [1, 1, -100];
 
   return (
-    <group ref={innerGroupRef} scale={0.5}>
+    <group ref={innerGroupRef} scale={1.2}>
       {piece.map((dim1, dim1Index) =>
         dim1.map((point, pointIndex) => {
           if (point === 0) {
