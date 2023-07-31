@@ -1,21 +1,14 @@
 import {type MutableRefObject, useRef} from 'react';
 import {Canvas} from '@react-three/fiber';
-import {OrbitControls, PerspectiveCamera, View} from '@react-three/drei';
-import AllPiecesCanvas from './AllPiecesCanvas';
+import {View} from '@react-three/drei';
 import logo from './assets/logo.png';
-import Cube from './Cube';
 import {db} from './db';
-import SinglePieceRendered from './SinglePieceRendered';
-import {pieces} from './Piece2';
+import {pieces} from './Piece';
 import {type PieceColor} from './piece-types';
 import Shapes from './Shapes';
 import SingleShape from './SingleShapeDom';
 
-const OrangePiece = pieces.orange;
-
 function App() {
-  const mainRef = useRef<HTMLDivElement>(null!);
-  const trackingRef = useRef<HTMLDivElement>(null!);
   const orangeRef = useRef<HTMLDivElement>(null!);
   const greenRef = useRef<HTMLDivElement>(null!);
   const blueRef = useRef<HTMLDivElement>(null!);
@@ -33,7 +26,7 @@ function App() {
 
   return (
     <div className="w-full">
-      <div ref={mainRef} className="gap-4 p-2 w-full max-w-screen-sm">
+      <div className="gap-4 p-2 w-full max-w-screen-sm">
         <div className="flex flex-row gap-2">
           <img src={logo} className="h-10 w-auto" />
           <div className="font-heading text-3xl font-700">NodeConf EU 2023</div>
