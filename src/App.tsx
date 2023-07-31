@@ -1,14 +1,14 @@
-import {useRef, lazy, useEffect} from 'react';
+import {useRef, lazy, useEffect, Suspense} from 'react';
 import {useSearchParams} from 'react-router-dom';
 import logo from './assets/logo.png';
 import {db} from './db';
 import {isPieceColor, type PieceColor} from './piece-types';
 import SingleShape from './SingleShapeDom';
-import {Cube3D} from './Cube3D';
-import {Shapes3D} from './Shapes3D';
 import usePieceRefs from './use-piece-refs';
 
 const Canvas3D = lazy(async () => import('./Canvas3D'));
+const Shapes3D = lazy(async () => import('./Shapes3D'));
+const Cube3D = lazy(async () => import('./Cube3D'));
 
 function App() {
   const [search, setSearch] = useSearchParams();
@@ -79,10 +79,12 @@ function App() {
           clear
         </button>
       </div>
-      <Canvas3D>
-        <Shapes3D pieceRefs={pieceRefs} />
-        <Cube3D cubeRef={cubeRef} />
-      </Canvas3D>
+      <Suspense>
+        <Canvas3D>
+          <Shapes3D pieceRefs={pieceRefs} />
+          <Cube3D cubeRef={cubeRef} />
+        </Canvas3D>
+      </Suspense>
     </div>
   );
 }

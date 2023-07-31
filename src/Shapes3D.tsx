@@ -3,7 +3,7 @@ import {View} from '@react-three/drei';
 import {type PieceColor} from './piece-types';
 import {pieces} from './Piece';
 
-export function Shapes3D({
+export default function Shapes3D({
   pieceRefs,
 }: {
   pieceRefs: {

@@ -1,7 +1,7 @@
 import QRCode from 'react-qr-code';
 import {Fragment} from 'react';
 import Canvas3D from './Canvas3D';
-import {Shapes3D} from './Shapes3D';
+import Shapes3D from './Shapes3D';
 import usePieceRefs from './use-piece-refs';
 
 export default function Admin() {

@@ -2,7 +2,11 @@ import {type MutableRefObject} from 'react';
 import {PerspectiveCamera, View} from '@react-three/drei';
 import Shapes from './Shapes';
 
-export function Cube3D({cubeRef}: {cubeRef: MutableRefObject<HTMLDivElement>}) {
+export default function Cube3D({
+  cubeRef,
+}: {
+  cubeRef: MutableRefObject<HTMLDivElement>;
+}) {
   return (
     <View track={cubeRef}>
       {/* eslint-disable-next-line react/no-unknown-property */}
