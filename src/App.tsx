@@ -1,6 +1,6 @@
 import {type MutableRefObject, useRef} from 'react';
 import {Canvas} from '@react-three/fiber';
-import {View} from '@react-three/drei';
+import {PerspectiveCamera, View} from '@react-three/drei';
 import logo from './assets/logo.png';
 import {db} from './db';
 import {pieces} from './Piece';
@@ -83,6 +83,7 @@ function App() {
           <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
           {/* eslint-disable-next-line react/no-unknown-property */}
           <pointLight position={[-10, -10, -10]} />
+          <PerspectiveCamera makeDefault position={[0, 0, 10]} />
           {/* <OrbitControls /> */}
           <Shapes position={[0, 0, 0]} />
         </View>
