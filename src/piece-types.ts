@@ -12,6 +12,7 @@ export const allPieceColors = [
 type PieceColorTuple = typeof allPieceColors;
 export type PieceColor = PieceColorTuple[number];
 
+// https://stackoverflow.com/a/61129291
 export function isPieceColor(color: unknown) {
   return allPieceColors.find((c) => c === color) !== null;
 }

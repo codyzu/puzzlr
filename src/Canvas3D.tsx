@@ -1,50 +1,17 @@
 import {Canvas} from '@react-three/fiber';
-import {type MutableRefObject} from 'react';
-import {PerspectiveCamera, View} from '@react-three/drei';
-import {type PieceColor} from './piece-types';
-import {pieces} from './Piece';
-import Shapes from './Shapes';
+import {type PropsWithChildren} from 'react';
 
 export default function Canvas3D({
-  pieceRefs,
-  cubeRef,
-}: {
-  pieceRefs: {[key in PieceColor]: MutableRefObject<HTMLDivElement>};
-  cubeRef: MutableRefObject<HTMLDivElement>;
-}) {
+  children,
+}: PropsWithChildren<Record<string, unknown>>) {
+  // https://www.reddit.com/r/threejs/comments/w639rz/how_do_i_render_a_3d_element_for_each_item_in/ihbms5a/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
   return (
     <Canvas
       // EventSource={mainRef}
       eventSource={document.querySelector<HTMLElement>('#root')!}
       className="important-absolute top-0 left-0 w-screen h-full"
     >
-      {Object.entries(pieceRefs).map(([color, ref]) => {
-        const Piece = pieces[color as PieceColor];
-        return (
-          <View key={color} track={ref}>
-            {/* eslint-disable-next-line react/no-unknown-property */}
-            <ambientLight intensity={0.5} />
-            {/* eslint-disable-next-line react/no-unknown-property */}
-            <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
-            {/* eslint-disable-next-line react/no-unknown-property */}
-            <pointLight position={[-10, -10, -10]} />
-            {/* <OrbitControls /> */}
-            <Piece x={0} y={0} z={0} />
-          </View>
-        );
-      })}
-
-      <View track={cubeRef}>
-        {/* eslint-disable-next-line react/no-unknown-property */}
-        <ambientLight intensity={0.5} />
-        {/* eslint-disable-next-line react/no-unknown-property */}
-        <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
-        {/* eslint-disable-next-line react/no-unknown-property */}
-        <pointLight position={[-10, -10, -10]} />
-        <PerspectiveCamera makeDefault position={[0, 0, 10]} />
-        {/* <OrbitControls /> */}
-        <Shapes position={[0, 0, 0]} />
-      </View>
+      {children}
     </Canvas>
   );
 }

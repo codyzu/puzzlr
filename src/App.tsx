@@ -4,6 +4,9 @@ import logo from './assets/logo.png';
 import {db} from './db';
 import {isPieceColor, type PieceColor} from './piece-types';
 import SingleShape from './SingleShapeDom';
+import {Cube3D} from './Cube3D';
+import {Shapes3D} from './Shapes3D';
+import usePieceRefs from './use-piece-refs';
 
 const Canvas3D = lazy(async () => import('./Canvas3D'));
 
@@ -41,20 +44,9 @@ function App() {
       }
     };
   }, [search, setSearch]);
-  const orangeRef = useRef<HTMLDivElement>(null!);
-  const greenRef = useRef<HTMLDivElement>(null!);
-  const blueRef = useRef<HTMLDivElement>(null!);
-  const purpleRef = useRef<HTMLDivElement>(null!);
-  const pinkRef = useRef<HTMLDivElement>(null!);
-  const cubeRef = useRef<HTMLDivElement>(null!);
 
-  const pieceRefs: {[key in PieceColor]: MutableRefObject<HTMLDivElement>} = {
-    orange: orangeRef,
-    green: greenRef,
-    blue: blueRef,
-    purple: purpleRef,
-    pink: pinkRef,
-  };
+  const cubeRef = useRef<HTMLDivElement>(null!);
+  const pieceRefs = usePieceRefs();
 
   return (
     <div className="relative w-full">
@@ -87,7 +79,10 @@ function App() {
           clear
         </button>
       </div>
-      <Canvas3D pieceRefs={pieceRefs} cubeRef={cubeRef} />
+      <Canvas3D>
+        <Shapes3D pieceRefs={pieceRefs} />
+        <Cube3D cubeRef={cubeRef} />
+      </Canvas3D>
     </div>
   );
 }

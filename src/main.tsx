@@ -6,12 +6,17 @@ import 'virtual:uno.css';
 import {RouterProvider, createBrowserRouter} from 'react-router-dom';
 import App from './App.tsx';
 import './index.css';
+import Admin from './Admin.tsx';
 
 const router = createBrowserRouter(
   [
     {
       path: '/',
       element: <App />,
+    },
+    {
+      path: '/admin',
+      element: <Admin />,
     },
   ],
   {basename: import.meta.env.BASE_URL},
