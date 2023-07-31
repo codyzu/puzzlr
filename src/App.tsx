@@ -1,12 +1,10 @@
-import {type MutableRefObject, useRef} from 'react';
-import {Canvas} from '@react-three/fiber';
-import {PerspectiveCamera, View} from '@react-three/drei';
+import {type MutableRefObject, useRef, lazy} from 'react';
 import logo from './assets/logo.png';
 import {db} from './db';
-import {pieces} from './Piece';
 import {type PieceColor} from './piece-types';
-import Shapes from './Shapes';
 import SingleShape from './SingleShapeDom';
+
+const Canvas3D = lazy(async () => import('./Canvas3D'));
 
 function App() {
   const orangeRef = useRef<HTMLDivElement>(null!);
@@ -25,7 +23,7 @@ function App() {
   };
 
   return (
-    <div className="w-full">
+    <div className="relative w-full">
       <div className="gap-4 p-2 w-full max-w-screen-sm">
         <div className="flex flex-row gap-2">
           <img src={logo} className="h-10 w-auto" />
@@ -55,39 +53,7 @@ function App() {
           clear
         </button>
       </div>
-      <Canvas
-        // EventSource={mainRef}
-        eventSource={document.querySelector<HTMLElement>('#root')!}
-        className="important-absolute top-0 left-0 w-screen h-screen"
-      >
-        {Object.entries(pieceRefs).map(([color, ref]) => {
-          const Piece = pieces[color as PieceColor];
-          return (
-            <View key={color} track={ref}>
-              {/* eslint-disable-next-line react/no-unknown-property */}
-              <ambientLight intensity={0.5} />
-              {/* eslint-disable-next-line react/no-unknown-property */}
-              <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
-              {/* eslint-disable-next-line react/no-unknown-property */}
-              <pointLight position={[-10, -10, -10]} />
-              {/* <OrbitControls /> */}
-              <Piece x={0} y={0} z={0} />
-            </View>
-          );
-        })}
-
-        <View track={cubeRef}>
-          {/* eslint-disable-next-line react/no-unknown-property */}
-          <ambientLight intensity={0.5} />
-          {/* eslint-disable-next-line react/no-unknown-property */}
-          <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
-          {/* eslint-disable-next-line react/no-unknown-property */}
-          <pointLight position={[-10, -10, -10]} />
-          <PerspectiveCamera makeDefault position={[0, 0, 10]} />
-          {/* <OrbitControls /> */}
-          <Shapes position={[0, 0, 0]} />
-        </View>
-      </Canvas>
+      <Canvas3D pieceRefs={pieceRefs} cubeRef={cubeRef} />
     </div>
   );
 }
