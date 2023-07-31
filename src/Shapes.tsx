@@ -81,7 +81,6 @@ export default function Shapes({position}: {position: Vector3}) {
     // Calculate the distance between the diagonals of the cube
     const sphere = new Sphere();
     bbox.getBoundingSphere(sphere);
-    console.log('radius', sphere.radius);
 
     setRadius(sphere.radius);
   }, []);

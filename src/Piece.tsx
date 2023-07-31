@@ -95,12 +95,6 @@ function Piece({
     setMoveDistance(distanceToCenter);
     setMoveDirection(directionToCenter);
     setMoveBackDirection(directionFromCenter);
-
-    console.log({
-      moveDir: directionToCenter,
-      moveDist: distanceToCenter,
-      moveBack: directionFromCenter,
-    });
   }, [x, y, z]);
 
   useFrame((_state, delta) => {

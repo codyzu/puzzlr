@@ -1,12 +1,46 @@
-import {type MutableRefObject, useRef, lazy} from 'react';
+import {type MutableRefObject, useRef, lazy, useEffect} from 'react';
+import {useSearchParams} from 'react-router-dom';
 import logo from './assets/logo.png';
 import {db} from './db';
-import {type PieceColor} from './piece-types';
+import {isPieceColor, type PieceColor} from './piece-types';
 import SingleShape from './SingleShapeDom';
 
 const Canvas3D = lazy(async () => import('./Canvas3D'));
 
 function App() {
+  const [search, setSearch] = useSearchParams();
+  useEffect(() => {
+    let cancel = false;
+
+    let timeoutHandle: number | undefined = setTimeout(() => {
+      timeoutHandle = undefined;
+      if (cancel) {
+        console.log('skip');
+        return;
+      }
+
+      if (search.has('add')) {
+        console.log('adding', search.get('add'));
+        const nextSearch = new URLSearchParams([...search.entries()]);
+        nextSearch.delete('add');
+        setSearch(nextSearch);
+
+        if (isPieceColor(search.get('add'))) {
+          void db.pieces.add({
+            color: search.get('add') as PieceColor,
+            added: new Date(),
+          });
+        }
+      }
+    }, 0);
+
+    return () => {
+      cancel = true;
+      if (timeoutHandle) {
+        clearTimeout(timeoutHandle);
+      }
+    };
+  }, [search, setSearch]);
   const orangeRef = useRef<HTMLDivElement>(null!);
   const greenRef = useRef<HTMLDivElement>(null!);
   const blueRef = useRef<HTMLDivElement>(null!);
