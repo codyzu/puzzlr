@@ -1,3 +1,4 @@
+import AllPiecesCanvas from './AllPiecesCanvas';
 import logo from './assets/logo.png';
 import Cube from './Cube';
 import {db} from './db';
@@ -6,6 +7,7 @@ import SinglePieceRendered from './SinglePieceRendered';
 function App() {
   return (
     <div className="gap-4 p-2 w-full">
+      <AllPiecesCanvas />
       <div className="flex flex-row gap-2">
         <img src={logo} className="h-10 w-auto" />
         <div className="font-heading text-3xl font-700">NodeConf EU 2023</div>
