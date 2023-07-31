@@ -1,7 +1,6 @@
-import {useFrame, type Color, useThree} from '@react-three/fiber';
+import {useFrame, type Color} from '@react-three/fiber';
 import {useRef, useEffect, useState} from 'react';
 import {type Group, Box3, Vector3 as V3} from 'three';
-import {useAspect} from '@react-three/drei';
 import {type PieceColor, type Piece2D} from './piece-types';
 
 const PurplePieceMap: Piece2D = [
@@ -74,7 +73,6 @@ function Piece({
   const [moveDistance, setMoveDistance] = useState<number>();
   const [moveDirection, setMoveDirection] = useState<V3>();
   const [moveBackDirection, setMoveBackDirection] = useState<V3>();
-  const {viewport, camera} = useThree();
   // Console.log('viewport', viewport);
 
   // https://stackoverflow.com/a/28860849

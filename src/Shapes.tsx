@@ -1,6 +1,6 @@
 import {useFrame, useThree, type Vector3} from '@react-three/fiber';
 import {useEffect, useRef, useState} from 'react';
-import {type Group, Box3, Sphere, Vector3 as V3} from 'three';
+import {type Group, Box3, Sphere} from 'three';
 import Shape from './Shape';
 
 export type Point = 0 | 1;
