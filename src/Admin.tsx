@@ -20,7 +20,8 @@ export default function Admin() {
                 <a href={url}>Add {color}</a>
               </div>
               <div className="w-200px h-200px bg-white p-2 lt-sm:mb-10">
-                <QRCode value={url} />
+                {/* @ts-expect-error title is used but defined in the libraries typings */}
+                <QRCode value={url} title={`${color} piece`} />
               </div>
             </Fragment>
           );
