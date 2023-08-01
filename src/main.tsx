@@ -6,6 +6,7 @@ import 'virtual:uno.css';
 import {RouterProvider, createBrowserRouter} from 'react-router-dom';
 import App from './App.tsx';
 import './index.css';
+import Reset from './Reset.tsx';
 
 const Admin = lazy(async () => import('./Admin.tsx'));
 
@@ -18,6 +19,10 @@ const router = createBrowserRouter(
     {
       path: '/admin',
       element: <Admin />,
+    },
+    {
+      path: '/reset',
+      element: <Reset />,
     },
   ],
   {basename: import.meta.env.BASE_URL},

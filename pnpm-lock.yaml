@@ -37,6 +37,9 @@ dependencies:
     version: 0.154.0
 
 devDependencies:
+  '@iconify-json/tabler':
+    specifier: ^1.1.86
+    version: 1.1.86
   '@types/react':
     specifier: ^18.0.37
     version: 18.0.37
@@ -654,6 +657,12 @@ packages:
 
   /@humanwhocodes/object-schema@1.2.1:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
+    dev: true
+
+  /@iconify-json/tabler@1.1.86:
+    resolution: {integrity: sha512-DFMz3MUUzw1+U8rrkw8ihe1EwfACiFU8KOm/HEvxR4RHj/lb1fKQnkeo4atlGpQY9GyfFucneeuIeohyo+viWA==}
+    dependencies:
+      '@iconify/types': 2.0.0
     dev: true
 
   /@iconify/types@2.0.0:

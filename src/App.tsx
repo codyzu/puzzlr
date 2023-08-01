@@ -67,17 +67,6 @@ function App() {
           <div ref={cubeRef} className="flex-grow-1" />
         </div>
         <div className="prose">Find the pieces to complete the cube</div>
-        <button
-          type="button"
-          className="btn"
-          onClick={() => {
-            void db.transaction('rw', [db.pieces], async () =>
-              db.pieces.clear(),
-            );
-          }}
-        >
-          clear
-        </button>
       </div>
       <Suspense>
         <Canvas3D>
