@@ -54,17 +54,11 @@ jobs:
 
       - name: Build
         # Our github pages at the org level deploys to a base path
-        run: pnpm run build --base /nodeconf23-scavenger
+        run: pnpm run build
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v3
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+      - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          # Upload entire repository
-          path: './dist'
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v2
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NODECONF_23_SCAVENGER }}'
+          channelId: live
+          projectId: nodeconf-23-scavenger
