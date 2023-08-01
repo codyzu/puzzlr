@@ -7,7 +7,7 @@ export class MySubClassedDexie extends Dexie {
   pieces!: Table<PieceRow>;
 
   constructor() {
-    super('myDatabase');
+    super('nodeconf-23-scavenger');
     this.version(1).stores({
       pieces: '++id, color, added', // Primary key and indexed props
     });
