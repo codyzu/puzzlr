@@ -30,6 +30,7 @@ export default function AssembledCube3D({
   const pivotRef = useRef<Group>(null!);
 
   const [pause, setPause] = useState(true);
+  const [centered, setCentered] = useState(false);
 
   const {rotate} = useSpring({
     from: {rotate: MathUtils.degToRad(0)},
@@ -37,7 +38,7 @@ export default function AssembledCube3D({
     loop: true,
     config: {
       ...config.wobbly,
-      duration: 4000,
+      duration: 5000,
     },
     pause,
   });
@@ -47,12 +48,20 @@ export default function AssembledCube3D({
       return;
     }
 
+    if (centered) {
+      return;
+    }
+
+    piecesRef.current.position.multiplyScalar(0);
+    pivotRef.current.position.multiplyScalar(0);
+
     const bbox = new Box3().setFromObject(piecesRef.current);
     bbox.getCenter(piecesRef.current.position);
     piecesRef.current.position.multiplyScalar(-1);
 
     setPause(false);
-  }, [layer, rotate]);
+    setCentered(true);
+  }, [layer, centered]);
 
   return (
     <View track={cubeRef}>
@@ -73,8 +82,14 @@ export default function AssembledCube3D({
         <group ref={piecesRef}>
           {layer.map((row, yIndex) =>
             row.map((color, xIndex) => {
-              if (!color) {
-                return null;
+              const props: {
+                color?: string;
+                visible?: boolean;
+              } = {};
+              if (color) {
+                props.color = pieceColorValues[color];
+              } else {
+                props.visible = false;
               }
 
               return (
@@ -87,7 +102,7 @@ export default function AssembledCube3D({
                 >
                   {/* eslint-disable-next-line react/no-unknown-property */}
                   <boxGeometry args={[1, 1, 1]} />
-                  <meshStandardMaterial color={pieceColorValues[color]} />
+                  <meshStandardMaterial {...props} />
                 </mesh>
               );
             }),
