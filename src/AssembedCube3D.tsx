@@ -1,8 +1,8 @@
 import {useEffect, type MutableRefObject, useState, useRef} from 'react';
 import {OrbitControls, PerspectiveCamera, View} from '@react-three/drei';
 import {useLiveQuery} from 'dexie-react-hooks';
-import {Box3, type Group, type Vector3} from 'three';
-import {useFrame} from '@react-three/fiber';
+import {Box3, MathUtils, type Group} from 'three';
+import {useSpring, animated, config} from '@react-spring/three';
 import {db} from './db';
 import {pieceColorValues} from './GenricPieces';
 import {type PieceColor} from './piece-types';
@@ -26,49 +26,33 @@ export default function AssembledCube3D({
     setLayer(layerMap);
   }, [allPieces]);
 
-  const meshRef = useRef<Group>(null!);
+  const piecesRef = useRef<Group>(null!);
+  const pivotRef = useRef<Group>(null!);
 
-  const [moveDistance, setMoveDistance] = useState<number>();
-  const [moveDirection, setMoveDirection] = useState<Vector3>();
-  const [moveBackDirection, setMoveBackDirection] = useState<Vector3>();
+  const [pause, setPause] = useState(true);
+
+  const {rotate} = useSpring({
+    from: {rotate: MathUtils.degToRad(0)},
+    to: {rotate: MathUtils.degToRad(360)},
+    loop: true,
+    config: {
+      ...config.wobbly,
+      duration: 4000,
+    },
+    pause,
+  });
 
   useEffect(() => {
     if (layer.flat().length === 0) {
       return;
     }
 
-    meshRef.current.position.x = 0;
-    meshRef.current.position.y = 0;
-    meshRef.current.position.z = 0;
+    const bbox = new Box3().setFromObject(piecesRef.current);
+    bbox.getCenter(piecesRef.current.position);
+    piecesRef.current.position.multiplyScalar(-1);
 
-    meshRef.current.rotation.x = 0;
-    meshRef.current.rotation.y = 0;
-    meshRef.current.rotation.z = 0;
-
-    const bbox = new Box3().setFromObject(meshRef.current);
-    bbox.getCenter(meshRef.current.position);
-    meshRef.current.position.multiplyScalar(-1);
-
-    const directionFromCenter = meshRef.current.position.clone().normalize();
-    const directionToCenter = directionFromCenter.clone().multiplyScalar(-1);
-    const distanceToCenter = meshRef.current.position.length();
-
-    setMoveDistance(distanceToCenter);
-    setMoveDirection(directionToCenter);
-    setMoveBackDirection(directionFromCenter);
-  }, [layer]);
-
-  useFrame((_state, delta) => {
-    if (!moveDirection || !moveDistance || !moveBackDirection) {
-      return;
-    }
-
-    meshRef.current.translateOnAxis(moveDirection, moveDistance);
-    meshRef.current.rotation.x += delta;
-    meshRef.current.rotation.y += delta;
-    meshRef.current.rotation.z += delta;
-    meshRef.current.translateOnAxis(moveBackDirection, moveDistance);
-  });
+    setPause(false);
+  }, [layer, rotate]);
 
   return (
     <View track={cubeRef}>
@@ -80,8 +64,13 @@ export default function AssembledCube3D({
       <pointLight position={[-10, -10, -10]} />
       <PerspectiveCamera makeDefault position={[0, 0, 10]} />
 
-      <group ref={meshRef}>
-        <group>
+      <animated.group
+        ref={pivotRef}
+        rotation-x={rotate}
+        rotation-y={rotate}
+        rotation-z={rotate}
+      >
+        <group ref={piecesRef}>
           {layer.map((row, yIndex) =>
             row.map((color, xIndex) => {
               if (!color) {
@@ -104,7 +93,7 @@ export default function AssembledCube3D({
             }),
           )}
         </group>
-      </group>
+      </animated.group>
 
       <OrbitControls />
     </View>
