@@ -1,12 +1,12 @@
 import {useEffect, type MutableRefObject, useState, useRef} from 'react';
 import {OrbitControls, PerspectiveCamera, View} from '@react-three/drei';
 import {useLiveQuery} from 'dexie-react-hooks';
-import {Box3, type Group, MathUtils, type Mesh, type Vector3} from 'three';
+import {Box3, type Group, type Vector3} from 'three';
 import {useFrame} from '@react-three/fiber';
 import {db} from './db';
-import {RotatedPiece, pieceColorValues, pieces} from './GenricPieces';
+import {pieceColorValues} from './GenricPieces';
 import {type PieceColor} from './piece-types';
-import {pieceLayout, placedToColorMap, type PlacedPiece} from './piece-layout';
+import {pieceLayout, placedToColorMap} from './piece-layout';
 
 export default function AssembledCube3D({
   cubeRef,
@@ -17,17 +17,13 @@ export default function AssembledCube3D({
     db.pieces.orderBy('added').toArray(),
   );
 
-  const [placed, setPlaced] = useState<Array<Array<undefined | PieceColor>>>([
+  const [layer, setLayer] = useState<Array<Array<undefined | PieceColor>>>([
     [],
   ]);
   useEffect(() => {
-    const nextPlaced = pieceLayout(
-      allPieces?.map((piece) => piece.color) ?? [],
-    );
-    console.log('placed', nextPlaced);
-    const layerMap = placedToColorMap(nextPlaced);
-    console.log('layer', layerMap);
-    setPlaced(layerMap);
+    const placed = pieceLayout(allPieces?.map((piece) => piece.color) ?? []);
+    const layerMap = placedToColorMap(placed);
+    setLayer(layerMap);
   }, [allPieces]);
 
   const meshRef = useRef<Group>(null!);
@@ -37,7 +33,7 @@ export default function AssembledCube3D({
   const [moveBackDirection, setMoveBackDirection] = useState<Vector3>();
 
   useEffect(() => {
-    if (placed.flat().length === 0) {
+    if (layer.flat().length === 0) {
       return;
     }
 
@@ -60,7 +56,7 @@ export default function AssembledCube3D({
     setMoveDistance(distanceToCenter);
     setMoveDirection(directionToCenter);
     setMoveBackDirection(directionFromCenter);
-  }, [placed]);
+  }, [layer]);
 
   useFrame((_state, delta) => {
     if (!moveDirection || !moveDistance || !moveBackDirection) {
@@ -86,7 +82,7 @@ export default function AssembledCube3D({
 
       <group ref={meshRef}>
         <group>
-          {placed.map((row, yIndex) =>
+          {layer.map((row, yIndex) =>
             row.map((color, xIndex) => {
               if (!color) {
                 return null;
@@ -111,16 +107,6 @@ export default function AssembledCube3D({
       </group>
 
       <OrbitControls />
-
-      {/* <group>
-        {countEntries.flatMap(([color, count]) =>
-          Array.from({length: count as number}).map((_, index) => {
-            const Piece = pieces[color as PieceColor];
-            return <Piece key={`${color}-${index}`} />;
-          }),
-        )}
-      </group> */}
-      {/* <Shapes position={[0, 0, 0]} /> */}
     </View>
   );
 }

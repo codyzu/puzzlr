@@ -1,14 +1,12 @@
-import {type Euler, type Color, type Vector3} from '@react-three/fiber';
+import {type Color, type Vector3} from '@react-three/fiber';
 import {
   type ForwardedRef,
   forwardRef,
   type ForwardRefExoticComponent,
   type RefAttributes,
-  useRef,
-  useEffect,
 } from 'react';
-import {Box3, MathUtils, type Group, Vector3 as V3} from 'three';
-import {type PieceColor, type Piece2D, allPieceColors} from './piece-types';
+import {type Group} from 'three';
+import {type PieceColor, type Piece2D} from './piece-types';
 
 export const pieceMaps: {[key in PieceColor]: Piece2D} = {
   purple: [
@@ -67,7 +65,7 @@ export const pieces: Record<PieceColor, ColoredPiece> = {
     <GenericPiece
       ref={ref}
       piece={pieceMaps.purple}
-      color="#9752BB"
+      color={pieceColorValues.purple}
       {...props}
     />
   )),
@@ -75,23 +73,33 @@ export const pieces: Record<PieceColor, ColoredPiece> = {
     <GenericPiece
       ref={ref}
       piece={pieceMaps.green}
-      color="#A0C539"
+      color={pieceColorValues.green}
       {...props}
     />
   )),
   pink: forwardRef<Group, ColoredPieceProps>((props, ref) => (
-    <GenericPiece ref={ref} piece={pieceMaps.pink} color="#DE52C4" {...props} />
+    <GenericPiece
+      ref={ref}
+      piece={pieceMaps.pink}
+      color={pieceColorValues.pink}
+      {...props}
+    />
   )),
   orange: forwardRef<Group, ColoredPieceProps>((props, ref) => (
     <GenericPiece
       ref={ref}
       piece={pieceMaps.orange}
-      color="#E68C00"
+      color={pieceColorValues.orange}
       {...props}
     />
   )),
   blue: forwardRef<Group, ColoredPieceProps>((props, ref) => (
-    <GenericPiece ref={ref} piece={pieceMaps.blue} color="#00ACA7" {...props} />
+    <GenericPiece
+      ref={ref}
+      piece={pieceMaps.blue}
+      color={pieceColorValues.blue}
+      {...props}
+    />
   )),
 };
 
@@ -138,44 +146,3 @@ const GenericPiece = forwardRef<Group, GenericPieceProps>(function (
     </group>
   );
 });
-
-export function RotatedPiece({
-  color,
-  rotation,
-  position,
-  scale,
-}: ColoredPieceProps & {
-  color: PieceColor;
-  rotation?: number;
-}) {
-  const ref = useRef<Group>(null!);
-  const GenericPiece = pieces[color];
-
-  useEffect(() => {
-    if (!rotation) {
-      return;
-    }
-
-    console.log('rotation', rotation);
-    const originalPosition = ref.current.position.clone();
-    console.log('original', originalPosition);
-
-    // Const pieceBox = new Box3(new V3(0, 0, 0), new V3(3, 3, 0));
-
-    ref.current.translateX(-1.5);
-    ref.current.translateY(-1.5);
-
-    console.log('moved', ref.current.position);
-    // Const bbox = new Box3().setFromObject(ref.current);
-    // bbox.getCenter(ref.current.position);
-    // ref.current.position.multiplyScalar(-1);
-    // console.log('centered', ref.current.position);
-    ref.current.rotation.z = MathUtils.degToRad(rotation);
-    // Ref.current.translateX(1.5);
-    // ref.current.translateY(1.5);
-    ref.current.position.copy(originalPosition);
-    console.log('final', ref.current.position, ref.current.rotation);
-  }, [rotation]);
-
-  return <GenericPiece ref={ref} scale={scale} position={position} />;
-}

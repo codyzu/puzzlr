@@ -1,8 +1,5 @@
-import {create, all} from 'mathjs';
 import {pieceMaps} from './GenricPieces';
 import {type PieceColor, type Piece2D} from './piece-types';
-
-const math = create(all, {});
 
 type PieceMeta = {
   index: number;
@@ -17,47 +14,13 @@ export type PlacedPiece = PieceMeta & {
   y: number;
 };
 
-type MatrixValue = 0 | PieceMeta;
-
 export function pieceLayout(pieces: PieceColor[]) {
-  // Const pieceObjs = Object.entries(pieces).flatMap(
-  //   ([color, count], colorIndex) =>
-  //     Array.from({length: count}).map((_, pieceIndex) => {
-  //       const piece = pieceMaps[color as PieceColor];
-  //       const pieceMeta: PieceMeta = {
-  //         index: colorIndex * 5 + pieceIndex,
-  //         color: color as PieceColor,
-  //         piece,
-  //         weight: piece.flat().filter(Boolean).length,
-  //       };
-  //       return pieceMeta;
-  //     }),
-  // );
-
   const piecesToPlace = pieces.map((color, index) => ({
     index,
     color,
     piece: pieceMaps[color],
     weight: pieceMaps[color].flat().filter(Boolean).length,
   }));
-  // Const randomizeByWeight = pieceObjs;
-  // .sort((a, b) => b.weight - a.weight);
-
-  // const pieceMap = new Map<number, PieceMeta[]>();
-
-  // for (const piece of pieceObjs) {
-  //   const forWeight = [...(pieceMap.get(piece.weight) ?? []), piece];
-  //   pieceMap.set(piece.weight, forWeight);
-  // }
-
-  // const randomizeByWeight = [...pieceMap.entries()].flatMap(([_, pieces]) =>
-  //   pieces.sort(() => (Math.random() > 0.5 ? 1 : -1)),
-  // );
-
-  // console.log('pieceObjs', randomizeByWeight);
-
-  // Const acceptedPieces: PieceMeta[] = [];
-  // // Const piecesWithIds = pieces.map((piece, index) => ({index, piece}));
   if (piecesToPlace.length === 0) {
     return [];
   }
@@ -134,10 +97,6 @@ export function placedToColorMap(pieces: PlacedPiece[]) {
   return layer;
 }
 
-// Function toBinaryMatrix(matrix: MatrixValue[][]) {
-//   return matrix.map((row) => row.map((value) => (value === 0 ? 0 : 1)));
-// }
-
 function matrixCount(matrix: number[][]) {
   return matrix.flat().filter((v) => v === 1).length;
 }
@@ -172,18 +131,22 @@ function replaceMatrix(
   x: number,
   y: number,
 ) {
-  return math.map(source, (value, [currentY, currentX]) => {
-    // Check if the submatrix indexes are in the currentindex
-    if (
-      currentX >= x &&
-      currentX < x + submatrix[0].length &&
-      currentY >= y &&
-      currentY < y + submatrix.length &&
-      submatrix[currentY - y][currentX - x] === 1
-    ) {
-      return submatrix[currentY - y][currentX - x];
-    }
+  return source.map((row, sourceY) =>
+    row.map((value, sourceX) => {
+      if (
+        sourceX >= x &&
+        sourceX < x + submatrix[0].length &&
+        sourceY >= y &&
+        sourceY < y + submatrix.length
+      ) {
+        const submatrixValue = submatrix[sourceY - y][sourceX - x];
 
-    return value;
-  });
+        if (submatrixValue === 1) {
+          return 1;
+        }
+      }
+
+      return value;
+    }),
+  );
 }
