@@ -5,9 +5,12 @@ import {db} from './db';
 import {isPieceColor, type PieceColor} from './piece-types';
 import SingleShape from './SingleShapeDom';
 import usePieceRefs from './use-piece-refs';
+import AssembledCube3D from './AssembedCube3D';
+import RotatingPieces3D from './RotatingPieces3D';
+import pieceLayout from './piece-layout';
 
 const Canvas3D = lazy(async () => import('./Canvas3D'));
-const Shapes3D = lazy(async () => import('./Shapes3D'));
+// Const Shapes3D = lazy(async () => import('./Shapes3D'));
 const Cube3D = lazy(async () => import('./Cube3D'));
 
 function App() {
@@ -46,6 +49,7 @@ function App() {
   }, [search, setSearch]);
 
   const cubeRef = useRef<HTMLDivElement>(null!);
+  const cubeRef2 = useRef<HTMLDivElement>(null!);
   const pieceRefs = usePieceRefs();
 
   return (
@@ -64,14 +68,17 @@ function App() {
               <SingleShape key={color} ref={ref} color={color as PieceColor} />
             ))}
           </div>
-          <div ref={cubeRef} className="flex-grow-1" />
+          <div ref={cubeRef2} className="flex-grow-1" />
         </div>
+        <div ref={cubeRef} className="flex-grow-1" />
         <div className="prose">Find the pieces to complete the cube</div>
       </div>
       <Suspense>
         <Canvas3D>
-          <Shapes3D pieceRefs={pieceRefs} />
-          <Cube3D cubeRef={cubeRef} />
+          <RotatingPieces3D pieceRefs={pieceRefs} />
+          {/* <Shapes3D pieceRefs={pieceRefs} /> */}
+          <AssembledCube3D cubeRef={cubeRef2} />
+          {/* <Cube3D cubeRef={cubeRef} /> */}
         </Canvas3D>
       </Suspense>
     </div>
