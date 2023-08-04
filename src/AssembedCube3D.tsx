@@ -89,6 +89,8 @@ export default function AssembledCube3D({
               if (color) {
                 props.color = pieceColorValues[color];
               } else {
+                // TODO: maybe transparency will allow rending everything so that the canvas resized correctly?
+                // Not sure why resizing is broken
                 props.visible = false;
               }
 
