@@ -1,8 +1,9 @@
 import {useEffect, type MutableRefObject, useState, useRef} from 'react';
 import {OrbitControls, PerspectiveCamera, View} from '@react-three/drei';
 import {useLiveQuery} from 'dexie-react-hooks';
-import {Box3, MathUtils, type Group} from 'three';
+import {Box3, MathUtils, type Group, Sphere} from 'three';
 import {useSpring, animated, config} from '@react-spring/three';
+import {useThree} from '@react-three/fiber';
 import {db} from './db';
 import {pieceColorValues} from './GenricPieces';
 import {type PieceColor} from './piece-types';
@@ -31,6 +32,8 @@ export default function AssembledCube3D({
 
   const [pause, setPause] = useState(true);
   const [centered, setCentered] = useState(false);
+  const [radius, setRadius] = useState<number>();
+  const [scale, setScale] = useState<number>(1);
 
   const {rotate} = useSpring({
     from: {rotate: MathUtils.degToRad(0)},
@@ -59,9 +62,28 @@ export default function AssembledCube3D({
     bbox.getCenter(piecesRef.current.position);
     piecesRef.current.position.multiplyScalar(-1);
 
+    // Calculate the distance between the diagonals of the cube
+    const sphere = new Sphere();
+    bbox.getBoundingSphere(sphere);
+
+    setRadius(sphere.radius);
     setPause(false);
     setCentered(true);
   }, [layer, centered]);
+
+  const {viewport} = useThree();
+
+  useEffect(() => {
+    if (radius === undefined) {
+      return;
+    }
+
+    const smallestAxis = Math.min(viewport.height, viewport.width);
+    const scaleFactor = smallestAxis / (radius * 2);
+
+    // 90% to be sure the object fits in the view
+    setScale(scaleFactor * 0.9);
+  }, [viewport.width, viewport.height, radius]);
 
   return (
     <View track={cubeRef}>
@@ -78,6 +100,7 @@ export default function AssembledCube3D({
         rotation-x={rotate}
         rotation-y={rotate}
         rotation-z={rotate}
+        scale={scale}
       >
         <group ref={piecesRef}>
           {layer.map((row, yIndex) =>
@@ -89,8 +112,6 @@ export default function AssembledCube3D({
               if (color) {
                 props.color = pieceColorValues[color];
               } else {
-                // TODO: maybe transparency will allow rending everything so that the canvas resized correctly?
-                // Not sure why resizing is broken
                 props.visible = false;
               }
 
