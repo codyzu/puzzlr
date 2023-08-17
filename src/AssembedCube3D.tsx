@@ -5,9 +5,11 @@ import {Box3, MathUtils, type Group, Sphere} from 'three';
 import {useSpring, animated, config} from '@react-spring/three';
 import {useThree} from '@react-three/fiber';
 import {db} from './db';
+import {type LayerPoint, pieceLayout, placedToColorMap} from './piece-layout';
+import Segment3D from './Segment3D';
+import BlankSegment3D from './BlankSegment3D';
 import {pieceColorValues} from './GenricPieces';
 import {type PieceColor} from './piece-types';
-import {pieceLayout, placedToColorMap} from './piece-layout';
 
 export default function AssembledCube3D({
   cubeRef,
@@ -18,7 +20,7 @@ export default function AssembledCube3D({
     db.pieces.orderBy('added').toArray(),
   );
 
-  const [layer, setLayer] = useState<Array<Array<undefined | PieceColor>>>([
+  const [layer, setLayer] = useState<Array<Array<undefined | LayerPoint>>>([
     [],
   ]);
   useEffect(() => {
@@ -104,31 +106,25 @@ export default function AssembledCube3D({
       >
         <group ref={piecesRef}>
           {layer.map((row, yIndex) =>
-            row.map((color, xIndex) => {
-              const props: {
-                color?: string;
-                visible?: boolean;
-              } = {};
-              if (color) {
-                props.color = pieceColorValues[color];
-              } else {
-                props.visible = false;
-              }
-
-              return (
-                <mesh
+            row.map((point, xIndex) =>
+              point ? (
+                <Segment3D
                   // eslint-disable-next-line react/no-array-index-key
                   key={`cube-${yIndex}-${xIndex}`}
-                  // eslint-disable-next-line react/no-unknown-property
-                  position={[xIndex, yIndex, 0]}
-                  scale={0.92}
-                >
-                  {/* eslint-disable-next-line react/no-unknown-property */}
-                  <boxGeometry args={[1, 1, 1]} />
-                  <meshStandardMaterial {...props} />
-                </mesh>
-              );
-            }),
+                  color={pieceColorValues[point.color] as PieceColor}
+                  highlight={point.highlight}
+                  x={xIndex}
+                  y={yIndex}
+                />
+              ) : (
+                <BlankSegment3D
+                  // eslint-disable-next-line react/no-array-index-key
+                  key={`cube-${yIndex}-${xIndex}`}
+                  x={xIndex}
+                  y={yIndex}
+                />
+              ),
+            ),
           )}
         </group>
       </animated.group>

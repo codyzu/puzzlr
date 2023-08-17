@@ -12,6 +12,12 @@ export type PlacedPiece = PieceMeta & {
   rotation: number;
   x: number;
   y: number;
+  highlight: boolean;
+};
+
+export type LayerPoint = {
+  color: PieceColor;
+  highlight: boolean;
 };
 
 export function pieceLayout(pieces: PieceColor[]) {
@@ -50,7 +56,13 @@ export function pieceLayout(pieces: PieceColor[]) {
           matrixCount(tryResult) ===
           matrixCount(layer) + matrixCount(piece.piece)
         ) {
-          placedPieces.push({...piece, x, y, rotation});
+          placedPieces.push({
+            ...piece,
+            x,
+            y,
+            rotation,
+            highlight: piece === piecesToPlace.at(-1),
+          });
           placed = true;
           layer = tryResult;
           break;
@@ -77,18 +89,21 @@ export function pieceLayout(pieces: PieceColor[]) {
 }
 
 export function placedToColorMap(pieces: PlacedPiece[]) {
-  const layer: Array<Array<undefined | PieceColor>> = Array.from({
+  const layer: Array<Array<undefined | LayerPoint>> = Array.from({
     length: 4,
   }).map(() => Array.from({length: 4}).map(() => undefined));
 
   for (const piece of pieces) {
     const rotatedPieceMap = rotateMatrixTimes(piece.piece, piece.rotation);
-    for (const [yIndex, element] of rotatedPieceMap.entries()) {
-      for (const [xIndex, element_] of element.entries()) {
+    for (const [yIndex, row] of rotatedPieceMap.entries()) {
+      for (const [xIndex, point] of row.entries()) {
         const yDest = piece.y + yIndex;
         const xDest = piece.x + xIndex;
-        if (element_ === 1) {
-          layer[yDest][xDest] = piece.color;
+        if (point === 1) {
+          layer[yDest][xDest] = {
+            color: piece.color,
+            highlight: piece.highlight,
+          };
         }
       }
     }

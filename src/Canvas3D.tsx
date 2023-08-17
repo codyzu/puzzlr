@@ -9,7 +9,9 @@ export default function Canvas3D({
     <Canvas
       // EventSource={mainRef}
       eventSource={document.querySelector<HTMLElement>('#root')!}
-      className="important-absolute top-0 left-0 w-screen h-full"
+      // https://github.com/pmndrs/react-three-fiber/issues/251#issuecomment-558573141
+      // Scrolling and mouse events seem to work best with fixed positioning
+      className="important-fixed top-0 left-0 w-screen h-full"
     >
       {children}
     </Canvas>
