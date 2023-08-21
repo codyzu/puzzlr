@@ -14,47 +14,30 @@ export default function Segment3D({
   y: number;
   z: number;
 }) {
-  const {color: highlightColor} = useSpring({
-    from: {color},
-    to: [
-      {color: '#ffffff'},
-      {color},
-      {color: '#ffffff'},
-      {color},
-      {color: '#ffffff'},
-      {color},
-      {color: '#ffffff'},
-      {color},
-      {color: '#ffffff'},
-      {color},
-    ],
-    // Loop: true,
-    config: {
-      // ...config.slow,
-      duration: 300,
-    },
-  });
-
-  const {scale: highlightScale} = useSpring({
-    from: {scale: 0.92},
-    to: [
-      {scale: 1.2},
-      {scale: 0.92},
-      {scale: 1.2},
-      {scale: 0.92},
-      {scale: 1.2},
-      {scale: 0.92},
-      {scale: 1.2},
-      {scale: 0.92},
-      {scale: 1.2},
-      {scale: 0.92},
-    ],
-    // Loop: true,
-    config: {
-      // ...config.slow,
-      duration: 300,
-    },
-  });
+  const [{scale: highlightScale, color: highlightColor}] = useSpring(
+    () => ({
+      from: {scale: 0.92, color},
+      to: [
+        {scale: 1.2, color: '#ffffff'},
+        {scale: 0.92, color},
+        {scale: 1.2, color: '#ffffff'},
+        {scale: 0.92, color},
+        {scale: 1.2, color: '#ffffff'},
+        {scale: 0.92, color},
+        {scale: 1.2, color: '#ffffff'},
+        {scale: 0.92, color},
+        {scale: 1.2, color: '#ffffff'},
+        {scale: 0.92, color},
+        {scale: 1.2, color: '#ffffff'},
+        {scale: 0.92, color},
+      ],
+      reset: !highlight,
+      config: {
+        duration: 300,
+      },
+    }),
+    [highlight],
+  );
 
   return (
     <animated.mesh
