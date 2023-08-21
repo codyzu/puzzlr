@@ -1,15 +1,12 @@
 import {useEffect, type MutableRefObject, useState, useRef} from 'react';
 import {OrbitControls, PerspectiveCamera, View} from '@react-three/drei';
 import {useLiveQuery} from 'dexie-react-hooks';
-import {Box3, MathUtils, type Group, Sphere} from 'three';
+import {Box3, MathUtils, type Group, Sphere, Vector3} from 'three';
 import {useSpring, animated, config} from '@react-spring/three';
 import {useThree} from '@react-three/fiber';
 import {db} from './db';
 import {type LayerPoint, pieceLayout, placedToColorMap} from './piece-layout';
-import Segment3D from './Segment3D';
-import BlankSegment3D from './BlankSegment3D';
-import {pieceColorValues} from './GenricPieces';
-import {type PieceColor} from './piece-types';
+import CubeLayer3D from './CubeLayer3D';
 
 export default function AssembledCube3D({
   cubeRef,
@@ -20,36 +17,54 @@ export default function AssembledCube3D({
     db.pieces.orderBy('added').toArray(),
   );
 
-  const [layer, setLayer] = useState<Array<Array<undefined | LayerPoint>>>([
-    [],
-  ]);
+  const [layers, setLayers] = useState<
+    Array<Array<Array<undefined | LayerPoint>>>
+  >([[]]);
   useEffect(() => {
-    const placed = pieceLayout(allPieces?.map((piece) => piece.color) ?? []);
-    const layerMap = placedToColorMap(placed);
-    setLayer(layerMap);
+    if (allPieces === undefined) {
+      return;
+    }
+
+    console.log('all', allPieces);
+    const nextLayers = pieceLayout(
+      allPieces?.map((piece) => piece.color) ?? [],
+    );
+    const layerMaps = nextLayers.map((layer) => placedToColorMap(layer));
+
+    // Push an empty layer if the last layer was complete
+    if (layerMaps.length < 4 && layerMaps.at(-1)!.flat().every(Boolean)) {
+      layerMaps.push(
+        Array.from({
+          length: 4,
+        }).map(() => Array.from({length: 4}).map(() => undefined)),
+      );
+    }
+
+    setLayers(layerMaps);
   }, [allPieces]);
 
   const piecesRef = useRef<Group>(null!);
   const pivotRef = useRef<Group>(null!);
 
-  const [pause, setPause] = useState(true);
   const [centered, setCentered] = useState(false);
   const [radius, setRadius] = useState<number>();
   const [scale, setScale] = useState<number>(1);
 
-  const {rotate} = useSpring({
-    from: {rotate: MathUtils.degToRad(0)},
-    to: {rotate: MathUtils.degToRad(360)},
-    loop: true,
-    config: {
-      ...config.wobbly,
-      duration: 5000,
-    },
-    pause,
-  });
+  const [{rotate}] = useSpring(
+    () => ({
+      from: {rotate: MathUtils.degToRad(0)},
+      to: {rotate: MathUtils.degToRad(360)},
+      loop: true,
+      config: {
+        ...config.wobbly,
+        duration: 6000,
+      },
+    }),
+    [layers],
+  );
 
   useEffect(() => {
-    if (layer.flat().length === 0) {
+    if (layers.flat(2).length === 0) {
       return;
     }
 
@@ -61,6 +76,7 @@ export default function AssembledCube3D({
     pivotRef.current.position.multiplyScalar(0);
 
     const bbox = new Box3().setFromObject(piecesRef.current);
+    console.log('original', bbox);
     bbox.getCenter(piecesRef.current.position);
     piecesRef.current.position.multiplyScalar(-1);
 
@@ -69,9 +85,34 @@ export default function AssembledCube3D({
     bbox.getBoundingSphere(sphere);
 
     setRadius(sphere.radius);
-    setPause(false);
     setCentered(true);
-  }, [layer, centered]);
+  }, [layers, centered]);
+
+  useEffect(() => {
+    if (centered) {
+      // Const xyPos = ((4 - (1 - 0.92)) / 2) * -1;
+      // const zPos = ((layers.length - (1 - 0.92)) / 2) * -1;
+      // piecesRef.current.position.x = xyPos;
+      // piecesRef.current.position.y = xyPos;
+      // piecesRef.current.position.z = zPos;
+
+      const center = new Vector3();
+      const bbox = new Box3().setFromObject(piecesRef.current);
+      bbox.getCenter(center);
+      piecesRef.current.worldToLocal(center);
+      piecesRef.current.position.copy(center);
+      piecesRef.current.position.multiplyScalar(-1);
+
+      // Makes the scale jump, the sphere doesn't behave well with the axis bound bounding box
+      // Const sphere = new Sphere();
+      // bbox.getBoundingSphere(sphere);
+      // setRadius(sphere.radius);
+      // Console.log(
+      //   'pos',
+      //   piecesRef.current.localToWorld(piecesRef.current.position.clone()),
+      // );
+    }
+  }, [layers, centered]);
 
   const {viewport} = useThree();
 
@@ -105,27 +146,10 @@ export default function AssembledCube3D({
         scale={scale}
       >
         <group ref={piecesRef}>
-          {layer.map((row, yIndex) =>
-            row.map((point, xIndex) =>
-              point ? (
-                <Segment3D
-                  // eslint-disable-next-line react/no-array-index-key
-                  key={`cube-${yIndex}-${xIndex}`}
-                  color={pieceColorValues[point.color] as PieceColor}
-                  highlight={point.highlight}
-                  x={xIndex}
-                  y={yIndex}
-                />
-              ) : (
-                <BlankSegment3D
-                  // eslint-disable-next-line react/no-array-index-key
-                  key={`cube-${yIndex}-${xIndex}`}
-                  x={xIndex}
-                  y={yIndex}
-                />
-              ),
-            ),
-          )}
+          {layers.map((layer, index) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <CubeLayer3D key={`layer-${index}`} layer={layer} z={index} />
+          ))}
         </group>
       </animated.group>
 

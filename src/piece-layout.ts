@@ -20,24 +20,48 @@ export type LayerPoint = {
   highlight: boolean;
 };
 
-export function pieceLayout(pieces: PieceColor[]) {
-  const piecesToPlace = pieces.map((color, index) => ({
+export function pieceLayout(pieces: PieceColor[]): PlacedPiece[][] {
+  let remainingPieces: PieceMeta[] = pieces.map((color, index) => ({
     index,
     color,
     piece: pieceMaps[color],
     weight: pieceMaps[color].flat().filter(Boolean).length,
   }));
-  if (piecesToPlace.length === 0) {
-    return [];
+
+  const lastPiece = remainingPieces.at(-1);
+
+  const layers: PlacedPiece[][] = [];
+
+  for (let i = 0; i < 4; i++) {
+    const layerPlaced = layoutLayer(remainingPieces, lastPiece!);
+    remainingPieces = remainingPieces.filter(
+      (piece) =>
+        !layerPlaced.some((layerPiece) => layerPiece.index === piece.index),
+    );
+    layers.push(layerPlaced);
+
+    // Stop laying out if the current layer is not complete
+    if (!placedToColorMap(layerPlaced).flat().every(Boolean)) {
+      break;
+    }
+
+    // Stop laying out if there are no more pieces
+    if (remainingPieces.length === 0) {
+      break;
+    }
   }
 
+  return layers;
+}
+
+function layoutLayer(availablePieces: PieceMeta[], lastPiece: PieceMeta) {
   const placedPieces: PlacedPiece[] = [];
 
   let layer = Array.from({length: 4}).map(() =>
     Array.from({length: 4}).map(() => 0),
   );
 
-  for (const piece of piecesToPlace) {
+  for (const piece of availablePieces) {
     const positions = Array.from({length: 4 * 4}).map((_, index) => index);
 
     let placed = false;
@@ -61,7 +85,7 @@ export function pieceLayout(pieces: PieceColor[]) {
             x,
             y,
             rotation,
-            highlight: piece === piecesToPlace.at(-1),
+            highlight: piece === lastPiece,
           });
           placed = true;
           layer = tryResult;

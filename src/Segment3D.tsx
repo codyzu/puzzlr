@@ -6,11 +6,13 @@ export default function Segment3D({
   highlight,
   x,
   y,
+  z,
 }: {
   color: PieceColor;
   highlight: boolean;
   x: number;
   y: number;
+  z: number;
 }) {
   const {color: highlightColor} = useSpring({
     from: {color},
@@ -57,7 +59,7 @@ export default function Segment3D({
   return (
     <animated.mesh
       key={`cube-${y}-${x}`}
-      position={[x, y, 0]}
+      position={[x, y, z]}
       scale={highlight ? highlightScale : 0.92}
     >
       {/* eslint-disable-next-line react/no-unknown-property */}
