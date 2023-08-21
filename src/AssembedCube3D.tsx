@@ -25,7 +25,6 @@ export default function AssembledCube3D({
       return;
     }
 
-    console.log('all', allPieces);
     const nextLayers = pieceLayout(
       allPieces?.map((piece) => piece.color) ?? [],
     );
@@ -76,7 +75,6 @@ export default function AssembledCube3D({
     pivotRef.current.position.multiplyScalar(0);
 
     const bbox = new Box3().setFromObject(piecesRef.current);
-    console.log('original', bbox);
     bbox.getCenter(piecesRef.current.position);
     piecesRef.current.position.multiplyScalar(-1);
 

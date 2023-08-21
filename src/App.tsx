@@ -11,6 +11,25 @@ const RotatingPieces3D = lazy(async () => import('./RotatingPieces3D'));
 const Canvas3D = lazy(async () => import('./Canvas3D'));
 
 function App() {
+  useEffect(() => {
+    console.log(
+      '%cNodeConf EU 2023 - Scavenger Hunt',
+      `font-size: 30px; font-family: Montserrat, "Open Sans", sans-serif;
+      font-weight: 700; color: white; background-color: black;`,
+    );
+    console.log(
+      `%cThanks for taking the time to look here.
+It looks like you know what your doing. 👏
+
+If you dig around enough, you can probably cheat this game. Honestly, that's your call, and we're proud of you.
+
+Have you ever thought about working for a company like NearForm? Check us out on LinkedIn ( https://www.linkedin.com/company/nearform/ ) or stop by our booth at the conference to chat!`,
+      `font-size: 16px; font-family: "Open Sans",ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+      color: #A0C539; background-color: black`,
+    );
+    console.log(`%c`, 'min-width: 500px');
+  }, []);
+
   const [search, setSearch] = useSearchParams();
   useEffect(() => {
     let cancel = false;

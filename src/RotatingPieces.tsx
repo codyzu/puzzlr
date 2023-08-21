@@ -31,8 +31,6 @@ function RotatingPiece({color}: {color: PieceColor}) {
     const directionToCenter = directionFromCenter.clone().multiplyScalar(-1);
     const distanceToCenter = ref.current.position.length();
 
-    console.log({directionFromCenter, directionToCenter, distanceToCenter});
-
     setMoveDistance(distanceToCenter);
     setMoveDirection(directionToCenter);
     setMoveBackDirection(directionFromCenter);

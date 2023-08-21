@@ -103,11 +103,9 @@ function layoutLayer(availablePieces: PieceMeta[], lastPiece: PieceMeta) {
     }
 
     if (!placed) {
-      console.log('skipped', piece);
+      // SKIPPED piece
     }
   }
-
-  console.log('layer done', {layer, placedPieces});
 
   return placedPieces;
 }
