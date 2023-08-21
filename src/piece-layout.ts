@@ -62,13 +62,13 @@ function layoutLayer(availablePieces: PieceMeta[], lastPiece: PieceMeta) {
   );
 
   for (const piece of availablePieces) {
-    const positions = Array.from({length: 4 * 4}).map((_, index) => index);
+    const positions = Array.from({length: 6 * 6}).map((_, index) => index);
 
     let placed = false;
 
     for (const positionIndex of positions) {
-      const x = positionIndex % 4;
-      const y = Math.floor(positionIndex / 4);
+      const x = (positionIndex % 6) - 2;
+      const y = Math.floor(positionIndex / 6) - 2;
 
       const rotations = Array.from({length: 4}).map((_, index) => index);
 
@@ -176,7 +176,7 @@ function replaceMatrix(
         sourceY >= y &&
         sourceY < y + submatrix.length
       ) {
-        const submatrixValue = submatrix[sourceY - y][sourceX - x];
+        const submatrixValue = submatrix[sourceY - y]?.[sourceX - x];
 
         if (submatrixValue === 1) {
           return 1;
