@@ -17,6 +17,9 @@ dependencies:
   '@unocss/reset':
     specifier: ^0.53.4
     version: 0.53.4
+  clsx:
+    specifier: ^2.0.0
+    version: 2.0.0
   dexie:
     specifier: ^3.2.4
     version: 3.2.4
@@ -1989,6 +1992,11 @@ packages:
     dependencies:
       escape-string-regexp: 1.0.5
     dev: true
+
+  /clsx@2.0.0:
+    resolution: {integrity: sha512-rQ1+kcj+ttHG0MKVGBUXwayCCF1oh39BF5COIpRzuCEv8Mwjv0XucrI2ExNTOn9IlLifGClWQcU9BrZORvtw6Q==}
+    engines: {node: '>=6'}
+    dev: false
 
   /color-convert@1.9.3:
     resolution: {integrity: sha512-QfAUtd+vFdAtFQcC8CCyYt1fYWxSqAiK2cSD6zDB8N3cpsEBAvRxp9zOGg6G/SHHJYAT88/az/IuDGALsNVbGg==}

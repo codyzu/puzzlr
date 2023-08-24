@@ -1,5 +1,6 @@
-import {useRef, lazy, useEffect, Suspense} from 'react';
+import {useRef, lazy, useEffect, Suspense, useState} from 'react';
 import {useSearchParams} from 'react-router-dom';
+import clsx from 'clsx';
 import logo from './assets/logo.png';
 import {db} from './db';
 import {isPieceColor, type PieceColor} from './piece-types';
@@ -31,6 +32,12 @@ Have you ever thought about working for a company like NearForm? Check us out on
   }, []);
 
   const [search, setSearch] = useSearchParams();
+
+  const [message, setMessage] = useState('');
+  const [imageSource, setImageSource] = useState('');
+
+  // Test params: message=NearForm%20❤%EF%B8%8F%20node.js!&image=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Fd%2Fd9%2FNode.js_logo.svg
+
   useEffect(() => {
     let cancel = false;
 
@@ -54,6 +61,15 @@ Have you ever thought about working for a company like NearForm? Check us out on
           });
         }
       }
+
+      if (search.has('message')) {
+        console.log('showing', search.get('message'));
+        setMessage(search.get('message')!);
+      }
+
+      if (search.has('image')) {
+        setImageSource(search.get('image')!);
+      }
     }, 0);
 
     return () => {
@@ -68,7 +84,7 @@ Have you ever thought about working for a company like NearForm? Check us out on
   const pieceRefs = usePieceRefs();
 
   return (
-    <div className="relative w-full">
+    <div className="relative w-full min-h-screen">
       <div className="gap-4 p-2 w-full max-w-screen-sm">
         <div className="flex flex-row gap-2">
           <img src={logo} className="h-10 w-auto" />
@@ -93,6 +109,30 @@ Have you ever thought about working for a company like NearForm? Check us out on
           <AssembledCube3D cubeRef={cubeRef} />
         </Canvas3D>
       </Suspense>
+      <div
+        className={clsx(
+          !message && !imageSource && 'hidden',
+          'absolute top-0 left-0 w-full p-4 h-full justify-center items-center text-xl bg-gray-800 bg-opacity-85',
+        )}
+        onClick={() => {
+          setMessage('');
+          setImageSource('');
+          const nextSearch = new URLSearchParams([...search.entries()]);
+          nextSearch.delete('message');
+          nextSearch.delete('image');
+          setSearch(nextSearch);
+        }}
+      >
+        <div className="bg-black rounded-md shadow-gray-300 shadow-xl border-3 border-gray-700 bg-opacity-60">
+          {imageSource && (
+            <img className="p-2 object-contain" src={imageSource} />
+          )}
+          {message && <div className="p-6">{message}</div>}
+          <div className="text-sm italic text-gray-300">
+            click anywhere to close
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
