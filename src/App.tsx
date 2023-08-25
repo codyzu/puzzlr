@@ -6,6 +6,7 @@ import {db} from './db';
 import {isPieceColor, type PieceColor} from './piece-types';
 import SingleShape from './SingleShapeDom';
 import usePieceRefs from './use-piece-refs';
+import Popover from './Popover';
 
 const AssembledCube3D = lazy(async () => import('./AssembedCube3D'));
 const RotatingPieces3D = lazy(async () => import('./RotatingPieces3D'));
@@ -64,11 +65,11 @@ Have you ever thought about working for a company like NearForm? Check us out on
 
       if (search.has('message')) {
         console.log('showing', search.get('message'));
-        setMessage(search.get('message')!);
+        setMessage(decodeURIComponent(search.get('message')!));
       }
 
       if (search.has('image')) {
-        setImageSource(search.get('image')!);
+        setImageSource(decodeURIComponent(search.get('image')!));
       }
     }, 0);
 
@@ -112,7 +113,7 @@ Have you ever thought about working for a company like NearForm? Check us out on
       <div
         className={clsx(
           !message && !imageSource && 'hidden',
-          'absolute top-0 left-0 w-full p-4 h-full justify-center items-center text-xl bg-gray-800 bg-opacity-85',
+          'absolute top-0 left-0 w-full h-full',
         )}
         onClick={() => {
           setMessage('');
@@ -123,15 +124,7 @@ Have you ever thought about working for a company like NearForm? Check us out on
           setSearch(nextSearch);
         }}
       >
-        <div className="bg-black rounded-md shadow-gray-300 shadow-xl border-3 border-gray-700 bg-opacity-60">
-          {imageSource && (
-            <img className="p-2 object-contain" src={imageSource} />
-          )}
-          {message && <div className="p-6">{message}</div>}
-          <div className="text-sm italic text-gray-300">
-            click anywhere to close
-          </div>
-        </div>
+        <Popover message={message} imageSource={imageSource} />
       </div>
     </div>
   );

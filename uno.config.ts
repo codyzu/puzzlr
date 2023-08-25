@@ -67,6 +67,7 @@ export default defineConfig({
   ],
   transformers: [transformerDirectives(), transformerVariantGroup()],
   shortcuts: {
+    'input-control': 'rounded-md p-2 bg-gray-200 text-black',
     btn: 'bg-[#f08] p-4 rounded-lg font-heading tracking-[2px] font-semibold text-base uppercase hover:bg-[#c51774] disabled:bg-gray-600',
     // 'border-primary': 'rounded-md border-2 border-teal',
     // 'shadow-primary': 'shadow-xl shadow-teal-800',

@@ -3,11 +3,16 @@ import {Fragment} from 'react';
 import Canvas3D from './Canvas3D';
 import Shapes3D from './Shapes3D';
 import usePieceRefs from './use-piece-refs';
+import Generator from './Generator';
 
 export default function Admin() {
   const pieceRefs = usePieceRefs();
   return (
     <>
+      <div className="max-w-screen-sm w-full">
+        <Generator />
+      </div>
+      <div>Examples:</div>
       <div className="h-full grid grid-cols-[auto_auto] lt-sm:grid-cols-1 gap-x-4 gap-y-8 lt-sm:gap-y-4 justify-items-center my-6">
         {Object.entries(pieceRefs).map(([color, ref]) => {
           const url = `${window.location.origin}${
@@ -20,7 +25,7 @@ export default function Admin() {
                 <a href={url}>Add {color}</a>
               </div>
               <div className="w-200px h-200px bg-white p-2 lt-sm:mb-10">
-                {/* @ts-expect-error title is used but defined in the libraries typings */}
+                {/* @ts-expect-error title is used but not defined in the libraries typings */}
                 <QRCode value={url} title={`${color} piece`} />
               </div>
             </Fragment>
