@@ -67,8 +67,10 @@ export default defineConfig({
   ],
   transformers: [transformerDirectives(), transformerVariantGroup()],
   shortcuts: {
+    pink: 'text-[#f08]',
     'input-control': 'rounded-md p-2 bg-gray-200 text-black',
     btn: 'bg-[#f08] p-4 rounded-lg font-heading tracking-[2px] font-semibold text-base uppercase hover:bg-[#c51774] disabled:bg-gray-600',
+    'help-border': 'z-1 border-[#f08] border-3 rounded-lg',
     // 'border-primary': 'rounded-md border-2 border-teal',
     // 'shadow-primary': 'shadow-xl shadow-teal-800',
     // 'border-focus': 'rounded-md border-2 border-violet-700',
@@ -82,6 +84,32 @@ export default defineConfig({
     // 'nav-active': 'border-b-2 border-teal shadow-md shadow-teal-800',
     // 'nav-inactive': 'border-b-2 border-black shadow-none',
   },
+  variants: [
+    (matcher) => {
+      if (!matcher.startsWith('help:')) {
+        return matcher;
+      }
+
+      return {
+        matcher: matcher.slice(5),
+        selector: (s) => `div[data-help] ${s}`,
+      };
+    },
+    (matcher) => {
+      const matchResult = /^help-(?<helpIndex>\d+):/.exec(matcher);
+      if (!matchResult) {
+        return matcher;
+      }
+
+      console.log('result', matchResult, matcher.slice(matchResult[0].length));
+
+      return {
+        matcher: matcher.slice(matchResult[0].length),
+        selector: (s) =>
+          `div[data-help="${matchResult.groups!.helpIndex}"] ${s}`,
+      };
+    },
+  ],
   // https://github.com/unocss/unocss/discussions/2012
   theme: {
     animation: {
