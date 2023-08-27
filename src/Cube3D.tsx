@@ -8,7 +8,8 @@ export default function Cube3D({
   cubeRef: MutableRefObject<HTMLDivElement>;
 }) {
   return (
-    <View track={cubeRef}>
+    <>
+      {/* <View track={cubeRef}> */}
       {/* eslint-disable-next-line react/no-unknown-property */}
       <ambientLight intensity={0.5} />
       {/* eslint-disable-next-line react/no-unknown-property */}
@@ -18,6 +19,7 @@ export default function Cube3D({
       <PerspectiveCamera makeDefault position={[0, 0, 10]} />
       {/* <OrbitControls /> */}
       <Shapes position={[0, 0, 0]} />
-    </View>
+      {/* </View> */}
+    </>
   );
 }

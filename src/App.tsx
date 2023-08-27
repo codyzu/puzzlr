@@ -91,20 +91,29 @@ Have you ever thought about working for a company like NearForm? Check us out on
 
   return (
     <div {...helpProps} className="relative w-full min-h-screen">
-      <div className="gap-4 p-2 w-full max-w-screen-sm">
-        <div className="flex flex-row gap-2">
-          <img src={logo} className="h-10 w-auto" />
-          <div className="font-heading text-3xl font-700">NodeConf EU 2023</div>
+      <div className="relative w-full max-w-screen-sm">
+        <div ref={cubeRef} className="absolute w-full h-full top-0 left-0">
+          <Canvas3D className="">
+            <AssembledCube3D cubeRef={cubeRef} />
+          </Canvas3D>
         </div>
-        <div className="font-heading font-600">
-          at the Lyrath Estate, Kilkenny, Ireland
-        </div>
-        <div className="relative flex flex-row w-full items-stretch">
-          <div className="gap-2">
-            <div className="flex-row relative">
+        <div className="relative gap-4 p-2 w-full pointer-events-none">
+          <div className="bg-black self-center rounded-lg p-3 shadow-md shadow-white pointer-events-auto">
+            <div className="flex-row gap-2">
+              <img src={logo} className="h-10 w-auto" />
+              <div className="font-heading text-3xl font-700">
+                NodeConf EU 2023
+              </div>
+            </div>
+            <div className="font-heading font-600">
+              at the Lyrath Estate, Kilkenny, Ireland
+            </div>
+          </div>
+          <div className="relative items-start self-start pointer-events-auto">
+            <div className="items-stretch">
               <div
                 // ClassName="pink help-1:(z-1 border-pink border-3 rounded-lg) relative after:(absolute top-0 left-[100%] content-['hello'] w-10 h-10 bg-red)"
-                className="pink help-3:(help-border) relative"
+                className="pink help-3:(help-border)"
                 onClick={() => {
                   setHelp(1);
                 }}
@@ -112,56 +121,61 @@ Have you ever thought about working for a company like NearForm? Check us out on
                 <div className="i-tabler-help h-8 w-8" />
                 <div className="text-sm">help</div>
               </div>
-              <div
-                className={clsx(
-                  'absolute hidden left-[100%] top-0 hidden w-200 p-4 flex-row justify-start items-center pointer-events-none gap-2 help-3:(flex visible z-1)',
-                )}
-              >
-                <div className="i-tabler-arrow-wave-left-up w-12 h-12 pink" />
-                <div className="items-start">
-                  <div className="font-700 pink">Help</div>
-                  <div>
-                    You can re-start this tutorial at any time by clicking the
-                    help button.
-                    <br />
-                    Thanks for playing and good luck!
+              <div className="gap-2">
+                <div className="flex-row relative">
+                  <div
+                    className={clsx(
+                      'absolute hidden left-[100%] top-0 hidden w-200 p-4 flex-row justify-start items-center pointer-events-none gap-2 help-3:(flex visible z-1)',
+                    )}
+                  >
+                    <div className="i-tabler-arrow-wave-left-up w-12 h-12 pink" />
+                    <div className="items-start">
+                      <div className="font-700 pink">Help</div>
+                      <div>
+                        You can re-start this tutorial at any time by clicking
+                        the help button.
+                        <br />
+                        Thanks for playing and good luck!
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div className="gap-2 relative help-2:(help-border)">
-              {Object.entries(pieceRefs).map(([color, ref]) => (
-                <SingleShape
-                  key={color}
-                  ref={ref}
-                  color={color as PieceColor}
-                />
-              ))}
-              <div
-                className={clsx(
-                  'absolute hidden left-[100%] top-0 hidden w-200 p-4 flex-row justify-start items-center pointer-events-none gap-2 help-2:(flex visible z-1)',
-                )}
-              >
-                <div className="i-tabler-arrow-wave-left-up w-12 h-12 pink" />
-                <div className="items-start">
-                  <div className="font-700 pink">Inventory</div>
-                  <div>
-                    Every time you scan a piece, it will be collected here.
-                    <br />
-                    Remember, you can&apos;t scan the same piece twice in a row.
+                <div className="gap-2 relative z-2 help-2:(help-border)">
+                  {Object.entries(pieceRefs).map(([color, ref]) => (
+                    <SingleShape
+                      key={color}
+                      ref={ref}
+                      color={color as PieceColor}
+                    />
+                  ))}
+                  <div
+                    className={clsx(
+                      'absolute hidden left-[100%] top-0 hidden w-200 p-4 flex-row justify-start items-center pointer-events-none gap-2 help-2:(flex visible z-1)',
+                    )}
+                  >
+                    <div className="i-tabler-arrow-wave-left-up w-12 h-12 pink" />
+                    <div className="items-start">
+                      <div className="font-700 pink">Inventory</div>
+                      <div>
+                        Every time you scan a piece, it will be collected here.
+                        <br />
+                        Remember, you can&apos;t scan the same piece twice in a
+                        row.
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div ref={cubeRef} className="flex-grow-1" />
+          <div className="prose pointer-events-auto bg-black p-3 rounded-lg shadow-white shadow-md">
+            Find the pieces to complete the cube
+          </div>
         </div>
-        <div className="prose">Find the pieces to complete the cube</div>
       </div>
       <Suspense>
-        <Canvas3D>
+        <Canvas3D className="pointer-events-none z-2">
           <RotatingPieces3D pieceRefs={pieceRefs} />
-          <AssembledCube3D cubeRef={cubeRef} />
         </Canvas3D>
       </Suspense>
       <div
@@ -180,7 +194,7 @@ Have you ever thought about working for a company like NearForm? Check us out on
       >
         <Popover message={message} imageSource={imageSource} />
       </div>
-      {help && (
+      {help ? (
         <div
           className="absolute top-0 left-0 w-full h-full bg-gray-800 bg-opacity-95 p-4"
           onClick={() => {
@@ -210,7 +224,7 @@ Have you ever thought about working for a company like NearForm? Check us out on
             />
           </div>
         </div>
-      )}
+      ) : null}
     </div>
   );
 }
