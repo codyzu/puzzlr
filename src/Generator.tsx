@@ -26,30 +26,6 @@ export default function Generator() {
 
   return (
     <div className="flex flex-col w-full p-4 gap-4 items-stretch">
-      <label className="flex flex-col items-stretch">
-        <div className="items-start">Message (optional)</div>
-        <input
-          className="input-control"
-          type="text"
-          value={message}
-          placeholder="This message will be displayed in a popover!"
-          onChange={(event) => {
-            setMessage(event.target.value);
-          }}
-        />
-      </label>
-      <label className="flex flex-col items-stretch">
-        <div className="items-start">External image url (optional)</div>
-        <input
-          className="input-control"
-          type="text"
-          value={image}
-          placeholder="This image will be displayed in a popover!"
-          onChange={(event) => {
-            setImage(event.target.value);
-          }}
-        />
-      </label>
       <label className="flex flex-row gap-2 items-center self-center">
         <div className="items-start">Piece*</div>
         <select
@@ -65,6 +41,30 @@ export default function Generator() {
             </option>
           ))}
         </select>
+      </label>
+      <label className="flex flex-col items-stretch">
+        <div className="items-start">Message (optional)</div>
+        <input
+          className="input-control"
+          type="text"
+          value={message}
+          placeholder="Popover message for users to dismiss"
+          onChange={(event) => {
+            setMessage(event.target.value);
+          }}
+        />
+      </label>
+      <label className="flex flex-col items-stretch">
+        <div className="items-start">External image url (optional)</div>
+        <input
+          className="input-control"
+          type="text"
+          value={image}
+          placeholder="https://upload.wikimedia.org/wikipedia/commons/d/d9/Node.js_logo.svg"
+          onChange={(event) => {
+            setImage(event.target.value);
+          }}
+        />
       </label>
       {(message || image) && (
         <>
