@@ -44,7 +44,7 @@ Have you ever thought about working for a company like NearForm? Check us out on
   }, []);
 
   function advanceHelp() {
-    const nextHelp = (help + 1) % 5;
+    const nextHelp = (help + 1) % 6;
 
     if (nextHelp === 0) {
       localStorage.setItem('helpDone', String(true));
@@ -125,7 +125,7 @@ Have you ever thought about working for a company like NearForm? Check us out on
               at the Lyrath Estate, Kilkenny, Ireland
             </div>
           </div>
-          <div className="flex-row items-start">
+          <div className="flex-row items-stretch gap-2">
             <div className="relative gap-2 pointer-events-auto help-2:(help-border) help-3:(help-border)">
               <div className="pink font-700">Inventory</div>
               {Object.entries(pieceRefs).map(([color, ref]) => (
@@ -171,47 +171,72 @@ Have you ever thought about working for a company like NearForm? Check us out on
                       cube. You must complete a layer of the cube before
                       starting the next layer.
                     </div>
-                    <div>
-                      You can always click the reset button to dissemble your
-                      cube and return all of the pieces to your inventory.
-                    </div>
                     <div className="pink">Click to continue...</div>
                   </div>
                   {/* <div className="i-tabler-arrow-wave-right-up rotate-90 w-20 h-20 pink" /> */}
                 </div>
               </div>
             </div>
-            <div className="flex-grow" />
-            <button
-              type="button"
-              // ClassName="pink help-1:(z-1 border-pink border-3 rounded-lg) relative after:(absolute top-0 left-[100%] content-['hello'] w-10 h-10 bg-red)"
-              className="pink relative help-4:(help-border) w-20 pointer-events-auto"
-              onClick={() => {
-                setHelp(1);
-              }}
-            >
-              <div className="i-tabler-help h-8 w-8" />
-              <div className="text-sm">help</div>
-              <div
-                className={clsx(
-                  'absolute hidden right-[100%] top-0 hidden w-[calc(min(640px,100vw)_-_5rem_-_1rem)] p-4 flex-row justify-end items-start pointer-events-none gap-2 help-4:(flex z-1) text-white',
-                )}
-              >
-                <div className="items-end text-right gap-4">
-                  <div className="font-700 pink text-lg">Help</div>
-                  <div>
-                    You can re-start this tutorial at any time by clicking the
-                    help button.
+            <div className="flex-grow justify-end items-stretch">
+              <div className="flex-row justify-end">
+                <button
+                  type="button"
+                  // ClassName="pink help-1:(z-1 border-pink border-3 rounded-lg) relative after:(absolute top-0 left-[100%] content-['hello'] w-10 h-10 bg-red)"
+                  className="pink self-start relative help-5:(help-border) w-20 pointer-events-auto"
+                  onClick={() => {
+                    setHelp(1);
+                  }}
+                >
+                  <div className="i-tabler-help h-8 w-8" />
+                  <div className="text-sm">help</div>
+                  <div
+                    className={clsx(
+                      'absolute hidden top-[100%] right-0 hidden w-[calc(min(640px,100vw)_-_1rem)] p-4 flex-row justify-end items-start pointer-events-none gap-2 help-5:(flex z-1) text-white',
+                    )}
+                  >
+                    <div className="items-end text-right gap-4">
+                      <div className="i-tabler-arrow-wave-right-down w-20 h-20 pink flex-shrink-0 rotate-270" />
+                      <div className="font-700 pink text-lg">Help</div>
+                      <div>
+                        You can re-start this tutorial at any time by clicking
+                        the help button.
+                      </div>
+                      <div>Thanks for playing and good luck!</div>
+                      <div className="pink">Click to continue...</div>
+                    </div>
                   </div>
-                  <div>Thanks for playing and good luck!</div>
-                  <div className="pink">Click to continue...</div>
-                </div>
-                <div className="i-tabler-arrow-wave-right-up w-20 h-20 pink flex-shrink-0" />
+                </button>
               </div>
-            </button>
-          </div>
-          <div className="bg-black bg-opacity-70 self-center rounded-lg p-3 pointer-events-auto">
-            <div className="">You&apos;re current at level 0.</div>
+              <div className="flex-grow-1" />
+              <div className="flex-row gap-2 items-stretch">
+                <div className="bg-black bg-opacity-70 rounded-lg p-3 pointer-events-auto justify-center">
+                  <div className="">You&apos;re current at level 0.</div>
+                </div>
+                <button
+                  className="btn pointer-events-auto self-center relative help-4:(z-1)"
+                  type="button"
+                >
+                  reset
+                  <div
+                    className={clsx(
+                      'absolute hidden bottom-[100%] right-0 hidden w-[calc(min(640px,100vw)_-_1rem)] p-4 flex-row justify-end items-start pointer-events-none gap-2 help-4:(flex z-1) text-white case-normal font-400 tracking-normal font-sans text-base',
+                    )}
+                  >
+                    <div className="items-end text-right gap-4">
+                      <div className="font-700 pink text-lg">Reset</div>
+                      <div className="block">
+                        You can always click the{' '}
+                        <span className="pink">reset</span> button to dissemble
+                        your cube and return all of the pieces to your inventory
+                        and restart building your cube!
+                      </div>
+                      <div className="pink">Click to continue...</div>
+                      <div className="i-tabler-arrow-wave-right-down w-20 h-20 pink flex-shrink-0 rotate-90" />
+                    </div>
+                  </div>
+                </button>
+              </div>
+            </div>
           </div>
 
           <div className="items-start self-start pointer-events-auto">
@@ -254,30 +279,18 @@ Have you ever thought about working for a company like NearForm? Check us out on
           <div className="text-lg font-700">Cubework Tutorial</div>
           <div className="text-sm italic">click to advance</div>
           <div className="flex-row gap-2 mt-4">
-            <div
-              className={clsx(
-                help === 1 ? 'i-tabler-circle-filled pink' : 'i-tabler-circle',
-                'w-3 h-3',
-              )}
-            />
-            <div
-              className={clsx(
-                help === 2 ? 'i-tabler-circle-filled pink' : 'i-tabler-circle',
-                'w-3 h-3',
-              )}
-            />
-            <div
-              className={clsx(
-                help === 3 ? 'i-tabler-circle-filled pink' : 'i-tabler-circle',
-                'w-3 h-3',
-              )}
-            />
-            <div
-              className={clsx(
-                help === 4 ? 'i-tabler-circle-filled pink' : 'i-tabler-circle',
-                'w-3 h-3',
-              )}
-            />
+            {Array.from({length: 5}).map((_, index) => (
+              <div
+                // eslint-disable-next-line react/no-array-index-key
+                key={index + 1}
+                className={clsx(
+                  help === index + 1
+                    ? 'i-tabler-circle-filled pink'
+                    : 'i-tabler-circle',
+                  'w-3 h-3',
+                )}
+              />
+            ))}
           </div>
           <div className="hidden help-1:flex text-center mt-4 max-w-screen-sm gap-2">
             <div className="font-700">Welcome to Cubework!</div>

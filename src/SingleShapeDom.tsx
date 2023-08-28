@@ -14,7 +14,7 @@ const SingleShape = forwardRef<HTMLDivElement, {color: PieceColor}>(function (
 
   return (
     <div
-      className="bg-gray-800 rounded-lg"
+      className="bg-gray-800 rounded-lg bg-opacity-80"
       onClick={() => {
         void db.pieces.add({color, added: new Date()});
       }}
