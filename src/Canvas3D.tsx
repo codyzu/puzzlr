@@ -14,7 +14,7 @@ export default function Canvas3D({
       // https://github.com/pmndrs/react-three-fiber/issues/251#issuecomment-558573141
       // Scrolling and mouse events seem to work best with fixed positioning
       className={clsx(
-        'important-fixed top-0 left-0 w-screen h-full help-2:z-1',
+        'important-fixed top-0 left-0 w-screen h-full',
         className,
       )}
     >

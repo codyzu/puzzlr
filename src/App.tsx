@@ -35,7 +35,23 @@ Have you ever thought about working for a company like NearForm? Check us out on
   const [search, setSearch] = useSearchParams();
   const [message, setMessage] = useState('');
   const [imageSource, setImageSource] = useState('');
-  const [help, setHelp] = useState(1);
+  const [help, setHelp] = useState(0);
+
+  useEffect(() => {
+    if (!localStorage.getItem('helpDone')) {
+      setHelp(1);
+    }
+  }, []);
+
+  function advanceHelp() {
+    const nextHelp = (help + 1) % 5;
+
+    if (nextHelp === 0) {
+      localStorage.setItem('helpDone', String(true));
+    }
+
+    setHelp(nextHelp);
+  }
 
   // Test params: message=NearForm%20❤%EF%B8%8F%20node.js!&image=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Fd%2Fd9%2FNode.js_logo.svg
 
@@ -91,14 +107,14 @@ Have you ever thought about working for a company like NearForm? Check us out on
 
   return (
     <div {...helpProps} className="relative w-full min-h-screen">
-      <div className="relative w-full max-w-screen-sm">
+      <div className="relative w-full min-h-screen max-w-screen-sm">
         <div ref={cubeRef} className="absolute w-full h-full top-0 left-0">
-          <Canvas3D className="">
+          <Canvas3D className="help-3:z-1">
             <AssembledCube3D cubeRef={cubeRef} />
           </Canvas3D>
         </div>
-        <div className="relative gap-4 p-2 w-full pointer-events-none">
-          <div className="bg-black self-center rounded-lg p-3 shadow-md shadow-white pointer-events-auto">
+        <div className="relative w-full min-h-screen p-2 gap-4 items-stretch pointer-events-none">
+          <div className="bg-black bg-opacity-70 self-center rounded-lg p-3  shadow-white pointer-events-auto">
             <div className="flex-row gap-2">
               <img src={logo} className="h-10 w-auto" />
               <div className="font-heading text-3xl font-700">
@@ -109,72 +125,106 @@ Have you ever thought about working for a company like NearForm? Check us out on
               at the Lyrath Estate, Kilkenny, Ireland
             </div>
           </div>
-          <div className="relative items-start self-start pointer-events-auto">
-            <div className="items-stretch">
+          <div className="flex-row items-start">
+            <div className="relative gap-2 pointer-events-auto help-2:(help-border) help-3:(help-border)">
+              <div className="pink font-700">Inventory</div>
+              {Object.entries(pieceRefs).map(([color, ref]) => (
+                <SingleShape
+                  key={color}
+                  ref={ref}
+                  color={color as PieceColor}
+                />
+              ))}
               <div
-                // ClassName="pink help-1:(z-1 border-pink border-3 rounded-lg) relative after:(absolute top-0 left-[100%] content-['hello'] w-10 h-10 bg-red)"
-                className="pink help-3:(help-border)"
-                onClick={() => {
-                  setHelp(1);
-                }}
+                className={clsx(
+                  'absolute hidden left-[100%] top-0 hidden w-[calc(min(640px,100vw)_-_5rem_-_1rem)] p-4 flex-row justify-start items-start pointer-events-none gap-2 help-2:(flex z-1)',
+                )}
               >
-                <div className="i-tabler-help h-8 w-8" />
-                <div className="text-sm">help</div>
-              </div>
-              <div className="gap-2">
-                <div className="flex-row relative">
-                  <div
-                    className={clsx(
-                      'absolute hidden left-[100%] top-0 hidden w-200 p-4 flex-row justify-start items-center pointer-events-none gap-2 help-3:(flex visible z-1)',
-                    )}
-                  >
-                    <div className="i-tabler-arrow-wave-left-up w-12 h-12 pink" />
-                    <div className="items-start">
-                      <div className="font-700 pink">Help</div>
-                      <div>
-                        You can re-start this tutorial at any time by clicking
-                        the help button.
-                        <br />
-                        Thanks for playing and good luck!
-                      </div>
-                    </div>
+                <div className="i-tabler-arrow-wave-left-up flex-shrink-0 w-20 h-20 pink" />
+                <div className="items-start gap-3">
+                  <div className="block">
+                    Every time you scan a piece, it will be collected in your{' '}
+                    <span className="pink">inventory</span> here.
                   </div>
+                  <div>
+                    Remember, you can&apos;t scan the same piece twice in a row.
+                    Instead, come back after scanning other pieces.
+                  </div>
+                  <div className="pink">Click to continue...</div>
                 </div>
-                <div className="gap-2 relative z-2 help-2:(help-border)">
-                  {Object.entries(pieceRefs).map(([color, ref]) => (
-                    <SingleShape
-                      key={color}
-                      ref={ref}
-                      color={color as PieceColor}
-                    />
-                  ))}
-                  <div
-                    className={clsx(
-                      'absolute hidden left-[100%] top-0 hidden w-200 p-4 flex-row justify-start items-center pointer-events-none gap-2 help-2:(flex visible z-1)',
-                    )}
-                  >
-                    <div className="i-tabler-arrow-wave-left-up w-12 h-12 pink" />
-                    <div className="items-start">
-                      <div className="font-700 pink">Inventory</div>
-                      <div>
-                        Every time you scan a piece, it will be collected here.
-                        <br />
-                        Remember, you can&apos;t scan the same piece twice in a
-                        row.
-                      </div>
+              </div>
+              <div
+                className={clsx(
+                  'absolute hidden left-[100%] top-0 hidden w-[calc(min(640px,100vw)_-_5rem_-_1rem)] p-4 flex-row justify-start items-start pointer-events-none gap-2 help-3:(flex z-1)',
+                )}
+              >
+                <div className="i-tabler-arrow-wave-left-up w-20 h-20 pink flex-shrink-0" />
+                <div className="items-start gap-3">
+                  <div className="items-start gap-3 rounded-lg bg-gray-800 p-2 bg-opacity-85">
+                    <div className="block">
+                      Once you&apos;ve collected some pieces in your{' '}
+                      <span className="pink">inventory</span>, you can start
+                      assembling your cube!
                     </div>
+                    <div>
+                      Click on the pieces in your inventory to add them to the
+                      cube. You must complete a layer of the cube before
+                      starting the next layer.
+                    </div>
+                    <div>
+                      You can always click the reset button to dissemble your
+                      cube and return all of the pieces to your inventory.
+                    </div>
+                    <div className="pink">Click to continue...</div>
                   </div>
+                  {/* <div className="i-tabler-arrow-wave-right-up rotate-90 w-20 h-20 pink" /> */}
                 </div>
               </div>
             </div>
+            <div className="flex-grow" />
+            <button
+              type="button"
+              // ClassName="pink help-1:(z-1 border-pink border-3 rounded-lg) relative after:(absolute top-0 left-[100%] content-['hello'] w-10 h-10 bg-red)"
+              className="pink relative help-4:(help-border) w-20 pointer-events-auto"
+              onClick={() => {
+                setHelp(1);
+              }}
+            >
+              <div className="i-tabler-help h-8 w-8" />
+              <div className="text-sm">help</div>
+              <div
+                className={clsx(
+                  'absolute hidden right-[100%] top-0 hidden w-[calc(min(640px,100vw)_-_5rem_-_1rem)] p-4 flex-row justify-end items-start pointer-events-none gap-2 help-4:(flex z-1) text-white',
+                )}
+              >
+                <div className="items-end text-right gap-4">
+                  <div className="font-700 pink text-lg">Help</div>
+                  <div>
+                    You can re-start this tutorial at any time by clicking the
+                    help button.
+                  </div>
+                  <div>Thanks for playing and good luck!</div>
+                  <div className="pink">Click to continue...</div>
+                </div>
+                <div className="i-tabler-arrow-wave-right-up w-20 h-20 pink flex-shrink-0" />
+              </div>
+            </button>
           </div>
-          <div className="prose pointer-events-auto bg-black p-3 rounded-lg shadow-white shadow-md">
-            Find the pieces to complete the cube
+          <div className="bg-black bg-opacity-70 self-center rounded-lg p-3 pointer-events-auto">
+            <div className="">You&apos;re current at level 0.</div>
+          </div>
+
+          <div className="items-start self-start pointer-events-auto">
+            <div className="items-stretch">
+              <div className="gap-2">
+                <div className="flex-row relative" />
+              </div>
+            </div>
           </div>
         </div>
       </div>
       <Suspense>
-        <Canvas3D className="pointer-events-none z-2">
+        <Canvas3D className="pointer-events-none help-2:z-1 help-3:z-1">
           <RotatingPieces3D pieceRefs={pieceRefs} />
         </Canvas3D>
       </Suspense>
@@ -198,7 +248,7 @@ Have you ever thought about working for a company like NearForm? Check us out on
         <div
           className="absolute top-0 left-0 w-full h-full bg-gray-800 bg-opacity-95 p-4"
           onClick={() => {
-            setHelp((help) => (help + 1) % 4);
+            advanceHelp();
           }}
         >
           <div className="text-lg font-700">Cubework Tutorial</div>
@@ -222,6 +272,21 @@ Have you ever thought about working for a company like NearForm? Check us out on
                 'w-3 h-3',
               )}
             />
+            <div
+              className={clsx(
+                help === 4 ? 'i-tabler-circle-filled pink' : 'i-tabler-circle',
+                'w-3 h-3',
+              )}
+            />
+          </div>
+          <div className="hidden help-1:flex text-center mt-4 max-w-screen-sm gap-2">
+            <div className="font-700">Welcome to Cubework!</div>
+            <div>
+              Keep an eye out during the conference for QR codes that add pieces
+              to complete the cube.
+            </div>
+            <div>The goal is to collect pieces to fill the cube.</div>
+            <div className="pink">Click to continue...</div>
           </div>
         </div>
       ) : null}
