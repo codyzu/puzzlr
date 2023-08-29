@@ -87,7 +87,6 @@ Have you ever thought about working for a company like NearForm? Check us out on
     let timeoutHandle: number | undefined = setTimeout(() => {
       timeoutHandle = undefined;
       if (cancel) {
-        console.log('skip');
         return;
       }
 
@@ -106,7 +105,6 @@ Have you ever thought about working for a company like NearForm? Check us out on
       }
 
       if (search.has('message')) {
-        console.log('showing', search.get('message'));
         setMessage(decodeURIComponent(search.get('message')!));
       }
 
@@ -124,9 +122,7 @@ Have you ever thought about working for a company like NearForm? Check us out on
   }, [search, setSearch]);
 
   const attemptPlacement = useCallback(async (pieceId: number) => {
-    console.log('attempting', pieceId);
     const piece = await db.pieces.get(pieceId);
-    console.log('found', piece);
 
     if (!piece) {
       return;
@@ -136,14 +132,11 @@ Have you ever thought about working for a company like NearForm? Check us out on
       .where('placement')
       .aboveOrEqual(0)
       .sortBy('placement');
-    console.log('placed', placed);
 
     const attempt = placed.map((placed) => placed.color);
     attempt.push(piece.color);
-    console.log('attempt', attempt);
 
     const result = pieceLayout(attempt).flat();
-    console.log('result', result);
 
     if (
       result.length > 0 &&
@@ -168,9 +161,11 @@ Have you ever thought about working for a company like NearForm? Check us out on
     <div {...helpProps} className="relative w-full min-h-screen">
       <div className="relative w-full min-h-screen max-w-screen-sm">
         <div ref={cubeRef} className="absolute w-full h-full top-0 left-0">
-          <Canvas3D className="help-3:z-1">
-            <AssembledCube3D cubeRef={cubeRef} />
-          </Canvas3D>
+          <Suspense>
+            <Canvas3D className="help-3:z-1">
+              <AssembledCube3D cubeRef={cubeRef} />
+            </Canvas3D>
+          </Suspense>
         </div>
         <div className="relative w-full min-h-screen p-2 gap-4 items-stretch pointer-events-none">
           <div className="bg-black bg-opacity-70 self-center rounded-lg p-3  shadow-white pointer-events-auto">
@@ -184,7 +179,7 @@ Have you ever thought about working for a company like NearForm? Check us out on
               at the Lyrath Estate, Kilkenny, Ireland
             </div>
           </div>
-          <div className="flex-row items-stretch gap-2">
+          <div className="flex-row items-stretch gap-2 flex-grow-1">
             <div className="relative gap-2 pointer-events-auto help-2:(help-border) help-3:(help-border)">
               <div className="pink font-700">Inventory</div>
               {Object.entries(pieceRefs).map(([color, ref]) => (
@@ -302,14 +297,6 @@ Have you ever thought about working for a company like NearForm? Check us out on
                     </div>
                   </div>
                 </button>
-              </div>
-            </div>
-          </div>
-
-          <div className="items-start self-start pointer-events-auto">
-            <div className="items-stretch">
-              <div className="gap-2">
-                <div className="flex-row relative" />
               </div>
             </div>
           </div>

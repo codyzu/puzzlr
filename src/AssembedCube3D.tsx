@@ -99,10 +99,6 @@ export default function AssembledCube3D({
       // Const sphere = new Sphere();
       // bbox.getBoundingSphere(sphere);
       // setRadius(sphere.radius);
-      // Console.log(
-      //   'pos',
-      //   piecesRef.current.localToWorld(piecesRef.current.position.clone()),
-      // );
     }
   }, [layers, centered]);
 

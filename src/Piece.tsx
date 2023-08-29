@@ -73,7 +73,6 @@ function Piece({
   const [moveDistance, setMoveDistance] = useState<number>();
   const [moveDirection, setMoveDirection] = useState<V3>();
   const [moveBackDirection, setMoveBackDirection] = useState<V3>();
-  // Console.log('viewport', viewport);
 
   // https://stackoverflow.com/a/28860849
   // https://stackoverflow.com/a/54611417
@@ -111,11 +110,6 @@ function Piece({
     innerGroupRef.current.rotation.z += delta;
     innerGroupRef.current.translateOnAxis(moveBackDirection, moveDistance);
   });
-
-  // Const scale = useAspect(10_000, 10_000, 1);
-  // console.log('scale', scale);
-
-  // const scale = [1, 1, -100];
 
   return (
     <group ref={innerGroupRef} scale={1.2}>
