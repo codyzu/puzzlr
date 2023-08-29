@@ -16,7 +16,7 @@ const Canvas3D = lazy(async () => import('./Canvas3D'));
 
 const levelMessages = [
   'Noob, go find some QR codes to scan and start building your cube!',
-  "Hey Rookie, you'r getting the hang of this, but there's still work to do.",
+  "Hey Rookie, you're getting the hang of this, but there's still work to do.",
   "You're almost there, keeping adding pieces so you can level up.",
   "We've found a master, complete the cube and collect your prize!",
 ];
