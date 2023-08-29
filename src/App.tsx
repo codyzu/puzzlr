@@ -158,8 +158,9 @@ Have you ever thought about working for a company like NearForm? Check us out on
   }
 
   return (
-    <div {...helpProps} className="relative w-full min-h-screen">
-      <div className="relative w-full min-h-screen max-w-screen-sm">
+    // TODO: is 100dvh fully compatible? Should there be a fallback?
+    <div {...helpProps} className="relative w-full min-h-[100dvh]">
+      <div className="relative w-full h-full max-w-screen-sm flex-grow-1">
         <div ref={cubeRef} className="absolute w-full h-full top-0 left-0">
           <Suspense>
             <Canvas3D className="help-3:z-1">
@@ -167,7 +168,7 @@ Have you ever thought about working for a company like NearForm? Check us out on
             </Canvas3D>
           </Suspense>
         </div>
-        <div className="relative w-full min-h-screen p-2 gap-4 items-stretch pointer-events-none">
+        <div className="relative w-full flex-grow-1 p-2 gap-4 items-stretch pointer-events-none">
           <div className="bg-black bg-opacity-70 self-center rounded-lg p-3  shadow-white pointer-events-auto">
             <div className="flex-row gap-2">
               <img src={logo} className="h-10 w-auto" />

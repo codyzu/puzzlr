@@ -51,7 +51,7 @@ export default defineConfig({
           {
             name: 'Montserrat',
             weights: ['400', '600', '700'],
-            italic: true,
+            // Italic: true,
           },
           {
             name: 'Open Sans',
