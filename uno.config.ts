@@ -85,23 +85,21 @@ export default defineConfig({
     // 'nav-inactive': 'border-b-2 border-black shadow-none',
   },
   variants: [
-    (matcher) => {
-      if (!matcher.startsWith('help:')) {
-        return matcher;
-      }
+    // (matcher) => {
+    //   if (!matcher.startsWith('help:')) {
+    //     return matcher;
+    //   }
 
-      return {
-        matcher: matcher.slice(5),
-        selector: (s) => `div[data-help] ${s}`,
-      };
-    },
+    //   return {
+    //     matcher: matcher.slice(5),
+    //     selector: (s) => `div[data-help] ${s}`,
+    //   };
+    // },
     (matcher) => {
       const matchResult = /^help-(?<helpIndex>\d+):/.exec(matcher);
       if (!matchResult) {
         return matcher;
       }
-
-      console.log('result', matchResult, matcher.slice(matchResult[0].length));
 
       return {
         matcher: matcher.slice(matchResult[0].length),

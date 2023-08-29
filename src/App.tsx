@@ -180,55 +180,57 @@ Have you ever thought about working for a company like NearForm? Check us out on
             </div>
           </div>
           <div className="flex-row items-stretch gap-2 flex-grow-1">
-            <div className="relative gap-2 pointer-events-auto help-2:(help-border) help-3:(help-border)">
-              <div className="pink font-700">Inventory</div>
-              {Object.entries(pieceRefs).map(([color, ref]) => (
-                <SingleShape
-                  key={color}
-                  ref={ref}
-                  color={color as PieceColor}
-                  attemptPlacement={attemptPlacement}
-                />
-              ))}
-              <div
-                className={clsx(
-                  'absolute hidden left-[100%] top-0 hidden w-[calc(min(640px,100vw)_-_5rem_-_1rem)] p-4 flex-row justify-start items-start pointer-events-none gap-2 help-2:(flex z-1)',
-                )}
-              >
-                <div className="i-tabler-arrow-wave-left-up flex-shrink-0 w-20 h-20 pink" />
-                <div className="items-start gap-3">
-                  <div className="block">
-                    Every time you scan a piece, it will be collected in your{' '}
-                    <span className="pink">inventory</span> here.
-                  </div>
-                  <div>
-                    Remember, you can&apos;t scan the same piece twice in a row.
-                    Instead, come back after scanning other pieces.
-                  </div>
-                  <div className="pink">Click to continue...</div>
-                </div>
-              </div>
-              <div
-                className={clsx(
-                  'absolute hidden left-[100%] top-0 hidden w-[calc(min(640px,100vw)_-_5rem_-_1rem)] p-4 flex-row justify-start items-start pointer-events-none gap-2 help-3:(flex z-1)',
-                )}
-              >
-                <div className="i-tabler-arrow-wave-left-up w-20 h-20 pink flex-shrink-0" />
-                <div className="items-start gap-3">
-                  <div className="items-start gap-3 rounded-lg bg-gray-800 p-2 bg-opacity-85">
+            <div className="justify-start">
+              <div className="relative gap-2 pointer-events-auto help-2:(help-border) help-3:(help-border)">
+                <div className="pink font-700">Inventory</div>
+                {Object.entries(pieceRefs).map(([color, ref]) => (
+                  <SingleShape
+                    key={color}
+                    ref={ref}
+                    color={color as PieceColor}
+                    attemptPlacement={attemptPlacement}
+                  />
+                ))}
+                <div
+                  className={clsx(
+                    'absolute hidden left-[100%] top-0 hidden w-[calc(min(640px,100vw)_-_5rem_-_1rem)] p-4 flex-row justify-start items-start pointer-events-none gap-2 help-2:(flex z-1)',
+                  )}
+                >
+                  <div className="i-tabler-arrow-wave-left-up flex-shrink-0 w-20 h-20 pink" />
+                  <div className="items-start gap-3">
                     <div className="block">
-                      Once you&apos;ve collected some pieces in your{' '}
-                      <span className="pink">inventory</span>, you can start
-                      assembling your cube!
+                      Every time you scan a piece, it will be collected in your{' '}
+                      <span className="pink">inventory</span> here.
                     </div>
                     <div>
-                      Click on the pieces in your inventory to add them to the
-                      cube. You must complete a layer of the cube before
-                      starting the next layer.
+                      Remember, you can&apos;t scan the same piece twice in a
+                      row. Instead, come back after scanning other pieces.
                     </div>
                     <div className="pink">Click to continue...</div>
                   </div>
-                  {/* <div className="i-tabler-arrow-wave-right-up rotate-90 w-20 h-20 pink" /> */}
+                </div>
+                <div
+                  className={clsx(
+                    'absolute hidden left-[100%] top-0 hidden w-[calc(min(640px,100vw)_-_5rem_-_1rem)] p-4 flex-row justify-start items-start pointer-events-none gap-2 help-3:(flex z-1)',
+                  )}
+                >
+                  <div className="i-tabler-arrow-wave-left-up w-20 h-20 pink flex-shrink-0" />
+                  <div className="items-start gap-3">
+                    <div className="items-start gap-3 rounded-lg bg-gray-800 p-2 bg-opacity-85">
+                      <div className="block">
+                        Once you&apos;ve collected some pieces in your{' '}
+                        <span className="pink">inventory</span>, you can start
+                        assembling your cube!
+                      </div>
+                      <div>
+                        Click on the pieces in your inventory to add them to the
+                        cube. You must complete a layer of the cube before
+                        starting the next layer.
+                      </div>
+                      <div className="pink">Click to continue...</div>
+                    </div>
+                    {/* <div className="i-tabler-arrow-wave-right-up rotate-90 w-20 h-20 pink" /> */}
+                  </div>
                 </div>
               </div>
             </div>
