@@ -17,11 +17,11 @@ const router = createBrowserRouter(
       element: <App />,
     },
     {
-      path: '/admin',
+      path: '/secret-admin',
       element: <Admin />,
     },
     {
-      path: '/reset',
+      path: '/secret-reset',
       element: <Reset />,
     },
   ],
