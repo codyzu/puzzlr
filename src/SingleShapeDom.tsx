@@ -21,8 +21,9 @@ const SingleShape = forwardRef<
   );
 
   return (
-    <div
+    <button
       className="bg-gray-800 rounded-lg bg-opacity-80"
+      type="button"
       onClick={() => {
         if (
           existingPieces &&
@@ -34,8 +35,10 @@ const SingleShape = forwardRef<
       }}
     >
       <div ref={ref} className="w-20 h-20" />
-      count {existingPieces?.length ?? 0}
-    </div>
+      <div className="text-sm">
+        {color}: {existingPieces?.length ?? 0}
+      </div>
+    </button>
   );
 });
 

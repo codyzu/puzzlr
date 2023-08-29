@@ -1,5 +1,5 @@
 import QRCode from 'react-qr-code';
-import {Fragment} from 'react';
+import {Fragment, useEffect} from 'react';
 import Canvas3D from './Canvas3D';
 import Shapes3D from './Shapes3D';
 import usePieceRefs from './use-piece-refs';
@@ -7,12 +7,15 @@ import Generator from './Generator';
 
 export default function Admin() {
   const pieceRefs = usePieceRefs();
+  useEffect(() => {
+    document.title = 'Cubework secret admin interface';
+  }, []);
   return (
     <>
       <div className="max-w-screen-sm w-full">
         <Generator />
       </div>
-      <div>Examples:</div>
+      <div>Quick examples:</div>
       <div className="h-full grid grid-cols-[auto_auto] lt-sm:grid-cols-1 gap-x-4 gap-y-8 lt-sm:gap-y-4 justify-items-center my-6">
         {Object.entries(pieceRefs).map(([color, ref]) => {
           const url = `${window.location.origin}${

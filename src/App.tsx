@@ -262,7 +262,7 @@ Have you ever thought about working for a company like NearForm? Check us out on
                         the help button.
                       </div>
                       <div>Thanks for playing and good luck!</div>
-                      <div className="pink">Click to continue...</div>
+                      <div className="pink">Click to start playing...</div>
                     </div>
                   </div>
                 </button>
