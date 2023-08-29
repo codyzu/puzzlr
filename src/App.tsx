@@ -1,16 +1,25 @@
-import {useRef, lazy, useEffect, Suspense, useState} from 'react';
+import {useRef, lazy, useEffect, Suspense, useState, useCallback} from 'react';
 import {useSearchParams} from 'react-router-dom';
 import clsx from 'clsx';
+import {useLiveQuery} from 'dexie-react-hooks';
 import logo from './assets/logo.png';
 import {db} from './db';
 import {isPieceColor, type PieceColor} from './piece-types';
 import SingleShape from './SingleShapeDom';
 import usePieceRefs from './use-piece-refs';
 import Popover from './Popover';
+import {pieceLayout, placedToCubeColorMap} from './piece-layout';
 
 const AssembledCube3D = lazy(async () => import('./AssembedCube3D'));
 const RotatingPieces3D = lazy(async () => import('./RotatingPieces3D'));
 const Canvas3D = lazy(async () => import('./Canvas3D'));
+
+const levelMessages = [
+  'Noob, go find some QR codes to scan and start building your cube!',
+  "Hey Rookie, you'r getting the hang of this, but there's still work to do.",
+  "You're almost there, keeping adding pieces so you can level up.",
+  "We've found a master, complete the cube and collect your prize!",
+];
 
 function App() {
   useEffect(() => {
@@ -36,6 +45,23 @@ Have you ever thought about working for a company like NearForm? Check us out on
   const [message, setMessage] = useState('');
   const [imageSource, setImageSource] = useState('');
   const [help, setHelp] = useState(0);
+
+  const placedPieces = useLiveQuery(async () =>
+    db.pieces.where('placement').aboveOrEqual(0).sortBy('placement'),
+  );
+
+  const [layerCount, setLayerCount] = useState(0);
+  useEffect(() => {
+    if (placedPieces === undefined) {
+      return;
+    }
+
+    const laidOutPieces = pieceLayout(
+      placedPieces?.map((piece) => piece.color) ?? [],
+    );
+    const cubeColorMap = placedToCubeColorMap(laidOutPieces);
+    setLayerCount(cubeColorMap.length);
+  }, [placedPieces]);
 
   useEffect(() => {
     if (!localStorage.getItem('helpDone')) {
@@ -97,6 +123,39 @@ Have you ever thought about working for a company like NearForm? Check us out on
     };
   }, [search, setSearch]);
 
+  const attemptPlacement = useCallback(async (pieceId: number) => {
+    console.log('attempting', pieceId);
+    const piece = await db.pieces.get(pieceId);
+    console.log('found', piece);
+
+    if (!piece) {
+      return;
+    }
+
+    const placed = await db.pieces
+      .where('placement')
+      .aboveOrEqual(0)
+      .sortBy('placement');
+    console.log('placed', placed);
+
+    const attempt = placed.map((placed) => placed.color);
+    attempt.push(piece.color);
+    console.log('attempt', attempt);
+
+    const result = pieceLayout(attempt).flat();
+    console.log('result', result);
+
+    if (
+      result.length > 0 &&
+      result.length === attempt.length &&
+      result.length === placed.length + 1
+    ) {
+      void db.pieces.update(pieceId, {
+        placement: result.length - 1,
+      });
+    }
+  }, []);
+
   const cubeRef = useRef<HTMLDivElement>(null!);
   const pieceRefs = usePieceRefs();
 
@@ -133,6 +192,7 @@ Have you ever thought about working for a company like NearForm? Check us out on
                   key={color}
                   ref={ref}
                   color={color as PieceColor}
+                  attemptPlacement={attemptPlacement}
                 />
               ))}
               <div
@@ -210,11 +270,18 @@ Have you ever thought about working for a company like NearForm? Check us out on
               <div className="flex-grow-1" />
               <div className="flex-row gap-2 items-stretch">
                 <div className="bg-black bg-opacity-70 rounded-lg p-3 pointer-events-auto justify-center">
-                  <div className="">You&apos;re current at level 0.</div>
+                  <div className="">
+                    Level {layerCount}: {levelMessages[layerCount - 1]}
+                  </div>
                 </div>
                 <button
                   className="btn pointer-events-auto self-center relative help-4:(z-1)"
                   type="button"
+                  onClick={() => {
+                    void db.pieces
+                      .toCollection()
+                      .modify({placement: undefined});
+                  }}
                 >
                   reset
                   <div

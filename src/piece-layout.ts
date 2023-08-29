@@ -20,6 +20,8 @@ export type LayerPoint = {
   highlight: boolean;
 };
 
+export type CubeColorMap = Array<Array<Array<undefined | LayerPoint>>>;
+
 export function pieceLayout(pieces: PieceColor[]): PlacedPiece[][] {
   let remainingPieces: PieceMeta[] = pieces.map((color, index) => ({
     index,
@@ -52,6 +54,23 @@ export function pieceLayout(pieces: PieceColor[]): PlacedPiece[][] {
   }
 
   return layers;
+}
+
+export function placedToCubeColorMap(
+  placedPieces: PlacedPiece[][],
+): CubeColorMap {
+  const layerMaps = placedPieces.map((layer) => placedToColorMap(layer));
+
+  // Push an empty layer if the last layer was complete
+  if (layerMaps.length < 4 && layerMaps.at(-1)!.flat().every(Boolean)) {
+    layerMaps.push(
+      Array.from({
+        length: 4,
+      }).map(() => Array.from({length: 4}).map(() => undefined)),
+    );
+  }
+
+  return layerMaps;
 }
 
 function layoutLayer(availablePieces: PieceMeta[], lastPiece: PieceMeta) {
@@ -110,7 +129,7 @@ function layoutLayer(availablePieces: PieceMeta[], lastPiece: PieceMeta) {
   return placedPieces;
 }
 
-export function placedToColorMap(pieces: PlacedPiece[]) {
+function placedToColorMap(pieces: PlacedPiece[]) {
   const layer: Array<Array<undefined | LayerPoint>> = Array.from({
     length: 4,
   }).map(() => Array.from({length: 4}).map(() => undefined));

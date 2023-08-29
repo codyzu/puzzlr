@@ -8,8 +8,8 @@ export class MySubClassedDexie extends Dexie {
 
   constructor() {
     super('nodeconf-23-scavenger');
-    this.version(1).stores({
-      pieces: '++id, color, added', // Primary key and indexed props
+    this.version(2).stores({
+      pieces: '++id, color, added, placement', // Primary key and indexed props
     });
   }
 }

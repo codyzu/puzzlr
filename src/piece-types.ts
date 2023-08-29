@@ -21,4 +21,5 @@ export type PieceRow = {
   id?: number;
   color: PieceColor;
   added: Date;
+  placement?: number;
 };

@@ -5,7 +5,11 @@ import {Box3, MathUtils, type Group, Sphere, Vector3} from 'three';
 import {useSpring, animated, config} from '@react-spring/three';
 import {useThree} from '@react-three/fiber';
 import {db} from './db';
-import {type LayerPoint, pieceLayout, placedToColorMap} from './piece-layout';
+import {
+  type LayerPoint,
+  pieceLayout,
+  placedToCubeColorMap,
+} from './piece-layout';
 import CubeLayer3D from './CubeLayer3D';
 
 export default function AssembledCube3D({
@@ -13,34 +17,24 @@ export default function AssembledCube3D({
 }: {
   cubeRef: MutableRefObject<HTMLDivElement>;
 }) {
-  const allPieces = useLiveQuery(async () =>
-    db.pieces.orderBy('added').toArray(),
+  const placedPieces = useLiveQuery(async () =>
+    db.pieces.where('placement').aboveOrEqual(0).sortBy('placement'),
   );
 
   const [layers, setLayers] = useState<
     Array<Array<Array<undefined | LayerPoint>>>
   >([[]]);
   useEffect(() => {
-    if (allPieces === undefined) {
+    if (placedPieces === undefined) {
       return;
     }
 
-    const nextLayers = pieceLayout(
-      allPieces?.map((piece) => piece.color) ?? [],
+    const laidOutPieces = pieceLayout(
+      placedPieces?.map((piece) => piece.color) ?? [],
     );
-    const layerMaps = nextLayers.map((layer) => placedToColorMap(layer));
-
-    // Push an empty layer if the last layer was complete
-    if (layerMaps.length < 4 && layerMaps.at(-1)!.flat().every(Boolean)) {
-      layerMaps.push(
-        Array.from({
-          length: 4,
-        }).map(() => Array.from({length: 4}).map(() => undefined)),
-      );
-    }
-
-    setLayers(layerMaps);
-  }, [allPieces]);
+    const cubeColorMap = placedToCubeColorMap(laidOutPieces);
+    setLayers(cubeColorMap);
+  }, [placedPieces]);
 
   const piecesRef = useRef<Group>(null!);
   const pivotRef = useRef<Group>(null!);
