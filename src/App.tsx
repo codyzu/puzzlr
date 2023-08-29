@@ -90,26 +90,26 @@ Have you ever thought about working for a company like NearForm? Check us out on
         return;
       }
 
-      if (search.has('add')) {
-        console.log('adding', search.get('add'));
+      if (search.has('p')) {
+        console.log('adding', search.get('p'));
         const nextSearch = new URLSearchParams([...search.entries()]);
-        nextSearch.delete('add');
+        nextSearch.delete('p');
         setSearch(nextSearch);
 
-        if (isPieceColor(search.get('add'))) {
+        if (isPieceColor(search.get('p'))) {
           void db.pieces.add({
-            color: search.get('add') as PieceColor,
+            color: search.get('p') as PieceColor,
             added: new Date(),
           });
         }
       }
 
-      if (search.has('message')) {
-        setMessage(decodeURIComponent(search.get('message')!));
+      if (search.has('m')) {
+        setMessage(decodeURIComponent(search.get('m')!));
       }
 
-      if (search.has('image')) {
-        setImageSource(decodeURIComponent(search.get('image')!));
+      if (search.has('i')) {
+        setImageSource(decodeURIComponent(search.get('i')!));
       }
     }, 0);
 
@@ -318,8 +318,8 @@ Have you ever thought about working for a company like NearForm? Check us out on
           setMessage('');
           setImageSource('');
           const nextSearch = new URLSearchParams([...search.entries()]);
-          nextSearch.delete('message');
-          nextSearch.delete('image');
+          nextSearch.delete('m');
+          nextSearch.delete('i');
           setSearch(nextSearch);
         }}
       >

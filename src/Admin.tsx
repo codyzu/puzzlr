@@ -20,7 +20,7 @@ export default function Admin() {
         {Object.entries(pieceRefs).map(([color, ref]) => {
           const url = `${window.location.origin}${
             import.meta.env.BASE_URL
-          }?add=${color}`;
+          }?p=${color}`;
           return (
             <Fragment key={color}>
               <div className="prose h-full lt-sm:w-auto lt-sm:w-full rounded-lg bg-gray-800 p-2 lt-sm:mb-0 justify-center">

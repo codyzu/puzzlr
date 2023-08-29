@@ -8,13 +8,13 @@ export default function Generator() {
   const [image, setImage] = useState('');
   const [piece, setPiece] = useState<PieceColor>('pink');
 
-  const searchParameters = new URLSearchParams([['add', piece]]);
+  const searchParameters = new URLSearchParams([['p', piece]]);
   if (message) {
-    searchParameters.set('message', encodeURIComponent(message));
+    searchParameters.set('m', encodeURIComponent(message));
   }
 
   if (image) {
-    searchParameters.set('image', encodeURIComponent(image));
+    searchParameters.set('i', encodeURIComponent(image));
   }
 
   const url = `${window.location.origin}${
