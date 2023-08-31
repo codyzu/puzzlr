@@ -4,7 +4,7 @@ name: Deploy static content to Pages
 on:
   # Runs on pushes targeting the default branch
   push:
-    branches: ["main"]
+    branches: ["ghc"]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -62,4 +62,4 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NODECONF_23_SCAVENGER }}'
           channelId: live
           projectId: nodeconf-23-scavenger
-          target: nodeconf
+          target: ghc
