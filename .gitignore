@@ -27,5 +27,4 @@ public/*.png
 !public/logo-p-500.png
 public/*.ico
 
-.firebaserc
 .firebase/*

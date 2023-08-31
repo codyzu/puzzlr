@@ -1,0 +1,18 @@
+{
+  "projects": {
+    "default": "nodeconf-23-scavenger"
+  },
+  "targets": {
+    "nodeconf-23-scavenger": {
+      "hosting": {
+        "nodeconf": [
+          "nodeconf-23-scavenger"
+        ],
+        "ghc": [
+          "ghc-cubework"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}
