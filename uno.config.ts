@@ -54,7 +54,8 @@ export default defineConfig({
     'input-control': 'rounded-md p-2 bg-gray-200 text-black',
     btn: 'bg-dark-violet text-brand-background p-4 font-heading tracking-[2px] font-semibold text-base uppercase hover:bg-dark-violet disabled:bg-gray-600',
     'help-border': 'z-1 border-tangerine border-3 rounded-lg',
-    wizard: 'from-sapphire to-violet bg-gradient-to-r bg-opacity-95',
+    wizard:
+      'from-sapphire to-violet bg-gradient-to-r bg-opacity-95 bg-gradient-from-opacity-90 bg-gradient-to-opacity-90',
     body: 'bg-magenta from-magenta to-tangerine bg-gradient-to-r',
     'wizard-highlight': 'text-tangerine',
     'wizard-container':
