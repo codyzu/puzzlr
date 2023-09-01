@@ -68,13 +68,13 @@ export default function Generator() {
       </label>
       {(message || image) && (
         <>
-          <div className="mt-8 text-lg font-700">Popover Preview:</div>
+          <div className="mt-8 text-lg font-bold">Popover Preview:</div>
           <div className="w-full overflow-hidden">
             <Popover message={message} imageSource={image} />
           </div>
         </>
       )}
-      <div className="mt-8 text-lg font-700">QR Code:</div>
+      <div className="mt-8 text-lg font-bold">QR Code:</div>
       <div className="bg-white p-4 self-center">
         {/* @ts-expect-error some of the props are not defined in the library typings */}
         <QRCode
@@ -85,7 +85,7 @@ export default function Generator() {
           title={`Add ${piece} piece`}
         />
       </div>
-      <div className="text-lg font-700">Embedded URL (click to test):</div>
+      <div className="text-lg font-bold">Embedded URL (click to test):</div>
       <div className="break-all">
         <a href={url}>{url}</a>
       </div>
