@@ -2,7 +2,7 @@ import {useRef, lazy, useEffect, Suspense, useState, useCallback} from 'react';
 import {useSearchParams} from 'react-router-dom';
 import clsx from 'clsx';
 import {useLiveQuery} from 'dexie-react-hooks';
-import logo from './assets/logo.png';
+import logo from './assets/ghc23-logo.svg';
 import {db} from './db';
 import {isPieceColor, type PieceColor} from './piece-types';
 import SingleShape from './SingleShapeDom';
@@ -170,14 +170,12 @@ Have you ever thought about working for a company like NearForm? Check us out on
         </div>
         <div className="relative w-full flex-grow-1 p-2 gap-4 items-stretch pointer-events-none">
           <div className="bg-black bg-opacity-70 self-center rounded-lg p-3  shadow-white pointer-events-auto">
-            <div className="flex-row gap-2">
-              <img src={logo} className="h-10 w-auto" />
-              <div className="font-heading text-3xl font-700">
-                NodeConf EU 2023
+            <div className="flex-row gap-2 items-center">
+              <img src={logo} className="h-18" />
+              <div className="font-heading text-3xl items-start">
+                <div className="font-normal">Grace Hopper</div>
+                <div className="font-semibold">Celebration</div>
               </div>
-            </div>
-            <div className="font-heading font-600">
-              at the Lyrath Estate, Kilkenny, Ireland
             </div>
           </div>
           <div className="flex-row items-stretch gap-2 flex-grow-1">
