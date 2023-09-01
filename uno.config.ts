@@ -46,22 +46,38 @@ export default defineConfig({
   ],
   transformers: [transformerDirectives(), transformerVariantGroup()],
   shortcuts: {
-    pink: 'text-[#f08]',
     'input-control': 'rounded-md p-2 bg-gray-200 text-black',
-    btn: 'bg-[#f08] p-4 rounded-lg font-heading tracking-[2px] font-semibold text-base uppercase hover:bg-[#c51774] disabled:bg-gray-600',
-    'help-border': 'z-1 border-[#f08] border-3 rounded-lg',
+    btn: 'bg-pink rounded-lg p-4 font-heading tracking-[2px] font-semibold text-base uppercase hover:bg-dark-pink disabled:bg-gray-600',
+    'help-border': 'z-1 border-pink border-3 rounded-lg',
+    wizard: 'bg-gray-800 bg-opacity-95',
+    body: 'bg-black',
+    'wizard-highlight': 'text-pink',
+    'wizard-container':
+      'absolute hidden p-4 flex-row justify-end items-start pointer-events-none gap-2 text-white case-normal font-normal tracking-normal font-sans text-base',
+    'wizard-overlay': 'bg-gray-800',
+    highlight: 'text-pink font-bold',
+    'shape-container': 'bg-gray-800 rounded-lg bg-opacity-80',
+    'info-container':
+      'bg-black bg-opacity-70 rounded-lg p-3 pointer-events-auto',
+    logo: 'h-10 w-auto',
+  },
+  theme: {
+    colors: {
+      pink: '#f08',
+      'dark-pink': '#c51774',
+    },
   },
   variants: [
-    // (matcher) => {
-    //   if (!matcher.startsWith('help:')) {
-    //     return matcher;
-    //   }
+    (matcher) => {
+      if (!matcher.startsWith('help:')) {
+        return matcher;
+      }
 
-    //   return {
-    //     matcher: matcher.slice(5),
-    //     selector: (s) => `div[data-help] ${s}`,
-    //   };
-    // },
+      return {
+        matcher: matcher.slice(5),
+        selector: (s) => `div[data-help] ${s}`,
+      };
+    },
     (matcher) => {
       const matchResult = /^help-(?<helpIndex>\d+):/.exec(matcher);
       if (!matchResult) {
