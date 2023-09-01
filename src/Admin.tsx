@@ -23,7 +23,7 @@ export default function Admin() {
           }?p=${color}`;
           return (
             <Fragment key={color}>
-              <div className="h-full lt-sm:w-auto lt-sm:w-full rounded-lg bg-gray-800 p-2 lt-sm:mb-0 justify-center">
+              <div className="h-full lt-sm:w-auto lt-sm:w-full shape-container p-2 lt-sm:mb-0 justify-center">
                 <div ref={ref} className="w-20 h-20" />
                 <a className="underline" href={url}>
                   Add {color}
