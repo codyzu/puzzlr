@@ -23,9 +23,11 @@ export default function Admin() {
           }?p=${color}`;
           return (
             <Fragment key={color}>
-              <div className="prose h-full lt-sm:w-auto lt-sm:w-full rounded-lg bg-gray-800 p-2 lt-sm:mb-0 justify-center">
+              <div className="h-full lt-sm:w-auto lt-sm:w-full rounded-lg bg-gray-800 p-2 lt-sm:mb-0 justify-center">
                 <div ref={ref} className="w-20 h-20" />
-                <a href={url}>Add {color}</a>
+                <a className="underline" href={url}>
+                  Add {color}
+                </a>
               </div>
               <div className="w-200px h-200px bg-white p-2 lt-sm:mb-10">
                 {/* @ts-expect-error title is used but not defined in the libraries typings */}

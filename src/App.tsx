@@ -181,7 +181,7 @@ Have you ever thought about working for a company like NearForm? Check us out on
           <div className="flex-row items-stretch gap-2 flex-grow-1">
             <div className="justify-start">
               <div className="relative gap-2 pointer-events-auto help-2:(help-border) help-3:(help-border)">
-                <div className="pink font-700">Inventory</div>
+                <div className="pink font-bold">Inventory</div>
                 {Object.entries(pieceRefs).map(([color, ref]) => (
                   <SingleShape
                     key={color}
@@ -252,7 +252,7 @@ Have you ever thought about working for a company like NearForm? Check us out on
                   >
                     <div className="items-end text-right gap-4">
                       <div className="i-tabler-arrow-wave-right-down w-20 h-20 pink flex-shrink-0 rotate-270" />
-                      <div className="font-700 pink text-lg">Help</div>
+                      <div className="font-bold pink text-lg">Help</div>
                       <div>
                         You can re-start this tutorial at any time by clicking
                         the help button.
@@ -282,11 +282,11 @@ Have you ever thought about working for a company like NearForm? Check us out on
                   reset
                   <div
                     className={clsx(
-                      'absolute hidden bottom-[100%] right-0 hidden w-[calc(min(640px,100vw)_-_1rem)] p-4 flex-row justify-end items-start pointer-events-none gap-2 help-4:(flex z-1) text-white case-normal font-400 tracking-normal font-sans text-base',
+                      'absolute hidden bottom-[100%] right-0 hidden w-[calc(min(640px,100vw)_-_1rem)] p-4 flex-row justify-end items-start pointer-events-none gap-2 help-4:(flex z-1) text-white case-normal font-normal tracking-normal font-sans text-base',
                     )}
                   >
                     <div className="items-end text-right gap-4">
-                      <div className="font-700 pink text-lg">Reset</div>
+                      <div className="font-bold pink text-lg">Reset</div>
                       <div className="block">
                         You can always click the{' '}
                         <span className="pink">reset</span> button to dissemble
@@ -331,7 +331,7 @@ Have you ever thought about working for a company like NearForm? Check us out on
             advanceHelp();
           }}
         >
-          <div className="text-lg font-700">Cubework Tutorial</div>
+          <div className="text-lg font-bold">Cubework Tutorial</div>
           <div className="text-sm italic">click to advance</div>
           <div className="flex-row gap-2 mt-4">
             {Array.from({length: 5}).map((_, index) => (
@@ -348,7 +348,7 @@ Have you ever thought about working for a company like NearForm? Check us out on
             ))}
           </div>
           <div className="hidden help-1:flex text-center mt-4 max-w-screen-sm gap-2">
-            <div className="font-700">Welcome to Cubework!</div>
+            <div className="font-bold">Welcome to Cubework!</div>
             <div>
               Keep an eye out during the conference for QR codes that add pieces
               to complete the cube.
