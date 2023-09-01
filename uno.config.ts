@@ -22,6 +22,11 @@ export default defineConfig({
         // Mono: ['Inconsolata'],
         sans: [
           {
+            name: 'Montserrat',
+            weights: ['400', '500'],
+            italic: true,
+          },
+          {
             name: 'Open Sans',
             weights: ['400', '500'],
           },
@@ -47,12 +52,23 @@ export default defineConfig({
   transformers: [transformerDirectives(), transformerVariantGroup()],
   shortcuts: {
     'input-control': 'rounded-md p-2 bg-gray-200 text-black',
-    btn: 'bg-brand-primary text-brand-background p-4 rounded-lg font-heading tracking-[2px] font-semibold text-base uppercase hover:bg-brand-primary disabled:bg-gray-600',
-    'help-border': 'z-1 border-brand-primary border-3 rounded-lg',
+    btn: 'bg-dark-violet text-brand-background p-4 font-heading tracking-[2px] font-semibold text-base uppercase hover:bg-dark-violet disabled:bg-gray-600',
+    'help-border': 'z-1 border-tangerine border-3 rounded-lg',
+    wizard: 'from-sapphire to-violet bg-gradient-linear bg-opacity-95',
+    body: 'bg-magenta from-magenta to-tangerine bg-gradient-linear',
+    'wizard-highlight': 'text-tangerine',
+    'wizard-container':
+      'absolute hidden p-4 flex-row justify-end items-start pointer-events-none gap-2 text-white case-normal font-normal tracking-normal font-sans text-base',
+    'wizard-overlay': 'bg-sapphire',
+    highlight: 'text-white font-bold',
+    'shape-container': 'bg-dark-violet bg-opacity-80',
+    'info-container': 'p-3 pointer-events-auto',
   },
   theme: {
     colors: {
+      // Found all of these colors while inspecting the GHC page
       violet: '#409',
+      'dark-violet': '#309',
       magenta: '#a3238e',
       sapphire: '#005baa',
       tangerine: '#ff8200',
@@ -74,24 +90,19 @@ export default defineConfig({
       'light-blue': '#4891c6',
       'light-blue-l': '#52b9e9',
       white: '#ffffff',
-
-      brand: {
-        primary: '#409',
-        // Background: '#330099',
-      },
     },
   },
   variants: [
-    // (matcher) => {
-    //   if (!matcher.startsWith('help:')) {
-    //     return matcher;
-    //   }
+    (matcher) => {
+      if (!matcher.startsWith('help:')) {
+        return matcher;
+      }
 
-    //   return {
-    //     matcher: matcher.slice(5),
-    //     selector: (s) => `div[data-help] ${s}`,
-    //   };
-    // },
+      return {
+        matcher: matcher.slice(5),
+        selector: (s) => `div[data-help] ${s}`,
+      };
+    },
     (matcher) => {
       const matchResult = /^help-(?<helpIndex>\d+):/.exec(matcher);
       if (!matchResult) {

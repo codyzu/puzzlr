@@ -22,7 +22,7 @@ const SingleShape = forwardRef<
 
   return (
     <button
-      className="bg-gray-800 rounded-lg bg-opacity-80"
+      className="shape-container"
       type="button"
       onClick={() => {
         if (

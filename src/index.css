@@ -1,5 +1,5 @@
 body {
-  --uno: m-0 from-magenta to-tangerine bg-gradient-linear text-white font-sans text-base tracking-normal;
+  --uno: m-0 body text-white font-sans text-base tracking-normal;
 }
 
 div {

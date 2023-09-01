@@ -169,7 +169,7 @@ Have you ever thought about working for a company like NearForm? Check us out on
           </Suspense>
         </div>
         <div className="relative w-full flex-grow-1 p-2 gap-4 items-stretch pointer-events-none">
-          <div className="bg-black bg-opacity-70 self-center rounded-lg p-3  shadow-white pointer-events-auto">
+          <div className="info-container self-center">
             <div className="flex-row gap-2 items-center">
               <img src={logo} className="h-18" />
               <div className="font-heading text-3xl items-start">
@@ -181,7 +181,9 @@ Have you ever thought about working for a company like NearForm? Check us out on
           <div className="flex-row items-stretch gap-2 flex-grow-1">
             <div className="justify-start">
               <div className="relative gap-2 pointer-events-auto help-2:(help-border) help-3:(help-border)">
-                <div className="text-brand-primary font-bold">Inventory</div>
+                <div className="highlight font-bold help:wizard-highlight">
+                  Inventory
+                </div>
                 {Object.entries(pieceRefs).map(([color, ref]) => (
                   <SingleShape
                     key={color}
@@ -190,50 +192,34 @@ Have you ever thought about working for a company like NearForm? Check us out on
                     attemptPlacement={attemptPlacement}
                   />
                 ))}
-                <div
-                  className={clsx(
-                    'absolute hidden left-[100%] top-0 hidden w-[calc(min(640px,100vw)_-_5rem_-_1rem)] p-4 flex-row justify-start items-start pointer-events-none gap-2 help-2:(flex z-1)',
-                  )}
-                >
-                  <div className="i-tabler-arrow-wave-left-up flex-shrink-0 w-20 h-20 text-brand-primary" />
+                <div className="wizard-container left-[100%] top-0 w-[calc(min(640px,100vw)_-_5rem_-_1rem)] help-2:(flex z-1)">
+                  <div className="i-tabler-arrow-wave-left-up flex-shrink-0 w-20 h-20 wizard-highlight" />
                   <div className="items-start gap-3">
                     <div className="block">
                       Every time you scan a piece, it will be collected in your{' '}
-                      <span className="text-brand-primary">inventory</span>{' '}
-                      here.
+                      <span className="wizard-highlight">inventory</span> here.
                     </div>
                     <div>
                       Remember, you can&apos;t scan the same piece twice in a
                       row. Instead, come back after scanning other pieces.
                     </div>
-                    <div className="text-brand-primary">
-                      Click to continue...
-                    </div>
+                    <div className="wizard-highlight">Click to continue...</div>
                   </div>
                 </div>
-                <div
-                  className={clsx(
-                    'absolute hidden left-[100%] top-0 hidden w-[calc(min(640px,100vw)_-_5rem_-_1rem)] p-4 flex-row justify-start items-start pointer-events-none gap-2 help-3:(flex z-1)',
-                  )}
-                >
-                  <div className="i-tabler-arrow-wave-left-up w-20 h-20 text-brand-primary flex-shrink-0" />
-                  <div className="items-start gap-3">
-                    <div className="items-start gap-3 rounded-lg bg-gray-800 p-2 bg-opacity-85">
-                      <div className="block">
-                        Once you&apos;ve collected some pieces in your{' '}
-                        <span className="text-brand-primary">inventory</span>,
-                        you can start assembling your cube!
-                      </div>
-                      <div>
-                        Click on the pieces in your inventory to add them to the
-                        cube. You must complete a layer of the cube before
-                        starting the next layer.
-                      </div>
-                      <div className="text-brand-primary">
-                        Click to continue...
-                      </div>
+                <div className="wizard-container left-[100%] top-0 w-[calc(min(640px,100vw)_-_5rem_-_1rem)] help-3:(flex z-1)">
+                  <div className="i-tabler-arrow-wave-left-up w-20 h-20 wizard-highlight flex-shrink-0" />
+                  <div className="items-start gap-3 rounded-lg wizard-overlay p-2 bg-opacity-85">
+                    <div className="block">
+                      Once you&apos;ve collected some pieces in your{' '}
+                      <span className="wizard-highlight">inventory</span>, you
+                      can start assembling your cube!
                     </div>
-                    {/* <div className="i-tabler-arrow-wave-right-up rotate-90 w-20 h-20 text-brand-primary" /> */}
+                    <div>
+                      Click on the pieces in your inventory to add them to the
+                      cube. You must complete a layer of the cube before
+                      starting the next layer.
+                    </div>
+                    <div className="wizard-highlight">Click to continue...</div>
                   </div>
                 </div>
               </div>
@@ -242,22 +228,17 @@ Have you ever thought about working for a company like NearForm? Check us out on
               <div className="flex-row justify-end">
                 <button
                   type="button"
-                  // ClassName="text-brand-primary help-1:(z-1 border-pink border-3 rounded-lg) relative after:(absolute top-0 left-[100%] content-['hello'] w-10 h-10 bg-red)"
-                  className="text-brand-primary self-start relative help-5:(help-border) w-20 pointer-events-auto"
+                  className="highlight self-start relative help-5:(help-border wizard-highlight) w-20 pointer-events-auto"
                   onClick={() => {
                     setHelp(1);
                   }}
                 >
                   <div className="i-tabler-help h-8 w-8" />
                   <div className="text-sm">help</div>
-                  <div
-                    className={clsx(
-                      'absolute hidden top-[100%] right-0 hidden w-[calc(min(640px,100vw)_-_1rem)] p-4 flex-row justify-end items-start pointer-events-none gap-2 help-5:(flex z-1) text-white',
-                    )}
-                  >
+                  <div className="wizard-container top-[100%] right-0 w-[calc(min(640px,100vw)_-_1rem)] help-5:(flex z-1)">
                     <div className="items-end text-right gap-4">
-                      <div className="i-tabler-arrow-wave-right-down w-20 h-20 text-brand-primary flex-shrink-0 rotate-270" />
-                      <div className="font-bold text-brand-primary text-lg">
+                      <div className="i-tabler-arrow-wave-right-down w-20 h-20 wizard-highlight flex-shrink-0 rotate-270" />
+                      <div className="font-bold wizard-highlight text-lg">
                         Help
                       </div>
                       <div>
@@ -265,7 +246,7 @@ Have you ever thought about working for a company like NearForm? Check us out on
                         the help button.
                       </div>
                       <div>Thanks for playing and good luck!</div>
-                      <div className="text-brand-primary">
+                      <div className="wizard-highlight">
                         Click to start playing...
                       </div>
                     </div>
@@ -274,13 +255,13 @@ Have you ever thought about working for a company like NearForm? Check us out on
               </div>
               <div className="flex-grow-1" />
               <div className="flex-row gap-2 items-stretch">
-                <div className="bg-black bg-opacity-70 rounded-lg p-3 pointer-events-auto justify-center">
+                <div className="info-container justify-center">
                   <div className="">
                     Level {layerCount}: {levelMessages[layerCount - 1]}
                   </div>
                 </div>
                 <button
-                  className="btn pointer-events-auto self-center relative help-4:(z-1)"
+                  className="btn pointer-events-auto self-center relative help-4:(z-1 help-border)"
                   type="button"
                   onClick={() => {
                     void db.pieces
@@ -289,25 +270,21 @@ Have you ever thought about working for a company like NearForm? Check us out on
                   }}
                 >
                   reset
-                  <div
-                    className={clsx(
-                      'absolute hidden bottom-[100%] right-0 hidden w-[calc(min(640px,100vw)_-_1rem)] p-4 flex-row justify-end items-start pointer-events-none gap-2 help-4:(flex z-1) text-white case-normal font-normal tracking-normal font-sans text-base',
-                    )}
-                  >
+                  <div className="wizard-container bottom-[100%] right-0 w-[calc(min(640px,100vw)_-_1rem)] help-4:(flex z-1)">
                     <div className="items-end text-right gap-4">
-                      <div className="font-bold text-brand-primary text-lg">
+                      <div className="font-bold wizard-highlight text-lg">
                         Reset
                       </div>
                       <div className="block">
                         You can always click the{' '}
-                        <span className="text-brand-primary">reset</span> button
+                        <span className="wizard-highlight">reset</span> button
                         to dissemble your cube and return all of the pieces to
                         your inventory and restart building your cube!
                       </div>
-                      <div className="text-brand-primary">
+                      <div className="wizard-highlight">
                         Click to continue...
                       </div>
-                      <div className="i-tabler-arrow-wave-right-down w-20 h-20 text-brand-primary flex-shrink-0 rotate-90" />
+                      <div className="i-tabler-arrow-wave-right-down w-20 h-20 wizard-highlight flex-shrink-0 rotate-90" />
                     </div>
                   </div>
                 </button>
@@ -339,7 +316,7 @@ Have you ever thought about working for a company like NearForm? Check us out on
       </div>
       {help ? (
         <div
-          className="absolute top-0 left-0 w-full h-full bg-gray-800 bg-opacity-95 p-4"
+          className="absolute top-0 left-0 w-full h-full p-4 wizard"
           onClick={() => {
             advanceHelp();
           }}
@@ -353,7 +330,7 @@ Have you ever thought about working for a company like NearForm? Check us out on
                 key={index + 1}
                 className={clsx(
                   help === index + 1
-                    ? 'i-tabler-circle-filled text-brand-primary'
+                    ? 'i-tabler-circle-filled wizard-highlight'
                     : 'i-tabler-circle',
                   'w-3 h-3',
                 )}
@@ -367,7 +344,7 @@ Have you ever thought about working for a company like NearForm? Check us out on
               to complete the cube.
             </div>
             <div>The goal is to collect pieces to fill the cube.</div>
-            <div className="text-brand-primary">Click to continue...</div>
+            <div className="wizard-highlight">Click to continue...</div>
           </div>
         </div>
       ) : null}
