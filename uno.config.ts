@@ -46,10 +46,40 @@ export default defineConfig({
   ],
   transformers: [transformerDirectives(), transformerVariantGroup()],
   shortcuts: {
-    pink: 'text-[#f08]',
     'input-control': 'rounded-md p-2 bg-gray-200 text-black',
-    btn: 'bg-[#f08] p-4 rounded-lg font-heading tracking-[2px] font-semibold text-base uppercase hover:bg-[#c51774] disabled:bg-gray-600',
-    'help-border': 'z-1 border-[#f08] border-3 rounded-lg',
+    btn: 'bg-brand-primary text-brand-background p-4 rounded-lg font-heading tracking-[2px] font-semibold text-base uppercase hover:bg-brand-primary disabled:bg-gray-600',
+    'help-border': 'z-1 border-brand-primary border-3 rounded-lg',
+  },
+  theme: {
+    colors: {
+      violet: '#409',
+      magenta: '#a3238e',
+      sapphire: '#005baa',
+      tangerine: '#ff8200',
+      caribbean: '#62b5e5',
+
+      aqua: '#08b3c3',
+      blue: '#3e85c7',
+      'deep-blue': '#245cac',
+      pink: '#f2aece',
+      'deep-pink': '#b76cab',
+      orange: '#ef9626',
+      'deep-orange': '#c68813',
+      red: '#f15d40',
+      green: '#59bda0',
+      'deep-green': '#0ea581',
+      purple: '#882784',
+      'deep-purple': '#231b4e',
+      yellow: '#c1d82f',
+      'light-blue': '#4891c6',
+      'light-blue-l': '#52b9e9',
+      white: '#ffffff',
+
+      brand: {
+        primary: '#409',
+        // Background: '#330099',
+      },
+    },
   },
   variants: [
     // (matcher) => {

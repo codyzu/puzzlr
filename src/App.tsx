@@ -181,7 +181,7 @@ Have you ever thought about working for a company like NearForm? Check us out on
           <div className="flex-row items-stretch gap-2 flex-grow-1">
             <div className="justify-start">
               <div className="relative gap-2 pointer-events-auto help-2:(help-border) help-3:(help-border)">
-                <div className="pink font-bold">Inventory</div>
+                <div className="text-brand-primary font-bold">Inventory</div>
                 {Object.entries(pieceRefs).map(([color, ref]) => (
                   <SingleShape
                     key={color}
@@ -195,17 +195,20 @@ Have you ever thought about working for a company like NearForm? Check us out on
                     'absolute hidden left-[100%] top-0 hidden w-[calc(min(640px,100vw)_-_5rem_-_1rem)] p-4 flex-row justify-start items-start pointer-events-none gap-2 help-2:(flex z-1)',
                   )}
                 >
-                  <div className="i-tabler-arrow-wave-left-up flex-shrink-0 w-20 h-20 pink" />
+                  <div className="i-tabler-arrow-wave-left-up flex-shrink-0 w-20 h-20 text-brand-primary" />
                   <div className="items-start gap-3">
                     <div className="block">
                       Every time you scan a piece, it will be collected in your{' '}
-                      <span className="pink">inventory</span> here.
+                      <span className="text-brand-primary">inventory</span>{' '}
+                      here.
                     </div>
                     <div>
                       Remember, you can&apos;t scan the same piece twice in a
                       row. Instead, come back after scanning other pieces.
                     </div>
-                    <div className="pink">Click to continue...</div>
+                    <div className="text-brand-primary">
+                      Click to continue...
+                    </div>
                   </div>
                 </div>
                 <div
@@ -213,22 +216,24 @@ Have you ever thought about working for a company like NearForm? Check us out on
                     'absolute hidden left-[100%] top-0 hidden w-[calc(min(640px,100vw)_-_5rem_-_1rem)] p-4 flex-row justify-start items-start pointer-events-none gap-2 help-3:(flex z-1)',
                   )}
                 >
-                  <div className="i-tabler-arrow-wave-left-up w-20 h-20 pink flex-shrink-0" />
+                  <div className="i-tabler-arrow-wave-left-up w-20 h-20 text-brand-primary flex-shrink-0" />
                   <div className="items-start gap-3">
                     <div className="items-start gap-3 rounded-lg bg-gray-800 p-2 bg-opacity-85">
                       <div className="block">
                         Once you&apos;ve collected some pieces in your{' '}
-                        <span className="pink">inventory</span>, you can start
-                        assembling your cube!
+                        <span className="text-brand-primary">inventory</span>,
+                        you can start assembling your cube!
                       </div>
                       <div>
                         Click on the pieces in your inventory to add them to the
                         cube. You must complete a layer of the cube before
                         starting the next layer.
                       </div>
-                      <div className="pink">Click to continue...</div>
+                      <div className="text-brand-primary">
+                        Click to continue...
+                      </div>
                     </div>
-                    {/* <div className="i-tabler-arrow-wave-right-up rotate-90 w-20 h-20 pink" /> */}
+                    {/* <div className="i-tabler-arrow-wave-right-up rotate-90 w-20 h-20 text-brand-primary" /> */}
                   </div>
                 </div>
               </div>
@@ -237,8 +242,8 @@ Have you ever thought about working for a company like NearForm? Check us out on
               <div className="flex-row justify-end">
                 <button
                   type="button"
-                  // ClassName="pink help-1:(z-1 border-pink border-3 rounded-lg) relative after:(absolute top-0 left-[100%] content-['hello'] w-10 h-10 bg-red)"
-                  className="pink self-start relative help-5:(help-border) w-20 pointer-events-auto"
+                  // ClassName="text-brand-primary help-1:(z-1 border-pink border-3 rounded-lg) relative after:(absolute top-0 left-[100%] content-['hello'] w-10 h-10 bg-red)"
+                  className="text-brand-primary self-start relative help-5:(help-border) w-20 pointer-events-auto"
                   onClick={() => {
                     setHelp(1);
                   }}
@@ -251,14 +256,18 @@ Have you ever thought about working for a company like NearForm? Check us out on
                     )}
                   >
                     <div className="items-end text-right gap-4">
-                      <div className="i-tabler-arrow-wave-right-down w-20 h-20 pink flex-shrink-0 rotate-270" />
-                      <div className="font-bold pink text-lg">Help</div>
+                      <div className="i-tabler-arrow-wave-right-down w-20 h-20 text-brand-primary flex-shrink-0 rotate-270" />
+                      <div className="font-bold text-brand-primary text-lg">
+                        Help
+                      </div>
                       <div>
                         You can re-start this tutorial at any time by clicking
                         the help button.
                       </div>
                       <div>Thanks for playing and good luck!</div>
-                      <div className="pink">Click to start playing...</div>
+                      <div className="text-brand-primary">
+                        Click to start playing...
+                      </div>
                     </div>
                   </div>
                 </button>
@@ -286,15 +295,19 @@ Have you ever thought about working for a company like NearForm? Check us out on
                     )}
                   >
                     <div className="items-end text-right gap-4">
-                      <div className="font-bold pink text-lg">Reset</div>
+                      <div className="font-bold text-brand-primary text-lg">
+                        Reset
+                      </div>
                       <div className="block">
                         You can always click the{' '}
-                        <span className="pink">reset</span> button to dissemble
-                        your cube and return all of the pieces to your inventory
-                        and restart building your cube!
+                        <span className="text-brand-primary">reset</span> button
+                        to dissemble your cube and return all of the pieces to
+                        your inventory and restart building your cube!
                       </div>
-                      <div className="pink">Click to continue...</div>
-                      <div className="i-tabler-arrow-wave-right-down w-20 h-20 pink flex-shrink-0 rotate-90" />
+                      <div className="text-brand-primary">
+                        Click to continue...
+                      </div>
+                      <div className="i-tabler-arrow-wave-right-down w-20 h-20 text-brand-primary flex-shrink-0 rotate-90" />
                     </div>
                   </div>
                 </button>
@@ -340,7 +353,7 @@ Have you ever thought about working for a company like NearForm? Check us out on
                 key={index + 1}
                 className={clsx(
                   help === index + 1
-                    ? 'i-tabler-circle-filled pink'
+                    ? 'i-tabler-circle-filled text-brand-primary'
                     : 'i-tabler-circle',
                   'w-3 h-3',
                 )}
@@ -354,7 +367,7 @@ Have you ever thought about working for a company like NearForm? Check us out on
               to complete the cube.
             </div>
             <div>The goal is to collect pieces to fill the cube.</div>
-            <div className="pink">Click to continue...</div>
+            <div className="text-brand-primary">Click to continue...</div>
           </div>
         </div>
       ) : null}
