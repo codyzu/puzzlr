@@ -2,13 +2,13 @@ import {useRef, lazy, useEffect, Suspense, useState, useCallback} from 'react';
 import {useSearchParams} from 'react-router-dom';
 import clsx from 'clsx';
 import {useLiveQuery} from 'dexie-react-hooks';
-import logo from './assets/logo.png';
 import {db} from './db';
 import {isPieceColor, type PieceColor} from './piece-types';
 import SingleShape from './SingleShapeDom';
 import usePieceRefs from './use-piece-refs';
 import Popover from './Popover';
 import {pieceLayout, placedToCubeColorMap} from './piece-layout';
+import Header from './Header';
 
 const AssembledCube3D = lazy(async () => import('./AssembedCube3D'));
 const RotatingPieces3D = lazy(async () => import('./RotatingPieces3D'));
@@ -169,17 +169,7 @@ Have you ever thought about working for a company like NearForm? Check us out on
           </Suspense>
         </div>
         <div className="relative w-full flex-grow-1 p-2 gap-4 items-stretch pointer-events-none">
-          <div className="info-container self-center">
-            <div className="flex-row gap-2 items-center">
-              <img src={logo} className="logo" />
-              <div className="font-heading text-3xl items-start font-bold">
-                NodeConf EU 2023
-              </div>
-            </div>
-            <div className="font-heading font-semibold">
-              at the Lyrath Estate, Kilkenny, Ireland
-            </div>
-          </div>
+          <Header />
           <div className="flex-row items-stretch gap-2 flex-grow-1">
             <div className="justify-start">
               <div className="relative gap-2 pointer-events-auto help-2:(help-border) help-3:(help-border)">
