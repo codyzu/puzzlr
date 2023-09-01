@@ -171,7 +171,7 @@ Have you ever thought about working for a company like NearForm? Check us out on
         <div className="relative w-full flex-grow-1 p-2 gap-4 items-stretch pointer-events-none">
           <div className="info-container self-center">
             <div className="flex-row gap-2 items-center">
-              <img src={logo} className="h-18" />
+              <img src={logo} className="logo" />
               <div className="font-heading text-3xl items-start">
                 <div className="font-normal">Grace Hopper</div>
                 <div className="font-semibold">Celebration</div>

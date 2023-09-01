@@ -63,6 +63,7 @@ export default defineConfig({
     highlight: 'text-white font-bold',
     'shape-container': 'bg-dark-violet bg-opacity-80',
     'info-container': 'p-3 pointer-events-auto',
+    logo: 'h-18',
   },
   theme: {
     colors: {
