@@ -60,6 +60,9 @@ export default defineConfig({
     'info-container':
       'bg-black bg-opacity-70 rounded-lg p-3 pointer-events-auto',
     logo: 'h-10 w-auto',
+    'bg-popover': 'text-xl bg-gray-800 bg-opacity-85',
+    'popover-container':
+      'bg-black rounded-md shadow-gray-300 shadow-xl border-3 border-gray-700 bg-opacity-60',
   },
   theme: {
     colors: {

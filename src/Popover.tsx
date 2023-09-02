@@ -6,8 +6,8 @@ export default function Popover({
   imageSource: string;
 }) {
   return (
-    <div className="w-full p-4 h-full justify-center items-center text-xl bg-gray-800 bg-opacity-85">
-      <div className="bg-black rounded-md shadow-gray-300 shadow-xl border-3 border-gray-700 bg-opacity-60">
+    <div className="w-full p-4 h-full justify-center items-center bg-popover">
+      <div className="popover-container">
         {imageSource && (
           <img className="p-2 object-contain" src={imageSource} />
         )}
