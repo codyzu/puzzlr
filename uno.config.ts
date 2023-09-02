@@ -65,9 +65,9 @@ export default defineConfig({
     'shape-container': 'bg-dark-violet bg-opacity-80',
     'info-container': 'p-3 pointer-events-auto',
     logo: 'h-18',
-    'bg-popover': 'text-xl bg-gray-800 bg-opacity-85',
+    'bg-popover': 'text-xl bg-deep-purple bg-opacity-85',
     'popover-container':
-      'bg-black rounded-md shadow-gray-300 shadow-xl border-3 border-gray-700 bg-opacity-60',
+      'bg-deep-purple rounded-md shadow-tangerine shadow-xl border-3 border-purple bg-opacity-60',
   },
   theme: {
     colors: {
