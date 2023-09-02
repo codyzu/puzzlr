@@ -1,9 +1,9 @@
 import QRCode from 'react-qr-code';
 import {Fragment, useEffect} from 'react';
 import Canvas3D from './Canvas3D';
-import Shapes3D from './Shapes3D';
 import usePieceRefs from './use-piece-refs';
 import Generator from './Generator';
+import RotatingPieces3D from './RotatingPieces3D';
 
 export default function Admin() {
   const pieceRefs = usePieceRefs();
@@ -37,8 +37,8 @@ export default function Admin() {
           );
         })}
       </div>
-      <Canvas3D>
-        <Shapes3D pieceRefs={pieceRefs} />
+      <Canvas3D className="pointer-events-none">
+        <RotatingPieces3D pieceRefs={pieceRefs} />
       </Canvas3D>
     </>
   );
