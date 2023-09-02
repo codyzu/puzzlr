@@ -1,5 +1,12 @@
 import Dexie, {type Table} from 'dexie';
-import {type PieceRow} from './piece-types';
+import {type PieceColor} from './piece-types';
+
+type PieceRow = {
+  id?: number;
+  color: PieceColor;
+  added: Date;
+  placement?: number;
+};
 
 export class MySubClassedDexie extends Dexie {
   // 'pieces' is added by dexie when declaring the stores()

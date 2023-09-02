@@ -16,10 +16,3 @@ export type PieceColor = PieceColorTuple[number];
 export function isPieceColor(color: unknown) {
   return allPieceColors.find((c) => c === color) !== null;
 }
-
-export type PieceRow = {
-  id?: number;
-  color: PieceColor;
-  added: Date;
-  placement?: number;
-};
