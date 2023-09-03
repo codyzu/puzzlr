@@ -1,24 +1,36 @@
 import {useRef, useEffect, useState, type FunctionComponent} from 'react';
 import {type Group, Box3, type Vector3 as V3} from 'three';
-import {useFrame} from '@react-three/fiber';
+import {type Euler, useFrame, useThree} from '@react-three/fiber';
 import {type PieceColor} from './piece-types';
-import {pieces} from './GenricPieces';
+import {GenericPiece, pieceColorValues} from './GenricPieces';
+
+type OptionalPieceProps = {
+  rotation?: Euler;
+  setTakeSnapshot?: React.Dispatch<React.SetStateAction<() => string>>;
+};
 
 // @ts-expect-error not sure how to do this in TS
-export const rotatingPieces: {[key in PieceColor]: FunctionComponent} =
-  Object.fromEntries(
-    (Object.keys(pieces) as PieceColor[]).map((color) => [
-      color,
-      () => <RotatingPiece color={color} />,
-    ]),
-  );
+export const rotatingPieces: {
+  [key in PieceColor]: FunctionComponent<OptionalPieceProps>;
+} = Object.fromEntries(
+  Object.keys(pieceColorValues).map((color) => [
+    color,
+    (props) => <RotatingPiece color={color as PieceColor} {...props} />,
+  ]),
+);
 
-function RotatingPiece({color}: {color: PieceColor}) {
+function RotatingPiece({
+  color,
+  rotation,
+  setTakeSnapshot,
+}: {
+  color: PieceColor;
+} & OptionalPieceProps) {
   const ref = useRef<Group>(null!);
   const [moveDistance, setMoveDistance] = useState<number>();
   const [moveDirection, setMoveDirection] = useState<V3>();
   const [moveBackDirection, setMoveBackDirection] = useState<V3>();
-  const GenericPiece = pieces[color];
+  // Const GenericPiece = pieces[color];
 
   // https://stackoverflow.com/a/28860849
   // https://stackoverflow.com/a/54611417
@@ -36,9 +48,34 @@ function RotatingPiece({color}: {color: PieceColor}) {
     setMoveBackDirection(directionFromCenter);
   }, []);
 
+  const {gl, scene, camera} = useThree();
+  useEffect(() => {
+    function takeSnapshot() {
+      gl.render(scene, camera);
+      const data = gl.domElement.toDataURL();
+      return data;
+    }
+
+    setTakeSnapshot?.(() => takeSnapshot);
+  }, [gl, scene, camera, setTakeSnapshot]);
+
+  // UseEffect(() => {
+  //   if (rotation !== undefined) {
+  //     console.log('rotating');
+  //     ref.current.rotation.x = rotation[0];
+  //     ref.current.rotation.y = rotation[1];
+  //     ref.current.rotation.z = rotation[2];
+  //   }
+  // }, [rotation]);
+
   useFrame((_state, delta) => {
     // Wait until the effect has executed
-    if (!moveDirection || !moveDistance || !moveBackDirection) {
+    if (
+      !moveDirection ||
+      !moveDistance ||
+      !moveBackDirection ||
+      rotation !== undefined
+    ) {
       return;
     }
 
@@ -51,5 +88,7 @@ function RotatingPiece({color}: {color: PieceColor}) {
     ref.current.translateOnAxis(moveBackDirection, moveDistance);
   });
 
-  return <GenericPiece ref={ref} scale={1.2} />;
+  return (
+    <GenericPiece ref={ref} scale={1.2} color={color} rotation={rotation} />
+  );
 }

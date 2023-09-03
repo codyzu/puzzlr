@@ -1,15 +1,18 @@
 import QRCode from 'react-qr-code';
-import {Fragment, useEffect} from 'react';
+import {Fragment, useEffect, useState} from 'react';
 import Canvas3D from './Canvas3D';
 import usePieceRefs from './use-piece-refs';
 import Generator from './Generator';
 import RotatingPieces3D from './RotatingPieces3D';
+import FixedPiece3D from './FixedPiece3D';
 
 export default function Admin() {
   const pieceRefs = usePieceRefs();
   useEffect(() => {
     document.title = 'Cubework secret admin interface';
   }, []);
+  const [takeSnapshot, setTakeSnapshot] = useState<() => string>(() => '');
+
   return (
     <>
       <div className="max-w-screen-sm w-full">
@@ -36,6 +39,22 @@ export default function Admin() {
             </Fragment>
           );
         })}
+        <div>
+          <FixedPiece3D
+            setTakeSnapshot={setTakeSnapshot}
+            color="pink"
+            rotation={[Math.PI / 12, Math.PI / 3.8, Math.PI / 12]}
+          />
+          <button
+            type="button"
+            onClick={() => {
+              const data = takeSnapshot();
+              console.log('data', data);
+            }}
+          >
+            snapshot
+          </button>
+        </div>
       </div>
       <Canvas3D className="pointer-events-none">
         <RotatingPieces3D pieceRefs={pieceRefs} />
