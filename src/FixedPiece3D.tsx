@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import {Canvas, type Euler} from '@react-three/fiber';
+import {Canvas, type Dpr, type Euler} from '@react-three/fiber';
 import {rotatingPieces} from './RotatingPieces';
 import {type PieceColor} from './piece-types';
 
@@ -7,10 +7,12 @@ export default function FixedPiece3D({
   color,
   setTakeSnapshot,
   rotation,
+  dpr,
 }: {
   rotation?: Euler;
   color: PieceColor;
-  setTakeSnapshot: React.Dispatch<React.SetStateAction<() => string>>;
+  setTakeSnapshot?: React.Dispatch<React.SetStateAction<() => string>>;
+  dpr?: Dpr | undefined;
 }) {
   const Piece = rotatingPieces[color];
 
@@ -21,7 +23,7 @@ export default function FixedPiece3D({
       // https://github.com/pmndrs/react-three-fiber/issues/251#issuecomment-558573141
       // Scrolling and mouse events seem to work best with fixed positioning
       className={clsx('')}
-      dpr={[1, 1]}
+      dpr={dpr}
     >
       {/* eslint-disable-next-line react/no-unknown-property */}
       <ambientLight intensity={0.5} />
