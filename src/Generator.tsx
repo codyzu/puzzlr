@@ -1,10 +1,14 @@
 import {useRef, useState, useEffect} from 'react';
 import QRCode from 'react-qr-code';
 import {PDFDownloadLink, PDFViewer} from '@react-pdf/renderer';
+import clsx from 'clsx';
 import {allPieceColors, type PieceColor} from './piece-types';
 import Popover from './Popover';
 import FixedPiece3D from './FixedPiece3D';
 import QrPdf from './QrPdf';
+import usePieceRefs from './use-piece-refs';
+import Canvas3D from './Canvas3D';
+import RotatingPieces3D from './RotatingPieces3D';
 
 export default function Generator() {
   const [message, setMessage] = useState('');
@@ -67,6 +71,9 @@ export default function Generator() {
     qrImage.src = blobUrl;
   }, [piece, message, image, setQrPng]);
 
+  const [showShapes, setShowShapes] = useState(false);
+  const pieceRefs = usePieceRefs();
+
   return (
     <div className="relative w-full h-full">
       <div className="absolute w-800px h-800px top-0 left-0 invisible">
@@ -74,6 +81,7 @@ export default function Generator() {
           setTakeSnapshot={setTakeSnapshot}
           color={piece}
           rotation={[Math.PI / -8, Math.PI / 4.8, Math.PI / 16]}
+          dpr={[1, 1]}
         />
       </div>
 
@@ -81,19 +89,54 @@ export default function Generator() {
         <div className="admin-header">Customize Piece</div>
         <label className="flex flex-row gap-2 items-center self-center">
           <div className="items-start">Piece*</div>
-          <select
-            className="input-control"
-            value={piece}
-            onChange={(event) => {
-              setPiece(event.target.value as PieceColor);
+          <button
+            type="button"
+            className={clsx(
+              'relative input-control p-0',
+              showShapes && 'rounded-b-none',
+            )}
+            onClick={() => {
+              setShowShapes((current) => !current);
             }}
           >
-            {allPieceColors.map((color) => (
-              <option key={color} value={color}>
-                {color}
-              </option>
-            ))}
-          </select>
+            <div className="w-80px h-80px">
+              <FixedPiece3D
+                color={piece}
+                rotation={[Math.PI / -8, Math.PI / 4.8, Math.PI / 16]}
+              />
+            </div>
+            <ul
+              className={clsx(
+                'absolute left-0 top-[100%] input-control p-0 rounded-t-none',
+                !showShapes && 'hidden',
+              )}
+            >
+              {allPieceColors.map((color) => (
+                <li
+                  key={color}
+                  className="flex flex-row hover:bg-gray-400 rounded-lg"
+                  onClick={() => {
+                    setPiece(color);
+                  }}
+                >
+                  <div ref={pieceRefs[color]} className="w-80px h-80px" />
+                </li>
+              ))}
+            </ul>
+            <select
+              className="hidden"
+              value={piece}
+              onChange={(event) => {
+                setPiece(event.target.value as PieceColor);
+              }}
+            >
+              {allPieceColors.map((color) => (
+                <option key={color} value={color}>
+                  {color}
+                </option>
+              ))}
+            </select>
+          </button>
         </label>
         <label className="flex flex-col items-stretch">
           <div className="items-start">Message (optional)</div>
@@ -205,6 +248,9 @@ export default function Generator() {
           {({loading}) => (loading ? 'Loading document...' : 'Download PDF')}
         </PDFDownloadLink>
       </div>
+      <Canvas3D className="pointer-events-none">
+        <RotatingPieces3D pieceRefs={pieceRefs} />
+      </Canvas3D>
     </div>
   );
 }
