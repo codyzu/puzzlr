@@ -32,11 +32,11 @@ export const pieceMaps: {[key in PieceColor]: Piece2D} = {
 };
 
 export const pieceColorValues: {[key in PieceColor]: string} = {
-  purple: '#4BC17D',
-  green: '#C1D32E',
-  pink: '#A3238E',
-  orange: '#FF8200',
-  blue: '#2284C6',
+  purple: '#9752BB',
+  green: '#A0C539',
+  pink: '#DE52C4',
+  orange: '#E68C00',
+  blue: '#00ACA7',
 };
 
 export type ColoredPieceProps = {
