@@ -35,9 +35,7 @@ const SingleShape = forwardRef<
       }}
     >
       <div ref={ref} className="w-20 h-20" />
-      <div className="text-sm">
-        {color}: {existingPieces?.length ?? 0}
-      </div>
+      <div className="text-sm">count: {existingPieces?.length ?? 0}</div>
     </button>
   );
 });
