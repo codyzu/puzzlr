@@ -1,10 +1,5 @@
-import {type Euler, type Color, type Vector3} from '@react-three/fiber';
-import {
-  type ForwardedRef,
-  forwardRef,
-  type ForwardRefExoticComponent,
-  type RefAttributes,
-} from 'react';
+import {type Euler, type Vector3} from '@react-three/fiber';
+import {type ForwardedRef, forwardRef} from 'react';
 import {type Group} from 'three';
 import {type PieceColor, type Piece2D} from './piece-types';
 
