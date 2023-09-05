@@ -63,6 +63,7 @@ export default defineConfig({
     'bg-popover': 'text-xl bg-gray-800 bg-opacity-85',
     'popover-container':
       'bg-black rounded-md shadow-gray-300 shadow-xl border-3 border-gray-700 bg-opacity-60',
+    'admin-header': 'text-lg font-semibold mt-4',
   },
   theme: {
     colors: {

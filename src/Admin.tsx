@@ -10,12 +10,11 @@ export default function Admin() {
   useEffect(() => {
     document.title = 'Cubework secret admin interface';
   }, []);
+
   return (
     <>
-      <div className="max-w-screen-sm w-full">
-        <Generator />
-      </div>
-      <div>Quick examples:</div>
+      <Generator />
+      <div className="admin-header">Quick Examples</div>
       <div className="h-full grid grid-cols-[auto_auto] lt-sm:grid-cols-1 gap-x-4 gap-y-8 lt-sm:gap-y-4 justify-items-center my-6">
         {Object.entries(pieceRefs).map(([color, ref]) => {
           const url = `${window.location.origin}${
