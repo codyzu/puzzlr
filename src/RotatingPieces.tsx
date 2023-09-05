@@ -7,6 +7,7 @@ import {GenericPiece, pieceColorValues} from './GenricPieces';
 type OptionalPieceProps = {
   rotation?: Euler;
   setTakeSnapshot?: React.Dispatch<React.SetStateAction<() => string>>;
+  scale?: number;
 };
 
 // @ts-expect-error not sure how to do this in TS
@@ -22,6 +23,7 @@ export const rotatingPieces: {
 function RotatingPiece({
   color,
   rotation,
+  scale,
   setTakeSnapshot,
 }: {
   color: PieceColor;
@@ -89,6 +91,11 @@ function RotatingPiece({
   });
 
   return (
-    <GenericPiece ref={ref} scale={1.2} color={color} rotation={rotation} />
+    <GenericPiece
+      ref={ref}
+      scale={scale ?? 1.2}
+      color={color}
+      rotation={rotation}
+    />
   );
 }

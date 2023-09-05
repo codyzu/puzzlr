@@ -20,7 +20,8 @@ export default function FixedPiece3D({
       eventSource={document.querySelector<HTMLElement>('#root')!}
       // https://github.com/pmndrs/react-three-fiber/issues/251#issuecomment-558573141
       // Scrolling and mouse events seem to work best with fixed positioning
-      className={clsx('w-full h-full')}
+      className={clsx('important-w-300px important-h-300px')}
+      dpr={[2, 2]}
     >
       {/* eslint-disable-next-line react/no-unknown-property */}
       <ambientLight intensity={0.5} />
@@ -28,7 +29,11 @@ export default function FixedPiece3D({
       <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
       {/* eslint-disable-next-line react/no-unknown-property */}
       <pointLight position={[-10, -10, -10]} />
-      <Piece rotation={rotation} setTakeSnapshot={setTakeSnapshot} />
+      <Piece
+        rotation={rotation}
+        setTakeSnapshot={setTakeSnapshot}
+        scale={1.5}
+      />
       {/* <OrbitControls /> */}
     </Canvas>
   );

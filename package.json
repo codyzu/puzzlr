@@ -11,6 +11,7 @@
     "generate-pwa-assets": "pwa-assets-generator"
   },
   "dependencies": {
+    "@react-pdf/renderer": "^3.1.12",
     "@react-spring/three": "^9.7.3",
     "@react-three/drei": "^9.77.10",
     "@react-three/fiber": "^8.13.4",
