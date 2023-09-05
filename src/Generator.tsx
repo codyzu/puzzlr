@@ -201,22 +201,19 @@ export default function Generator() {
             <a
               className="input-control"
               href={piecePng}
-              download={`${piece}.png`}
+              download={`${piece}-piece.png`}
             >
               Download PNG
             </a>
           </div>
           <div className="flex-1 flex-row justify-center gap-2">
-            <button
+            <a
               className="input-control"
-              type="button"
-              onClick={(event) => {
-                event.preventDefault();
-                downloadData(qrPng!, 'qr.png');
-              }}
+              href={qrPng}
+              download={`${piece}-qr.png`}
             >
               Download PNG
-            </button>
+            </a>
             <button
               className="input-control"
               type="button"
@@ -226,7 +223,7 @@ export default function Generator() {
                   type: 'image/svg+xml;charset=utf-8',
                 });
                 const blobUrl = URL.createObjectURL(blob);
-                downloadData(blobUrl, 'qr.svg');
+                downloadData(blobUrl, `${piece}-qr.svg`);
               }}
             >
               Download SVG
