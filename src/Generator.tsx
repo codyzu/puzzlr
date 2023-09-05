@@ -28,7 +28,6 @@ export default function Generator() {
   }?${searchParameters.toString()}`;
 
   const svgRef = useRef<SVGSVGElement>(null!);
-  const [size, setSize] = useState(800);
 
   useEffect(() => {
     // Once the snapshot function has been set, take a snapshdot
@@ -38,6 +37,7 @@ export default function Generator() {
     }
   }, [takeSnapshot]);
 
+  // Render the QR SVG to PNG
   useEffect(() => {
     // https://levelup.gitconnected.com/draw-an-svg-to-canvas-and-download-it-as-image-in-javascript-f7f7713cf81f
     const html = svgRef.current.outerHTML;
@@ -46,6 +46,7 @@ export default function Generator() {
     });
     const blobUrl = URL.createObjectURL(blob);
     const qrImage = new Image();
+    const size = 600;
     qrImage.width = size;
     qrImage.height = size;
     qrImage.addEventListener('load', () => {
@@ -64,11 +65,11 @@ export default function Generator() {
 
     // Setting the source triggers the load event
     qrImage.src = blobUrl;
-  }, [piece, message, image, setQrPng, size]);
+  }, [piece, message, image, setQrPng]);
 
   return (
     <div className="flex flex-col w-full p-4 gap-4 items-stretch">
-      <div className="text-lg font-bold mt-4">Parameters</div>
+      <div className="admin-header">Customize Piece</div>
       <label className="flex flex-row gap-2 items-center self-center">
         <div className="items-start">Piece*</div>
         <select
@@ -117,11 +118,15 @@ export default function Generator() {
           </div>
         </>
       )}
-      <div className="text-lg font-bold mt-4">URL (click to test)</div>
+      <div className="admin-header">URL (click to test)</div>
       <div className="break-all">
         <a href={url}>{url}</a>
       </div>
-      <div className="text-lg font-bold mt-4">Assets</div>
+      <div className="admin-header">Assets</div>
+      <div className="flex-row">
+        <div className="flex-1">Piece</div>
+        <div className="flex-1">QR Code</div>
+      </div>
       <div className="flex-row">
         <div className="flex-1">
           <FixedPiece3D
@@ -153,31 +158,17 @@ export default function Generator() {
             Download PNG
           </a>
         </div>
-        <div className="flex-1">
-          <div className="flex-row gap-2 self-center">
-            <select
-              className="input-control"
-              value={size}
-              onChange={(event) => {
-                setSize(Number.parseInt(event.target.value, 10));
-              }}
-            >
-              <option value={400}>400px</option>
-              <option value={800}>800px</option>
-              <option value={1600}>1600px</option>
-              <option value={2400}>2400px</option>
-            </select>
-            <button
-              className="input-control"
-              type="button"
-              onClick={(event) => {
-                event.preventDefault();
-                downloadData(qrPng!, 'qr.png');
-              }}
-            >
-              Download PNG
-            </button>
-          </div>
+        <div className="flex-1 flex-row justify-center gap-2">
+          <button
+            className="input-control"
+            type="button"
+            onClick={(event) => {
+              event.preventDefault();
+              downloadData(qrPng!, 'qr.png');
+            }}
+          >
+            Download PNG
+          </button>
           <button
             className="input-control"
             type="button"
@@ -195,23 +186,20 @@ export default function Generator() {
           </button>
         </div>
       </div>
+      <div className="admin-header">PDF</div>
+      <div>
+        <PDFViewer className="w-full aspect-[11/8.5]" showToolbar={false}>
+          <QrPdf qrPng={qrPng} piecePng={piecePng} piece={piece} />
+        </PDFViewer>
+      </div>
       <PDFDownloadLink
         className="input-control self-center"
         document={<QrPdf qrPng={qrPng} piecePng={piecePng} piece={piece} />}
         fileName={`${piece}.pdf`}
       >
-        {({blob, url, loading, error}) =>
-          loading ? 'Loading document...' : 'Download PDF'
-        }
+        {/* {blob, url, loading, error} */}
+        {({loading}) => (loading ? 'Loading document...' : 'Download PDF')}
       </PDFDownloadLink>
-
-      <div className="text-lg font-bold mt-4">PDF</div>
-      <PDFViewer className="w-600px aspect-[11/8.5]">
-        <QrPdf qrPng={qrPng} piecePng={piecePng} piece={piece} />
-      </PDFViewer>
-
-      <div />
-      <div />
     </div>
   );
 }
