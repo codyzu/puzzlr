@@ -253,7 +253,7 @@ Have you ever thought about working for a company like NearForm? Check us out on
                   className="pointer-events-auto flex-grow-1"
                 />
               </div>
-              <div className="flex-row gap-2 items-stretch">
+              <div className="flex-row gap-2 items-stretch justify-center">
                 <div className="info-container justify-center">
                   <div className="">
                     Level {layerCount}: {levelMessages[layerCount - 1]}
