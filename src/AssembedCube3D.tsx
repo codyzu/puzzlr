@@ -2,7 +2,7 @@ import {useEffect, type MutableRefObject, useState, useRef} from 'react';
 import {OrbitControls, PerspectiveCamera, View} from '@react-three/drei';
 import {useLiveQuery} from 'dexie-react-hooks';
 import {Box3, MathUtils, type Group, Sphere, Vector3} from 'three';
-import {useSpring, animated, config} from '@react-spring/three';
+import {useSpring, animated, config, easings} from '@react-spring/three';
 import {useThree} from '@react-three/fiber';
 import {db} from './db';
 import {
@@ -24,6 +24,31 @@ export default function AssembledCube3D({
   const [layers, setLayers] = useState<
     Array<Array<Array<undefined | LayerPoint>>>
   >([[]]);
+
+  const [isComplete, setIsComplete] = useState(false);
+
+  const [{rotateX, rotateY, rotateZ}, api] = useSpring(
+    () => ({
+      from: {
+        rotateX: MathUtils.degToRad(0),
+        rotateY: MathUtils.degToRad(0),
+        rotateZ: MathUtils.degToRad(0),
+      },
+      to: {
+        rotateX: MathUtils.degToRad(360),
+        rotateY: MathUtils.degToRad(360),
+        rotateZ: MathUtils.degToRad(360),
+      },
+      loop: true,
+      config: {
+        ...config.wobbly,
+        // Duration: isComplete ? 2000 : 6000,
+        duration: 6000,
+      },
+    }),
+    [isComplete],
+  );
+
   useEffect(() => {
     if (placedPieces === undefined) {
       return;
@@ -33,8 +58,49 @@ export default function AssembledCube3D({
       placedPieces?.map((piece) => piece.color) ?? [],
     );
     const cubeColorMap = placedToCubeColorMap(laidOutPieces);
+
+    // Determine if the cube is complete by checking that every point is defined
+    const nextIsComplete =
+      cubeColorMap.length === 4 &&
+      cubeColorMap.every((layer) => layer.flat().every(Boolean));
+    setIsComplete(nextIsComplete);
+
+    if (nextIsComplete) {
+      for (const point of cubeColorMap.flat(2)) {
+        point!.highlight = true;
+      }
+    }
+
     setLayers(cubeColorMap);
   }, [placedPieces]);
+
+  useEffect(() => {
+    if (!isComplete) {
+      return;
+    }
+
+    api.start({
+      to: [
+        {
+          rotateX: 0,
+          rotateY: 0,
+          rotateZ: 0,
+          config: config.default,
+        },
+        {
+          rotateX: MathUtils.degToRad(38),
+          rotateY: MathUtils.degToRad(360 * 10 + 45),
+          rotateZ: 0,
+          config: {
+            ...config.molasses,
+            duration: 3000,
+            easing: easings.easeOutBack,
+          },
+        },
+      ],
+      loop: false,
+    });
+  }, [isComplete, api]);
 
   const piecesRef = useRef<Group>(null!);
   const pivotRef = useRef<Group>(null!);
@@ -42,19 +108,6 @@ export default function AssembledCube3D({
   const [centered, setCentered] = useState(false);
   const [radius, setRadius] = useState<number>();
   const [scale, setScale] = useState<number>(1);
-
-  const [{rotate}] = useSpring(
-    () => ({
-      from: {rotate: MathUtils.degToRad(0)},
-      to: {rotate: MathUtils.degToRad(360)},
-      loop: true,
-      config: {
-        ...config.wobbly,
-        duration: 6000,
-      },
-    }),
-    [layers],
-  );
 
   useEffect(() => {
     if (layers.flat(2).length === 0) {
@@ -128,9 +181,9 @@ export default function AssembledCube3D({
 
       <animated.group
         ref={pivotRef}
-        rotation-x={rotate}
-        rotation-y={rotate}
-        rotation-z={rotate}
+        rotation-x={rotateX}
+        rotation-y={rotateY}
+        rotation-z={rotateZ}
         scale={scale}
       >
         <group ref={piecesRef}>
