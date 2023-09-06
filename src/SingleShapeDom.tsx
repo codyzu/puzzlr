@@ -1,5 +1,6 @@
-import {forwardRef} from 'react';
+import {forwardRef, useEffect, useRef, useState} from 'react';
 import {useLiveQuery} from 'dexie-react-hooks';
+import clsx from 'clsx';
 import {type PieceColor} from './piece-types';
 import {db} from './db';
 
@@ -20,10 +21,32 @@ const SingleShape = forwardRef<
     [color],
   );
 
+  const count = existingPieces?.length;
+  const [shake, setShake] = useState(false);
+
+  const previousCount = useRef<number | undefined>(count);
+
+  useEffect(() => {
+    if (previousCount.current !== undefined) {
+      setShake(true);
+    }
+
+    previousCount.current = count;
+  }, [count]);
+
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
   return (
     <button
-      className="shape-container"
+      ref={buttonRef}
+      className={clsx(
+        'shape-container',
+        shake && 'animate-shake-x important-animate-[shake-x_0.6s_linear_1]',
+      )}
       type="button"
+      onAnimationEnd={() => {
+        setShake(false);
+      }}
       onClick={() => {
         if (
           existingPieces &&
