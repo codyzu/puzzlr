@@ -64,7 +64,6 @@ export default defineConfig({
     highlight: 'text-white font-bold',
     'shape-container': 'bg-dark-violet bg-opacity-80',
     'info-container': 'p-3 pointer-events-auto',
-    logo: 'h-18',
     'bg-popover': 'text-xl bg-deep-purple bg-opacity-85',
     'popover-container':
       'bg-deep-purple rounded-md shadow-tangerine shadow-xl border-3 border-purple bg-opacity-60',
