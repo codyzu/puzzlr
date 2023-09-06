@@ -25,7 +25,7 @@ export default function Admin() {
               <div className="h-full lt-sm:w-auto lt-sm:w-full shape-container p-2 lt-sm:mb-0 justify-center">
                 <div ref={ref} className="w-20 h-20" />
                 <a className="underline" href={url}>
-                  Add {color}
+                  Add piece
                 </a>
               </div>
               <div className="w-200px h-200px bg-white p-2 lt-sm:mb-10">
