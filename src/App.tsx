@@ -247,10 +247,10 @@ Have you ever thought about working for a company like NearForm? Check us out on
                   </div>
                 </button>
               </div>
-              <div className="flex-grow-1 p-6 pointer-events-auto items-stretch">
+              <div className="flex-grow-1 px-6 py-2 pointer-events-auto items-center">
                 <div
                   ref={controlsRef}
-                  className="pointer-events-auto flex-grow-1"
+                  className="pointer-events-auto flex-grow-1 w-[90%] max-w-screen-md"
                 />
               </div>
               <div className="flex-row gap-2 items-stretch justify-center">
