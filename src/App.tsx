@@ -157,14 +157,16 @@ Have you ever thought about working for a company like NearForm? Check us out on
     helpProps['data-help'] = help;
   }
 
+  const controlsRef = useRef<HTMLDivElement>(null!);
+
   return (
     // TODO: is 100dvh fully compatible? Should there be a fallback?
-    <div {...helpProps} className="relative w-full min-h-[100dvh]">
-      <div className="relative w-full h-full max-w-screen-sm flex-grow-1">
+    <div {...helpProps} className="relative w-full min-h-[100dvh]  touch-pan-y">
+      <div className="relative w-full h-full flex-grow-1">
         <div ref={cubeRef} className="absolute w-full h-full top-0 left-0">
           <Suspense>
             <Canvas3D className="help-3:z-1">
-              <AssembledCube3D cubeRef={cubeRef} />
+              <AssembledCube3D cubeRef={cubeRef} controlsRef={controlsRef} />
             </Canvas3D>
           </Suspense>
         </div>
@@ -245,7 +247,12 @@ Have you ever thought about working for a company like NearForm? Check us out on
                   </div>
                 </button>
               </div>
-              <div className="flex-grow-1" />
+              <div className="flex-grow-1 p-6 pointer-events-auto items-stretch">
+                <div
+                  ref={controlsRef}
+                  className="pointer-events-auto flex-grow-1"
+                />
+              </div>
               <div className="flex-row gap-2 items-stretch">
                 <div className="info-container justify-center">
                   <div className="">
