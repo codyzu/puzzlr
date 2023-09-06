@@ -14,8 +14,10 @@ import CubeLayer3D from './CubeLayer3D';
 
 export default function AssembledCube3D({
   cubeRef,
+  controlsRef,
 }: {
   cubeRef: MutableRefObject<HTMLDivElement>;
+  controlsRef: MutableRefObject<HTMLDivElement>;
 }) {
   const placedPieces = useLiveQuery(async () =>
     db.pieces.where('placement').aboveOrEqual(0).sortBy('placement'),
@@ -194,7 +196,7 @@ export default function AssembledCube3D({
         </group>
       </animated.group>
 
-      <OrbitControls />
+      <OrbitControls domElement={controlsRef.current} />
     </View>
   );
 }
