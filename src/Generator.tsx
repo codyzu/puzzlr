@@ -75,7 +75,7 @@ export default function Generator() {
   const pieceRefs = usePieceRefs();
 
   return (
-    <div className="relative w-full h-full">
+    <div className="relative w-full h-full overflow-hidden">
       <div className="absolute w-800px h-800px top-0 left-0 invisible">
         <FixedPiece3D
           setTakeSnapshot={setTakeSnapshot}
