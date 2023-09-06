@@ -175,29 +175,12 @@ export default function Generator() {
           <a href={url}>{url}</a>
         </div>
         <div className="admin-header">Assets</div>
-        <div className="flex-row">
-          <div className="flex-1">Piece</div>
-          <div className="flex-1">QR Code</div>
-        </div>
-        <div className="flex-row">
-          <div className="flex-1">
-            <img src={piecePng} />
-          </div>
-          <div className="flex-1">
-            <div className="bg-white p-4 self-center">
-              {/* @ts-expect-error some of the props are not defined in the library typings */}
-              <QRCode
-                ref={svgRef}
-                value={url}
-                size={256}
-                version={1.1}
-                title={`Add ${piece} piece`}
-              />
-            </div>
-          </div>
-        </div>
         <div className="flex-row items-start">
-          <div className="flex-1">
+          <div className="flex-1 gap-2">
+            <div>Piece</div>
+            <div>
+              <img src={piecePng} />
+            </div>
             <a
               className="input-control"
               href={piecePng}
@@ -206,28 +189,42 @@ export default function Generator() {
               Download PNG
             </a>
           </div>
-          <div className="flex-1 flex-row justify-center gap-2">
-            <a
-              className="input-control"
-              href={qrPng}
-              download={`${piece}-qr.png`}
-            >
-              Download PNG
-            </a>
-            <button
-              className="input-control"
-              type="button"
-              onClick={() => {
-                const html = svgRef.current.outerHTML;
-                const blob = new Blob([html], {
-                  type: 'image/svg+xml;charset=utf-8',
-                });
-                const blobUrl = URL.createObjectURL(blob);
-                downloadData(blobUrl, `${piece}-qr.svg`);
-              }}
-            >
-              Download SVG
-            </button>
+          <div className="flex-1 items-stretch gap-2">
+            <div>QR Code</div>
+            <div className="bg-white p-4">
+              {/* @ts-expect-error some of the props are not defined in the library typings */}
+              <QRCode
+                ref={svgRef}
+                className="h-auto max-w-full w-full"
+                value={url}
+                Size={256}
+                version={1.1}
+                title={`Add ${piece} piece`}
+              />
+            </div>
+            <div className="self-center flex-wrap flex-row gap-2 justify-center">
+              <a
+                className="input-control"
+                href={qrPng}
+                download={`${piece}-qr.png`}
+              >
+                Download PNG
+              </a>
+              <button
+                className="input-control"
+                type="button"
+                onClick={() => {
+                  const html = svgRef.current.outerHTML;
+                  const blob = new Blob([html], {
+                    type: 'image/svg+xml;charset=utf-8',
+                  });
+                  const blobUrl = URL.createObjectURL(blob);
+                  downloadData(blobUrl, `${piece}-qr.svg`);
+                }}
+              >
+                Download SVG
+              </button>
+            </div>
           </div>
         </div>
         <div className="admin-header">PDF</div>
