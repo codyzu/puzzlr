@@ -63,7 +63,7 @@ export default defineConfig({
     'wizard-overlay': 'bg-sapphire',
     highlight: 'text-white font-bold',
     'shape-container': 'bg-dark-violet bg-opacity-80',
-    'info-container': 'p-3 pointer-events-auto',
+    'info-container': 'p-2 pointer-events-auto',
     'bg-popover': 'text-xl bg-deep-purple bg-opacity-85',
     'popover-container':
       'bg-deep-purple rounded-md shadow-tangerine shadow-xl border-3 border-purple bg-opacity-60',
@@ -95,6 +95,9 @@ export default defineConfig({
       'light-blue': '#4891c6',
       'light-blue-l': '#52b9e9',
       white: '#ffffff',
+    },
+    breakpoints: {
+      sm: '480px',
     },
   },
   variants: [

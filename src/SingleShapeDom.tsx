@@ -57,8 +57,10 @@ const SingleShape = forwardRef<
         }
       }}
     >
-      <div ref={ref} className="w-20 h-20" />
-      <div className="text-sm">count: {existingPieces?.length ?? 0}</div>
+      <div ref={ref} className="w-20 h-20 lt-sm:w-16 lt-sm:h-16" />
+      <div className="text-sm lt-sm:text-xs">
+        count: {existingPieces?.length ?? 0}
+      </div>
     </button>
   );
 });
