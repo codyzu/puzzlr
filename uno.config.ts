@@ -69,6 +69,9 @@ export default defineConfig({
       pink: '#f08',
       'dark-pink': '#c51774',
     },
+    breakpoints: {
+      sm: '480px',
+    },
   },
   variants: [
     (matcher) => {

@@ -9,6 +9,7 @@ import usePieceRefs from './use-piece-refs';
 import Popover from './Popover';
 import {pieceLayout, placedToCubeColorMap} from './piece-layout';
 import Header from './Header';
+import neaformLogo from './assets/nf-logo.svg';
 
 const AssembledCube3D = lazy(async () => import('./AssembedCube3D'));
 const RotatingPieces3D = lazy(async () => import('./RotatingPieces3D'));
@@ -170,12 +171,12 @@ Have you ever thought about working for a company like NearForm? Check us out on
             </Canvas3D>
           </Suspense>
         </div>
-        <div className="relative w-full flex-grow-1 p-2 gap-4 items-stretch pointer-events-none">
+        <div className="relative w-full flex-grow-1 p-2 gap-1 items-stretch pointer-events-none">
           <Header />
           <div className="flex-row items-stretch gap-2 flex-grow-1">
-            <div className="justify-start">
-              <div className="relative gap-2 pointer-events-auto help-2:(help-border) help-3:(help-border)">
-                <div className="highlight font-bold help:wizard-highlight">
+            <div className="justify-start h-auto self-start">
+              <div className="relative gap-2 lt-sm:gap-1 pointer-events-auto help-2:(help-border) help-3:(help-border)">
+                <div className="highlight font-bold help:wizard-highlight text-sm">
                   Inventory
                 </div>
                 {Object.entries(pieceRefs).map(([color, ref]) => (
@@ -222,7 +223,7 @@ Have you ever thought about working for a company like NearForm? Check us out on
               <div className="flex-row justify-end">
                 <button
                   type="button"
-                  className="highlight self-start relative help-5:(help-border wizard-highlight) w-20 pointer-events-auto"
+                  className="highlight self-start relative help-5:(help-border wizard-highlight) pointer-events-auto"
                   onClick={() => {
                     setHelp(1);
                   }}
@@ -253,40 +254,60 @@ Have you ever thought about working for a company like NearForm? Check us out on
                   className="pointer-events-auto flex-grow-1 w-[90%] max-w-screen-md"
                 />
               </div>
-              <div className="flex-row gap-2 items-stretch justify-center">
+            </div>
+          </div>
+          <div className="flex-row gap-2 w-full flex-wrap justify-center items-end">
+            <div className="flex-row flex-grow-1 justify-center">
+              <div className="flex-row items-stretch">
                 <div className="info-container justify-center">
-                  <div className="">
+                  <div className="text-sm">
                     Level {layerCount}: {levelMessages[layerCount - 1]}
                   </div>
                 </div>
-                <button
-                  className="btn pointer-events-auto self-center relative help-4:(z-1 help-border)"
-                  type="button"
-                  onClick={() => {
-                    void db.pieces
-                      .toCollection()
-                      .modify({placement: undefined});
-                  }}
-                >
-                  reset
-                  <div className="wizard-container bottom-[100%] right-0 w-[calc(min(640px,100vw)_-_1rem)] help-4:(flex z-1)">
-                    <div className="items-end text-right gap-4">
-                      <div className="font-bold wizard-highlight text-lg">
-                        Reset
+                <div className="justify-center">
+                  <button
+                    className="btn pointer-events-auto self-center relative help-4:(z-1 help-border)"
+                    type="button"
+                    onClick={() => {
+                      void db.pieces
+                        .toCollection()
+                        .modify({placement: undefined});
+                    }}
+                  >
+                    reset
+                    <div className="wizard-container bottom-[100%] right-0 w-[calc(min(640px,100vw)_-_1rem)] help-4:(flex z-1)">
+                      <div className="items-end text-right gap-4">
+                        <div className="font-bold wizard-highlight text-lg">
+                          Reset
+                        </div>
+                        <div className="block">
+                          You can always click the{' '}
+                          <span className="wizard-highlight">reset</span> button
+                          to dissemble your cube and return all of the pieces to
+                          your inventory and restart building your cube!
+                        </div>
+                        <div className="wizard-highlight">
+                          Click to continue...
+                        </div>
+                        <div className="i-tabler-arrow-wave-right-down w-20 h-20 wizard-highlight flex-shrink-0 rotate-90" />
                       </div>
-                      <div className="block">
-                        You can always click the{' '}
-                        <span className="wizard-highlight">reset</span> button
-                        to dissemble your cube and return all of the pieces to
-                        your inventory and restart building your cube!
-                      </div>
-                      <div className="wizard-highlight">
-                        Click to continue...
-                      </div>
-                      <div className="i-tabler-arrow-wave-right-down w-20 h-20 wizard-highlight flex-shrink-0 rotate-90" />
                     </div>
-                  </div>
-                </button>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div className="flex-row items-stretch self-stretch text-xs font-semibold gap-1">
+              <div className="justify-center flex-shrink-0 items-end">
+                <div className="text-center">made with</div>
+                <div>
+                  <div className="i-tabler-heart-filled" />
+                </div>
+                <div className="flex-row gap-2">
+                  <div>by</div>
+                </div>
+              </div>
+              <div className="justify-center">
+                <img className="w-9" src={neaformLogo} />
               </div>
             </div>
           </div>
