@@ -8,7 +8,8 @@ const SingleShape = forwardRef<
   HTMLDivElement,
   {
     color: PieceColor;
-    attemptPlacement: (pieceIndex: number) => void;
+    // eslint-disable-next-line react/require-default-props
+    attemptPlacement?: (pieceIndex: number) => void;
   }
 >(function ({color, attemptPlacement}, ref) {
   const existingPieces = useLiveQuery(
@@ -49,6 +50,7 @@ const SingleShape = forwardRef<
       }}
       onClick={() => {
         if (
+          attemptPlacement &&
           existingPieces &&
           existingPieces.length > 0 &&
           existingPieces[0].id
