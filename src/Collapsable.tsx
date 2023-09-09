@@ -1,29 +1,23 @@
 import clsx from 'clsx';
-import {
-  type PropsWithChildren,
-  useState,
-  type ReactNode,
-  useRef,
-  useEffect,
-} from 'react';
+import {type PropsWithChildren, type ReactNode, useRef} from 'react';
 
 export default function Collapsable({
   className,
   children,
   title,
 }: PropsWithChildren<{title: ReactNode; className?: string}>) {
-  const [collapsed, setCollapsed] = useState(false);
+  // Const [collapsed, setCollapsed] = useState(false);
 
-  const [height, setHeight] = useState(0);
+  // const [height, setHeight] = useState(0);
   const ref = useRef<HTMLDivElement>(null!);
 
   // ScrollHieght is the same prop that react-collapsed uses
   // https://github.com/roginfarrer/collapsed/blob/main/packages/core/src/Collapse.ts
   // Other ideas: https://stackoverflow.com/questions/3508605/how-can-i-transition-height-0-to-height-auto-using-css
-  useEffect(() => {
-    const nextHeight = ref.current?.scrollHeight ?? 0;
-    setHeight(nextHeight);
-  }, []);
+  // useEffect(() => {
+  //   const nextHeight = ref.current?.scrollHeight ?? 0;
+  //   setHeight(nextHeight);
+  // }, []);
 
   return (
     <div className={clsx('items-start justify-center pl-2 h-full', className)}>

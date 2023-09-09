@@ -71,15 +71,15 @@ Have you ever thought about working for a company like NearForm? Check us out on
     }
   }, []);
 
-  function advanceHelp() {
-    const nextHelp = (help + 1) % 6;
+  // Function advanceHelp() {
+  //   const nextHelp = (help + 1) % 6;
 
-    if (nextHelp === 0) {
-      localStorage.setItem('helpDone', String(true));
-    }
+  //   if (nextHelp === 0) {
+  //     localStorage.setItem('helpDone', String(true));
+  //   }
 
-    setHelp(nextHelp);
-  }
+  //   setHelp(nextHelp);
+  // }
 
   // Test params: message=NearForm%20❤%EF%B8%8F%20node.js!&image=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Fd%2Fd9%2FNode.js_logo.svg
 
