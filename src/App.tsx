@@ -10,6 +10,7 @@ import Popover from './Popover';
 import {pieceLayout, placedToCubeColorMap} from './piece-layout';
 import Header from './Header';
 import neaformLogo from './assets/nf-logo.svg';
+import HelpPage from './HelpPage';
 
 const AssembledCube3D = lazy(async () => import('./AssembedCube3D'));
 const RotatingPieces3D = lazy(async () => import('./RotatingPieces3D'));
@@ -335,38 +336,11 @@ Have you ever thought about working for a company like NearForm? Check us out on
         <Popover message={message} imageSource={imageSource} />
       </div>
       {help ? (
-        <div
-          className="absolute top-0 left-0 w-full h-full p-4 wizard"
-          onClick={() => {
-            advanceHelp();
+        <HelpPage
+          onClose={() => {
+            setHelp(0);
           }}
-        >
-          <div className="text-lg font-bold">Cubework Tutorial</div>
-          <div className="text-sm italic">click to advance</div>
-          <div className="flex-row gap-2 mt-4">
-            {Array.from({length: 5}).map((_, index) => (
-              <div
-                // eslint-disable-next-line react/no-array-index-key
-                key={index + 1}
-                className={clsx(
-                  help === index + 1
-                    ? 'i-tabler-circle-filled wizard-highlight'
-                    : 'i-tabler-circle',
-                  'w-3 h-3',
-                )}
-              />
-            ))}
-          </div>
-          <div className="hidden help-1:flex text-center mt-4 max-w-screen-sm gap-2">
-            <div className="font-bold">Welcome to Cubework!</div>
-            <div>
-              Keep an eye out during the conference for QR codes that add pieces
-              to complete the cube.
-            </div>
-            <div>The goal is to collect pieces to fill the cube.</div>
-            <div className="wizard-highlight">Click to continue...</div>
-          </div>
-        </div>
+        />
       ) : null}
     </div>
   );
