@@ -43,29 +43,20 @@ export default function HelpPage({onClose}: {onClose: () => void}) {
 
   return (
     <div className="absolute w-full top-0 left-0 h-[100dvh] wizard">
-      <Parallax
-        ref={parallaxRef}
-        config={{}}
-        pages={6}
-        className=""
-        onScroll={() => {
-          console.log('scrolled');
-        }}
-      >
+      <Parallax ref={parallaxRef} config={{}} pages={6} className="">
         <ParallaxLayer className="bg-magenta" offset={1} speed={1} />
         <ParallaxLayer className="bg-tangerine" offset={3} speed={1} />
         <ParallaxLayer className="bg-violet" offset={5} speed={1} />
-        <ParallaxLayer
-          offset={0}
-          speed={2}
-          className="max-w-screen-sm justify-center gap-3 p4"
-        >
-          <div className="help-header text-center">
-            Welcome to Puzzlr! The Ultimate Cube-Building Challenge!
-          </div>
-          <div className="text-center">
-            Your mission is simple: collect puzzle pieces and construct your
-            very own unique cube. Learn how it all comes together...
+        <ParallaxLayer offset={0} speed={2} className="justify-start p4">
+          <div className="min-h-70% gap-3 justify-center">
+            <div className="i-tabler-cube w-40 h-40" />
+            <div className="help-header text-center">
+              Welcome to Puzzlr! The Ultimate Cube-Building Challenge!
+            </div>
+            <div className="text-center">
+              Your mission is simple: collect puzzle pieces and construct your
+              very own unique cube. Learn how it all comes together...
+            </div>
           </div>
         </ParallaxLayer>
         <ParallaxLayer
@@ -120,10 +111,10 @@ export default function HelpPage({onClose}: {onClose: () => void}) {
           </div>
         </ParallaxLayer>
         <ParallaxLayer offset={3} speed={0}>
-          <div className="help-container self-start">
+          <div className="help-container self-start text-right">
             <div className="flex flex-row gap-2 items-end">
-              <div className="i-tabler-crane help-icon" />
               <div className="help-header">Building Your Cube</div>
+              <div className="i-tabler-crane help-icon" />
             </div>
 
             <div>
@@ -162,10 +153,10 @@ export default function HelpPage({onClose}: {onClose: () => void}) {
             onClose();
           }}
         >
-          <div className="help-container self-start">
+          <div className="help-container self-start text-right">
             <div className="flex flex-row gap-2 items-end">
-              <div className="i-tabler-sparkles help-icon" />
               <div className="help-header">Join Us at NodeConf EU</div>
+              <div className="i-tabler-sparkles help-icon" />
             </div>
             Don&apos;t stop at the cube; there&apos;s more puzzling excitement
             waiting for you at NodeConf EU.
