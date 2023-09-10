@@ -9,8 +9,8 @@ import usePieceRefs from './use-piece-refs';
 import Popover from './Popover';
 import {pieceLayout, placedToCubeColorMap} from './piece-layout';
 import Header from './Header';
-import neaformLogo from './assets/nf-logo.svg';
 import HelpPage from './HelpPage';
+import NearFormLove from './NearFormLove';
 
 const AssembledCube3D = lazy(async () => import('./AssembedCube3D'));
 const RotatingPieces3D = lazy(async () => import('./RotatingPieces3D'));
@@ -46,7 +46,7 @@ Have you ever thought about working for a company like NearForm? Check us out on
   const [search, setSearch] = useSearchParams();
   const [message, setMessage] = useState('');
   const [imageSource, setImageSource] = useState('');
-  const [help, setHelp] = useState(0);
+  const [help, setHelp] = useState(false);
 
   const placedPieces = useLiveQuery(async () =>
     db.pieces.where('placement').aboveOrEqual(0).sortBy('placement'),
@@ -67,19 +67,9 @@ Have you ever thought about working for a company like NearForm? Check us out on
 
   useEffect(() => {
     if (!localStorage.getItem('helpDone')) {
-      setHelp(1);
+      setHelp(true);
     }
   }, []);
-
-  // Function advanceHelp() {
-  //   const nextHelp = (help + 1) % 6;
-
-  //   if (nextHelp === 0) {
-  //     localStorage.setItem('helpDone', String(true));
-  //   }
-
-  //   setHelp(nextHelp);
-  // }
 
   // Test params: message=NearForm%20❤%EF%B8%8F%20node.js!&image=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Fd%2Fd9%2FNode.js_logo.svg
 
@@ -153,21 +143,21 @@ Have you ever thought about working for a company like NearForm? Check us out on
 
   const cubeRef = useRef<HTMLDivElement>(null!);
   const pieceRefs = usePieceRefs();
-
-  const helpProps: {'data-help'?: number} = {};
-  if (help) {
-    helpProps['data-help'] = help;
-  }
-
   const controlsRef = useRef<HTMLDivElement>(null!);
 
-  return (
+  return help ? (
+    <HelpPage
+      onClose={() => {
+        setHelp(false);
+      }}
+    />
+  ) : (
     // TODO: is 100dvh fully compatible? Should there be a fallback?
-    <div {...helpProps} className="relative w-full min-h-[100dvh]  touch-pan-y">
+    <div className="relative w-full min-h-[100dvh] touch-pan-y">
       <div className="relative w-full h-full flex-grow-1">
         <div ref={cubeRef} className="absolute w-full h-full top-0 left-0">
           <Suspense>
-            <Canvas3D className="help-3:z-1">
+            <Canvas3D>
               <AssembledCube3D cubeRef={cubeRef} controlsRef={controlsRef} />
             </Canvas3D>
           </Suspense>
@@ -297,20 +287,7 @@ Have you ever thought about working for a company like NearForm? Check us out on
                 </div>
               </div>
             </div>
-            <div className="flex-row items-stretch self-stretch text-xs font-semibold gap-1">
-              <div className="justify-center flex-shrink-0 items-end">
-                <div className="text-center">made with</div>
-                <div>
-                  <div className="i-tabler-heart-filled" />
-                </div>
-                <div className="flex-row gap-2">
-                  <div>by</div>
-                </div>
-              </div>
-              <div className="justify-center">
-                <img className="w-9" src={neaformLogo} />
-              </div>
-            </div>
+            <NearFormLove />
           </div>
         </div>
       </div>
@@ -335,13 +312,6 @@ Have you ever thought about working for a company like NearForm? Check us out on
       >
         <Popover message={message} imageSource={imageSource} />
       </div>
-      {help ? (
-        <HelpPage
-          onClose={() => {
-            setHelp(0);
-          }}
-        />
-      ) : null}
     </div>
   );
 }
