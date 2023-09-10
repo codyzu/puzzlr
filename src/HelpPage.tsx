@@ -165,12 +165,9 @@ export default function HelpPage({onClose}: {onClose: () => void}) {
       </Parallax>
       <div
         className={clsx(
-          'absolute bottom-0 animate-bounce transition-opacity ease-out duration-800 pb-8',
+          'absolute bottom-0 animate-bounce transition-opacity ease-out duration-800 pb-8 pointer-events-none',
           showClose ? 'opacity-0' : 'opacity-100',
         )}
-        onClick={() => {
-          console.log('o', parallaxRef.current);
-        }}
       >
         <div className="i-tabler-chevron-compact-down w-30 h-30" />
         <div>scroll</div>
