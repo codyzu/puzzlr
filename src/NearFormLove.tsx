@@ -1,8 +1,14 @@
+import clsx from 'clsx';
 import neaformLogo from './assets/nf-logo.svg';
 
-export default function NearFormLove() {
+export default function NearFormLove({large}: {large?: boolean}) {
   return (
-    <div className="flex-row items-stretch self-stretch text-xs font-semibold gap-1 justify-center">
+    <div
+      className={clsx(
+        'flex-row items-stretch self-stretch font-semibold gap-1 justify-center',
+        large ? 'text-base' : 'text-xs',
+      )}
+    >
       <div className="justify-center flex-shrink-0 items-end">
         <div className="text-center">made with</div>
         <div>
@@ -13,7 +19,7 @@ export default function NearFormLove() {
         </div>
       </div>
       <div className="justify-center">
-        <img className="w-9" src={neaformLogo} />
+        <img className={large ? 'w-13' : 'w-9'} src={neaformLogo} />
       </div>
     </div>
   );

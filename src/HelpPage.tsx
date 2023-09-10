@@ -126,7 +126,7 @@ export default function HelpPage({onClose}: {onClose: () => void}) {
         </ParallaxLayer>
         <ParallaxLayer offset={4} speed={1}>
           <div className="help-container self-start">
-            <NearFormLove />
+            <NearFormLove large />
           </div>
         </ParallaxLayer>
         <ParallaxLayer offset={4}>
