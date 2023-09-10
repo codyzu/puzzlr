@@ -63,8 +63,8 @@ export default defineConfig({
     'popover-container':
       'bg-black rounded-md shadow-gray-300 shadow-xl border-3 border-gray-700 bg-opacity-60',
     'admin-header': 'text-lg font-semibold mt-4',
-    'help-icon': 'w-16 h-16 flex-shrink-0',
-    'help-header': 'text-lg font-semibold',
+    'help-icon': 'w-16 h-16 flex-shrink-1',
+    'help-header': 'text-lg font-semibold flex-shrink-3',
     'help-container': 'justify-center px-2 h-full w-50%',
   },
   theme: {
