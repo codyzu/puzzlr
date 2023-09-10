@@ -145,10 +145,15 @@ Have you ever thought about working for a company like NearForm? Check us out on
   const pieceRefs = usePieceRefs();
   const controlsRef = useRef<HTMLDivElement>(null!);
 
+  function onHelpClose() {
+    setHelp(false);
+    localStorage.setItem('helpDone', String(true));
+  }
+
   return help ? (
     <HelpPage
       onClose={() => {
-        setHelp(false);
+        onHelpClose();
       }}
     />
   ) : (
