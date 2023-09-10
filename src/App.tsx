@@ -216,7 +216,7 @@ Have you ever thought about working for a company like NearForm? Check us out on
                   type="button"
                   className="highlight self-start relative help-5:(help-border wizard-highlight) pointer-events-auto"
                   onClick={() => {
-                    setHelp(1);
+                    setHelp(true);
                   }}
                 >
                   <div className="i-tabler-help h-8 w-8" />

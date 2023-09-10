@@ -1,14 +1,15 @@
 import clsx from 'clsx';
 import {ParallaxLayer, Parallax, type IParallax} from '@react-spring/parallax';
-import {Suspense, useEffect, useRef, useState} from 'react';
-import Canvas3D from './Canvas3D';
-import RotatingPieces3D from './RotatingPieces3D';
+import {Suspense, lazy, useEffect, useRef, useState} from 'react';
 import usePieceRefs from './use-piece-refs';
 import SingleShape from './SingleShapeDom';
 import {type PieceColor} from './piece-types';
-import AssembledCube3D from './AssembedCube3D';
 import logoNodeConf from './assets/logo.png';
 import NearFormLove from './NearFormLove';
+
+const AssembledCube3D = lazy(async () => import('./AssembedCube3D'));
+const RotatingPieces3D = lazy(async () => import('./RotatingPieces3D'));
+const Canvas3D = lazy(async () => import('./Canvas3D'));
 
 export default function HelpPage({onClose}: {onClose: () => void}) {
   const parallaxRef = useRef<IParallax>(null);
