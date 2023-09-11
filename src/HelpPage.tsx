@@ -2,10 +2,9 @@ import clsx from 'clsx';
 import {ParallaxLayer, Parallax, type IParallax} from '@react-spring/parallax';
 import {Suspense, lazy, useEffect, useRef, useState} from 'react';
 import usePieceRefs from './use-piece-refs';
-import SingleShape from './SingleShapeDom';
-import {type PieceColor} from './piece-types';
 import logoNodeConf from './assets/logo.png';
 import NearFormLove from './NearFormLove';
+import Inventory from './Inventory';
 
 const AssembledCube3D = lazy(async () => import('./AssembedCube3D'));
 const RotatingPieces3D = lazy(async () => import('./RotatingPieces3D'));
@@ -66,17 +65,7 @@ export default function HelpPage({onClose}: {onClose: () => void}) {
           className="justify-center"
         >
           <div className="w-50% self-start">
-            <div className="gap-2 lt-sm:gap-1">
-              <div className="highlight font-bold text-sm">Inventory</div>
-              {Object.entries(pieceRefs).map(([color, ref]) => (
-                <SingleShape
-                  key={color}
-                  ref={ref}
-                  color={color as PieceColor}
-                  // AttemptPlacement={attemptPlacement}
-                />
-              ))}
-            </div>
+            <Inventory pieceRefs={pieceRefs} />
           </div>
         </ParallaxLayer>
         <ParallaxLayer offset={1} speed={0}>

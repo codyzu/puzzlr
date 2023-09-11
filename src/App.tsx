@@ -1,27 +1,23 @@
-import {useRef, lazy, useEffect, Suspense, useState, useCallback} from 'react';
+import {useRef, lazy, useEffect, Suspense, useState} from 'react';
 import {useSearchParams} from 'react-router-dom';
 import clsx from 'clsx';
 import {useLiveQuery} from 'dexie-react-hooks';
 import {db} from './db';
 import {isPieceColor, type PieceColor} from './piece-types';
-import SingleShape from './SingleShapeDom';
 import usePieceRefs from './use-piece-refs';
 import Popover from './Popover';
 import {pieceLayout, placedToCubeColorMap} from './piece-layout';
 import Header from './Header';
 import NearFormLove from './NearFormLove';
+import Inventory from './Inventory';
+import HelpButton from './HelpButton';
+import LevelIndicator from './LevelIndicator';
+import ResetButton from './ResetButton';
 
 const AssembledCube3D = lazy(async () => import('./AssembedCube3D'));
 const RotatingPieces3D = lazy(async () => import('./RotatingPieces3D'));
 const Canvas3D = lazy(async () => import('./Canvas3D'));
 const HelpPage = lazy(async () => import('./HelpPage'));
-
-const levelMessages = [
-  'Noob, go find some QR codes to scan and start building your cube!',
-  "Hey Rookie, you're getting the hang of this, but there's still work to do.",
-  "You're almost there, keeping adding pieces so you can level up.",
-  "We've found a master, complete the cube and collect your prize!",
-];
 
 function App() {
   useEffect(() => {
@@ -113,34 +109,6 @@ Have you ever thought about working for a company like NearForm? Check us out on
     };
   }, [search, setSearch]);
 
-  const attemptPlacement = useCallback(async (pieceId: number) => {
-    const piece = await db.pieces.get(pieceId);
-
-    if (!piece) {
-      return;
-    }
-
-    const placed = await db.pieces
-      .where('placement')
-      .aboveOrEqual(0)
-      .sortBy('placement');
-
-    const attempt = placed.map((placed) => placed.color);
-    attempt.push(piece.color);
-
-    const result = pieceLayout(attempt).flat();
-
-    if (
-      result.length > 0 &&
-      result.length === attempt.length &&
-      result.length === placed.length + 1
-    ) {
-      void db.pieces.update(pieceId, {
-        placement: result.length - 1,
-      });
-    }
-  }, []);
-
   const cubeRef = useRef<HTMLDivElement>(null!);
   const pieceRefs = usePieceRefs();
   const controlsRef = useRef<HTMLDivElement>(null!);
@@ -171,31 +139,14 @@ Have you ever thought about working for a company like NearForm? Check us out on
           <Header />
           <div className="flex-row items-stretch gap-2 flex-grow-1">
             <div className="justify-start h-auto self-start">
-              <div className="relative gap-2 lt-sm:gap-1 pointer-events-auto">
-                <div className="highlight font-bold text-sm">Inventory</div>
-                {Object.entries(pieceRefs).map(([color, ref]) => (
-                  <SingleShape
-                    key={color}
-                    ref={ref}
-                    color={color as PieceColor}
-                    attemptPlacement={attemptPlacement}
-                  />
-                ))}
-              </div>
+              <Inventory pieceRefs={pieceRefs} />
             </div>
             <div className="flex-grow justify-end items-stretch">
-              <div className="flex-row justify-end">
-                <button
-                  type="button"
-                  className="highlight self-start relative pointer-events-auto"
-                  onClick={() => {
-                    setHelp(true);
-                  }}
-                >
-                  <div className="i-tabler-help h-8 w-8" />
-                  <div className="text-sm">help</div>
-                </button>
-              </div>
+              <HelpButton
+                onClick={() => {
+                  setHelp(true);
+                }}
+              />
               <div className="flex-grow-1 px-6 py-2 pointer-events-auto items-center">
                 <div
                   ref={controlsRef}
@@ -208,22 +159,10 @@ Have you ever thought about working for a company like NearForm? Check us out on
             <div className="flex-row flex-grow-1 justify-center">
               <div className="flex-row items-stretch">
                 <div className="info-container justify-center">
-                  <div className="text-sm">
-                    Level {layerCount}: {levelMessages[layerCount - 1]}
-                  </div>
+                  <LevelIndicator layerCount={layerCount} />
                 </div>
                 <div className="justify-center">
-                  <button
-                    className="btn pointer-events-auto self-center"
-                    type="button"
-                    onClick={() => {
-                      void db.pieces
-                        .toCollection()
-                        .modify({placement: undefined});
-                    }}
-                  >
-                    reset
-                  </button>
+                  <ResetButton />
                 </div>
               </div>
             </div>
