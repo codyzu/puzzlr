@@ -106,7 +106,7 @@ export default function HelpPage({onClose}: {onClose: () => void}) {
           </div>
         </ParallaxLayer>
         <ParallaxLayer offset={3} speed={1}>
-          <div ref={cubeRef} className="help-container self-end">
+          <div className="help-container self-end w-100% mr--25%">
             <div ref={cubeRef} className="w-full aspect-square" />
           </div>
         </ParallaxLayer>
