@@ -173,7 +173,6 @@ export default function HelpPage({onClose}: {onClose: () => void}) {
         )}
       >
         <div className="i-tabler-chevron-compact-down w-30 h-30" />
-        <div className="">scroll</div>
       </div>
       <div
         className={clsx(
