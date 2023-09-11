@@ -149,18 +149,18 @@ export default function AssembledCube3D({
         },
         {
           rotateX: MathUtils.degToRad(38),
-          rotateY: MathUtils.degToRad(360 * 10 + 45),
+          rotateY: MathUtils.degToRad(360 * (demo ? 3 : 10) + 45),
           rotateZ: 0,
           config: {
             ...config.molasses,
             duration: 3000,
             easing: easings.easeOutBack,
           },
+          loop: Boolean(demo),
         },
       ],
-      loop: false,
     });
-  }, [isComplete, api]);
+  }, [isComplete, api, demo]);
 
   const piecesRef = useRef<Group>(null!);
   const pivotRef = useRef<Group>(null!);
