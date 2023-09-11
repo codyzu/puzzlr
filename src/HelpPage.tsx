@@ -90,7 +90,8 @@ export default function HelpPage({onClose}: {onClose: () => void}) {
             <div>
               There are five distinct shapes of puzzle pieces waiting to be
               collected. With infinite possibilities, you&apos;ll create a cube
-              that&apos;s truly your own.
+              that&apos;s truly your own. Click on pieces in your inventory to
+              add them to the cube.
             </div>
           </div>
         </ParallaxLayer>
@@ -127,10 +128,19 @@ export default function HelpPage({onClose}: {onClose: () => void}) {
               <div className="i-tabler-brand-twitter help-icon" />
               <div className="help-header">Tweet Your Success</div>
             </div>
-            <div>
+            <div className="inline">
               Once your cube is complete, shout it out to the world! Tweet a
-              screenshot of your masterpiece to @NearForm. Exciting prizes await
-              the first 100 people to tweet a completed cube.
+              screenshot of your masterpiece to{' '}
+              <a
+                className="underline font-semibold"
+                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                  'I just completed my Puzzlr cube challenge by @NearForm at the @AnitaB_org #GHC23!',
+                )}`}
+              >
+                @NearForm
+              </a>
+              . Exciting prizes await the first 100 people to tweet a completed
+              cube.
             </div>
           </div>
         </ParallaxLayer>
@@ -150,8 +160,14 @@ export default function HelpPage({onClose}: {onClose: () => void}) {
               <div className="help-header">Join Us at NodeConf EU</div>
               <div className="i-tabler-sparkles help-icon" />
             </div>
-            Don&apos;t stop at the cube; there&apos;s more puzzling excitement
-            waiting for you at NodeConf EU.
+            <div className="inline">
+              Don&apos;t stop at the cube; there&apos;s more puzzling excitement
+              waiting for you at{' '}
+              <a className="underline font-semibold" href="https://nodeconf.eu">
+                NodeConf EU
+              </a>
+              .
+            </div>
           </div>
         </ParallaxLayer>
       </Parallax>
