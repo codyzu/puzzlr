@@ -171,10 +171,8 @@ Have you ever thought about working for a company like NearForm? Check us out on
           <Header />
           <div className="flex-row items-stretch gap-2 flex-grow-1">
             <div className="justify-start h-auto self-start">
-              <div className="relative gap-2 lt-sm:gap-1 pointer-events-auto help-2:(help-border) help-3:(help-border)">
-                <div className="highlight font-bold help:wizard-highlight text-sm">
-                  Inventory
-                </div>
+              <div className="relative gap-2 lt-sm:gap-1 pointer-events-auto">
+                <div className="highlight font-bold text-sm">Inventory</div>
                 {Object.entries(pieceRefs).map(([color, ref]) => (
                   <SingleShape
                     key={color}
@@ -183,65 +181,19 @@ Have you ever thought about working for a company like NearForm? Check us out on
                     attemptPlacement={attemptPlacement}
                   />
                 ))}
-                <div className="wizard-container left-[100%] top-0 w-[calc(min(640px,100vw)_-_5rem_-_1rem)] help-2:(flex z-1)">
-                  <div className="i-tabler-arrow-wave-left-up flex-shrink-0 w-20 h-20 wizard-highlight" />
-                  <div className="items-start gap-3">
-                    <div className="block">
-                      Every time you scan a piece, it will be collected in your{' '}
-                      <span className="wizard-highlight">inventory</span> here.
-                    </div>
-                    <div>
-                      Remember, you can&apos;t scan the same piece twice in a
-                      row. Instead, come back after scanning other pieces.
-                    </div>
-                    <div className="wizard-highlight">Click to continue...</div>
-                  </div>
-                </div>
-                <div className="wizard-container left-[100%] top-0 w-[calc(min(640px,100vw)_-_5rem_-_1rem)] help-3:(flex z-1)">
-                  <div className="i-tabler-arrow-wave-left-up w-20 h-20 wizard-highlight flex-shrink-0" />
-                  <div className="items-start gap-3 rounded-lg wizard-overlay p-2 bg-opacity-85">
-                    <div className="block">
-                      Once you&apos;ve collected some pieces in your{' '}
-                      <span className="wizard-highlight">inventory</span>, you
-                      can start assembling your cube!
-                    </div>
-                    <div>
-                      Click on the pieces in your inventory to add them to the
-                      cube. You must complete a layer of the cube before
-                      starting the next layer.
-                    </div>
-                    <div className="wizard-highlight">Click to continue...</div>
-                  </div>
-                </div>
               </div>
             </div>
             <div className="flex-grow justify-end items-stretch">
               <div className="flex-row justify-end">
                 <button
                   type="button"
-                  className="highlight self-start relative help-5:(help-border wizard-highlight) pointer-events-auto"
+                  className="highlight self-start relative pointer-events-auto"
                   onClick={() => {
                     setHelp(true);
                   }}
                 >
                   <div className="i-tabler-help h-8 w-8" />
                   <div className="text-sm">help</div>
-                  <div className="wizard-container top-[100%] right-0 w-[calc(min(640px,100vw)_-_1rem)] help-5:(flex z-1)">
-                    <div className="items-end text-right gap-4">
-                      <div className="i-tabler-arrow-wave-right-down w-20 h-20 wizard-highlight flex-shrink-0 rotate-270" />
-                      <div className="font-bold wizard-highlight text-lg">
-                        Help
-                      </div>
-                      <div>
-                        You can re-start this tutorial at any time by clicking
-                        the help button.
-                      </div>
-                      <div>Thanks for playing and good luck!</div>
-                      <div className="wizard-highlight">
-                        Click to start playing...
-                      </div>
-                    </div>
-                  </div>
                 </button>
               </div>
               <div className="flex-grow-1 px-6 py-2 pointer-events-auto items-center">
@@ -262,7 +214,7 @@ Have you ever thought about working for a company like NearForm? Check us out on
                 </div>
                 <div className="justify-center">
                   <button
-                    className="btn pointer-events-auto self-center relative help-4:(z-1 help-border)"
+                    className="btn pointer-events-auto self-center"
                     type="button"
                     onClick={() => {
                       void db.pieces
@@ -271,23 +223,6 @@ Have you ever thought about working for a company like NearForm? Check us out on
                     }}
                   >
                     reset
-                    <div className="wizard-container bottom-[100%] right-0 w-[calc(min(640px,100vw)_-_1rem)] help-4:(flex z-1)">
-                      <div className="items-end text-right gap-4">
-                        <div className="font-bold wizard-highlight text-lg">
-                          Reset
-                        </div>
-                        <div className="block">
-                          You can always click the{' '}
-                          <span className="wizard-highlight">reset</span> button
-                          to dissemble your cube and return all of the pieces to
-                          your inventory and restart building your cube!
-                        </div>
-                        <div className="wizard-highlight">
-                          Click to continue...
-                        </div>
-                        <div className="i-tabler-arrow-wave-right-down w-20 h-20 wizard-highlight flex-shrink-0 rotate-90" />
-                      </div>
-                    </div>
                   </button>
                 </div>
               </div>
@@ -297,7 +232,7 @@ Have you ever thought about working for a company like NearForm? Check us out on
         </div>
       </div>
       <Suspense>
-        <Canvas3D className="pointer-events-none help-2:z-1 help-3:z-1">
+        <Canvas3D className="pointer-events-none">
           <RotatingPieces3D pieceRefs={pieceRefs} />
         </Canvas3D>
       </Suspense>

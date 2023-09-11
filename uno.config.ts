@@ -76,28 +76,4 @@ export default defineConfig({
       sm: '480px',
     },
   },
-  variants: [
-    (matcher) => {
-      if (!matcher.startsWith('help:')) {
-        return matcher;
-      }
-
-      return {
-        matcher: matcher.slice(5),
-        selector: (s) => `div[data-help] ${s}`,
-      };
-    },
-    (matcher) => {
-      const matchResult = /^help-(?<helpIndex>\d+):/.exec(matcher);
-      if (!matchResult) {
-        return matcher;
-      }
-
-      return {
-        matcher: matcher.slice(matchResult[0].length),
-        selector: (s) =>
-          `div[data-help="${matchResult.groups!.helpIndex}"] ${s}`,
-      };
-    },
-  ],
 });

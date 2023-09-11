@@ -192,7 +192,7 @@ export default function HelpPage({onClose}: {onClose: () => void}) {
       </div>
       <div className="absolute top-0 left-0">
         <Suspense>
-          <Canvas3D className="help-3:z-1">
+          <Canvas3D className="">
             <AssembledCube3D demo cubeRef={cubeRef} />
           </Canvas3D>
         </Suspense>
