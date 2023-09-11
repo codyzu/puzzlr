@@ -9,15 +9,71 @@ import {
   type LayerPoint,
   pieceLayout,
   placedToCubeColorMap,
+  type PlacedPiece,
 } from './piece-layout';
 import CubeLayer3D from './CubeLayer3D';
+import {type PieceColor} from './piece-types';
+
+const colorWeights: Array<[PieceColor, number]> = [
+  ['pink', 0.15],
+  ['orange', 0.3],
+  ['green', 0.5],
+  ['blue', 0.75],
+  ['purple', 1],
+];
+
+function generateRandomCubePieces() {
+  const pieces: Array<{color: PieceColor}> = [];
+
+  function isComplete(laidOutPieces: PlacedPiece[][]) {
+    const cubeColorMap = placedToCubeColorMap(laidOutPieces);
+
+    // Determine if the cube is complete by checking that every point is defined
+    const nextIsComplete =
+      cubeColorMap.length === 4 &&
+      cubeColorMap.every((layer) => layer.flat().every(Boolean));
+
+    return nextIsComplete;
+  }
+
+  function tryPiece() {
+    const randomColor = colorWeights.find(
+      ([_, maxWeight]) => Math.random() <= maxWeight,
+    )?.[0];
+
+    const piece = {
+      color: randomColor ?? 'purple',
+    };
+
+    const attemptedPieces = [...pieces, piece];
+    const laidOutPieces = pieceLayout(
+      attemptedPieces.map((piece) => piece.color),
+    );
+
+    if (laidOutPieces.flat(2).length === pieces.length + 1) {
+      pieces.push(piece);
+    }
+
+    return laidOutPieces;
+  }
+
+  let laidOutPieces: PlacedPiece[][] = [[]];
+  while (!isComplete(laidOutPieces)) {
+    laidOutPieces = tryPiece();
+    pieces.push();
+  }
+
+  return pieces;
+}
 
 export default function AssembledCube3D({
   cubeRef,
   controlsRef,
+  demo,
 }: {
   cubeRef: MutableRefObject<HTMLDivElement>;
   controlsRef?: MutableRefObject<HTMLDivElement>;
+  demo?: boolean;
 }) {
   const placedPieces = useLiveQuery(async () =>
     db.pieces.where('placement').aboveOrEqual(0).sortBy('placement'),
@@ -57,7 +113,9 @@ export default function AssembledCube3D({
     }
 
     const laidOutPieces = pieceLayout(
-      placedPieces?.map((piece) => piece.color) ?? [],
+      (demo ? generateRandomCubePieces() : placedPieces)?.map(
+        (piece) => piece.color,
+      ) ?? [],
     );
     const cubeColorMap = placedToCubeColorMap(laidOutPieces);
 
@@ -74,7 +132,7 @@ export default function AssembledCube3D({
     }
 
     setLayers(cubeColorMap);
-  }, [placedPieces]);
+  }, [placedPieces, demo]);
 
   useEffect(() => {
     if (!isComplete) {
