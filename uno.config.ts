@@ -57,10 +57,6 @@ export default defineConfig({
     wizard:
       'from-sapphire to-violet bg-gradient-to-r bg-opacity-95 bg-gradient-from-opacity-90 bg-gradient-to-opacity-90',
     body: 'bg-magenta from-magenta to-tangerine bg-gradient-to-r',
-    'wizard-highlight': 'text-tangerine',
-    'wizard-container':
-      'absolute hidden p-4 flex-row justify-end items-start pointer-events-none gap-2 text-white case-normal font-normal tracking-normal font-sans text-base',
-    'wizard-overlay': 'bg-sapphire',
     highlight: 'text-white font-bold',
     'shape-container': 'bg-dark-violet bg-opacity-80',
     'info-container': 'p-2 pointer-events-auto',
@@ -103,28 +99,4 @@ export default defineConfig({
       sm: '480px',
     },
   },
-  variants: [
-    (matcher) => {
-      if (!matcher.startsWith('help:')) {
-        return matcher;
-      }
-
-      return {
-        matcher: matcher.slice(5),
-        selector: (s) => `div[data-help] ${s}`,
-      };
-    },
-    (matcher) => {
-      const matchResult = /^help-(?<helpIndex>\d+):/.exec(matcher);
-      if (!matchResult) {
-        return matcher;
-      }
-
-      return {
-        matcher: matcher.slice(matchResult[0].length),
-        selector: (s) =>
-          `div[data-help="${matchResult.groups!.helpIndex}"] ${s}`,
-      };
-    },
-  ],
 });
