@@ -170,16 +170,13 @@ export default function HelpPage({onClose}: {onClose: () => void}) {
         )}
       >
         <div className="i-tabler-chevron-compact-down w-30 h-30" />
-        <div>scroll</div>
+        <div className="">scroll</div>
       </div>
       <div
         className={clsx(
-          'absolute bottom-0 transition-opacity ease-out duration-800 pb-4',
+          'absolute bottom-0 transition-opacity ease-out duration-800 pb-4 pointer-events-none',
           showClose ? 'animate-wobble opacity-100' : 'opacity-0',
         )}
-        onClick={() => {
-          onClose();
-        }}
       >
         <div className="w-20 h-20 i-tabler-square-rounded-check" />
         <div className="w-20 h-20 text-center">click anywhere to close</div>
