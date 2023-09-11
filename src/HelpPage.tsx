@@ -107,7 +107,10 @@ export default function HelpPage({onClose}: {onClose: () => void}) {
         </ParallaxLayer>
         <ParallaxLayer offset={3} speed={1}>
           <div className="help-container self-end w-100% mr--25%">
-            <div ref={cubeRef} className="w-full aspect-square" />
+            <div
+              ref={cubeRef}
+              className="w-full max-w-[min(100vh,calc(100vw_*_0.75))] aspect-square"
+            />
           </div>
         </ParallaxLayer>
         <ParallaxLayer offset={3} speed={0}>
@@ -143,8 +146,8 @@ export default function HelpPage({onClose}: {onClose: () => void}) {
           </div>
         </ParallaxLayer>
         <ParallaxLayer offset={5} speed={1}>
-          <div className="help-container self-end p-4 max-w-60">
-            <img src={logoNodeConf} className="" />
+          <div className="help-container self-end p-4">
+            <img src={logoNodeConf} className="max-w-60 w-full" />
           </div>
         </ParallaxLayer>
         <ParallaxLayer
