@@ -32,7 +32,7 @@ ReactDOM.createRoot(document.querySelector('#root')!).render(
   <React.StrictMode>
     <Suspense
       fallback={
-        <div className="w-screnn h-screen">
+        <div className="w-screen h-[100dvh] items-center justify-center">
           <div className="i-tabler-loader-3 w-10 h-10 animate-spin" />
         </div>
       }
