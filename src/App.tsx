@@ -9,12 +9,12 @@ import usePieceRefs from './use-piece-refs';
 import Popover from './Popover';
 import {pieceLayout, placedToCubeColorMap} from './piece-layout';
 import Header from './Header';
-import HelpPage from './HelpPage';
 import NearFormLove from './NearFormLove';
 
 const AssembledCube3D = lazy(async () => import('./AssembedCube3D'));
 const RotatingPieces3D = lazy(async () => import('./RotatingPieces3D'));
 const Canvas3D = lazy(async () => import('./Canvas3D'));
+const HelpPage = lazy(async () => import('./HelpPage'));
 
 const levelMessages = [
   'Noob, go find some QR codes to scan and start building your cube!',
