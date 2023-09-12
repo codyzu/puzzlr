@@ -22,7 +22,7 @@ const HelpPage = lazy(async () => import('./HelpPage'));
 function App() {
   useEffect(() => {
     console.log(
-      '%cNodeConf EU 2023 - Scavenger Hunt',
+      `%cPuzzlr - ${import.meta.env.VITE_EVENT_NAME}`,
       `font-size: 30px; font-family: Montserrat, "Open Sans", sans-serif;
       font-weight: 700; color: white; background-color: black;`,
     );
