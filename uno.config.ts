@@ -66,7 +66,9 @@ export default defineConfig({
     'admin-header': 'text-lg font-semibold mt-4',
     'help-icon': 'w-16 h-16 flex-shrink-1',
     'help-header': 'text-lg font-semibold flex-shrink-3',
-    'help-container': 'justify-center px-2 h-full w-50%',
+    'help-container': 'justify-center px-2 h-full w-50% gap-3',
+    'help-container-left': 'help-container self-start items-end text-right',
+    'help-container-right': 'help-container self-end items-start',
   },
   theme: {
     colors: {
