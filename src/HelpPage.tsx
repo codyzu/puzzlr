@@ -148,7 +148,7 @@ export default function HelpPage({onClose}: {onClose: () => void}) {
           </div>
         </ParallaxLayer>
         <ParallaxLayer offset={5} speed={1}>
-          <div className="help-container-right p-4">
+          <div className="help-container-right p-4 items-center">
             <img src={logoNodeConf} className="max-w-60 w-full" />
           </div>
         </ParallaxLayer>
