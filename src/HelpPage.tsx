@@ -184,12 +184,12 @@ export default function HelpPage({onClose}: {onClose: () => void}) {
       </div>
       <div
         className={clsx(
-          'absolute bottom-0 transition-opacity ease-out duration-800 pointer-events-none',
+          'absolute bottom-0 transition-opacity ease-out duration-800 pointer-events-none pb-1',
           showClose ? 'animate-wobble opacity-100' : 'opacity-0',
         )}
       >
-        <div className="w-20 h-20 i-tabler-square-rounded-check" />
-        <div className="w-20 h-20 text-center">click anywhere to close</div>
+        <div className="w-16 h-16 i-tabler-square-rounded-check" />
+        <div className="w-16 text-center text-sm">click anywhere to close</div>
       </div>
       <div className="absolute top-0 left-0">
         <Suspense>
