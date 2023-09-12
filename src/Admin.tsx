@@ -8,7 +8,7 @@ import RotatingPieces3D from './RotatingPieces3D';
 export default function Admin() {
   const pieceRefs = usePieceRefs();
   useEffect(() => {
-    document.title = 'Cubework secret admin interface';
+    document.title = 'Puzzlr secret admin interface';
   }, []);
 
   return (
