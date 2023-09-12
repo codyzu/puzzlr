@@ -14,8 +14,8 @@ export class MySubClassedDexie extends Dexie {
   pieces!: Table<PieceRow>;
 
   constructor() {
-    super('nodeconf-23-scavenger');
-    this.version(2).stores({
+    super(`puzzlr - ${import.meta.env.VITE_EVENT_NAME}`);
+    this.version(1).stores({
       pieces: '++id, color, added, placement', // Primary key and indexed props
     });
   }
