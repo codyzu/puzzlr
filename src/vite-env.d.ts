@@ -4,6 +4,7 @@
 // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 interface ImportMetaEnv {
   readonly VITE_EVENT_NAME: string;
+  readonly VITE_INDEX_DB: string;
   // More env variables...
 }
 
