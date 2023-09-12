@@ -49,8 +49,11 @@ export default function HelpPage({onClose}: {onClose: () => void}) {
         <ParallaxLayer offset={0} speed={2} className="justify-start p4">
           <div className="min-h-70% gap-3 justify-center">
             <div className="i-tabler-cube w-40 h-40" />
-            <div className="help-header text-center">
-              Welcome to Puzzlr! The Ultimate Cube-Building Challenge!
+            <div className="text-center text-xl font-bold">
+              Welcome to Puzzlr!
+            </div>
+            <div className="text-xl text-center">
+              The Ultimate Cube-Building Challenge!
             </div>
             <div className="text-center">
               Your mission is simple: collect puzzle pieces and construct your
@@ -69,9 +72,9 @@ export default function HelpPage({onClose}: {onClose: () => void}) {
           </div>
         </ParallaxLayer>
         <ParallaxLayer offset={1} speed={0}>
-          <div className="help-container self-end">
-            <div className="flex flex-row gap-2 items-end">
-              <div className="i-tabler-puzzle help-icon" />
+          <div className="help-container-right">
+            <div className="gap-2 items-start">
+              <div className="i-tabler-puzzle help-icon ml--2" />
               <div className="help-header">Find QR Codes</div>
             </div>
             <div>
@@ -82,9 +85,9 @@ export default function HelpPage({onClose}: {onClose: () => void}) {
           </div>
         </ParallaxLayer>
         <ParallaxLayer offset={2} speed={0}>
-          <div className="help-container self-end">
-            <div className="flex flex-row gap-2 items-end">
-              <div className="i-tabler-shape help-icon" />
+          <div className="help-container-right">
+            <div className="gap-2 items-start">
+              <div className="i-tabler-shape help-icon ml--2" />
               <div className="help-header">Five Unique Shapes</div>
             </div>
             <div>
@@ -104,10 +107,10 @@ export default function HelpPage({onClose}: {onClose: () => void}) {
           </div>
         </ParallaxLayer>
         <ParallaxLayer offset={3} speed={0}>
-          <div className="help-container self-start text-right">
-            <div className="flex flex-row gap-2 items-end">
-              <div className="help-header">Building Your Cube</div>
+          <div className="help-container-left">
+            <div className="gap-2 items-end">
               <div className="i-tabler-crane help-icon" />
+              <div className="help-header">Building Your Cube</div>
             </div>
 
             <div>
@@ -118,13 +121,13 @@ export default function HelpPage({onClose}: {onClose: () => void}) {
           </div>
         </ParallaxLayer>
         <ParallaxLayer offset={4} speed={1}>
-          <div className="help-container self-start">
-            <NearFormLove large />
+          <div className="help-container-left">
+            <NearFormLove vertical />
           </div>
         </ParallaxLayer>
         <ParallaxLayer offset={4}>
-          <div className="help-container self-end">
-            <div className="flex flex-row gap-2 items-end">
+          <div className="help-container-right">
+            <div className="gap-2 items-start">
               <div className="i-tabler-brand-twitter help-icon" />
               <div className="help-header">Tweet Your Success</div>
             </div>
@@ -145,7 +148,7 @@ export default function HelpPage({onClose}: {onClose: () => void}) {
           </div>
         </ParallaxLayer>
         <ParallaxLayer offset={5} speed={1}>
-          <div className="help-container self-end p-4">
+          <div className="help-container-right p-4">
             <img src={logoNodeConf} className="max-w-60 w-full" />
           </div>
         </ParallaxLayer>
@@ -155,10 +158,10 @@ export default function HelpPage({onClose}: {onClose: () => void}) {
             onClose();
           }}
         >
-          <div className="help-container self-start text-right">
-            <div className="flex flex-row gap-2 items-end">
+          <div className="help-container-left">
+            <div className="gap-2 items-end">
+              <div className="i-tabler-sparkles help-icon mr--2" />
               <div className="help-header">Join Us at NodeConf EU</div>
-              <div className="i-tabler-sparkles help-icon" />
             </div>
             <div className="inline">
               Don&apos;t stop at the cube; there&apos;s more puzzling excitement
@@ -173,15 +176,15 @@ export default function HelpPage({onClose}: {onClose: () => void}) {
       </Parallax>
       <div
         className={clsx(
-          'absolute bottom-0 animate-bounce transition-opacity ease-out duration-800 pb-8 pointer-events-none',
+          'absolute bottom-0 animate-bounce transition-opacity ease-out duration-800 pointer-events-none',
           showClose ? 'opacity-0' : 'opacity-100',
         )}
       >
-        <div className="i-tabler-chevron-compact-down w-30 h-30" />
+        <div className="i-tabler-chevron-compact-down w-24 h-24" />
       </div>
       <div
         className={clsx(
-          'absolute bottom-0 transition-opacity ease-out duration-800 pb-4 pointer-events-none',
+          'absolute bottom-0 transition-opacity ease-out duration-800 pointer-events-none',
           showClose ? 'animate-wobble opacity-100' : 'opacity-0',
         )}
       >
