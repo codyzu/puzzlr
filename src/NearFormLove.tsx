@@ -6,7 +6,7 @@ export default function NearFormLove({vertical}: {vertical?: boolean}) {
   return (
     <div
       className={clsx(
-        'items-stretch self-stretch justify-center text-xs',
+        'items-center self-stretch justify-center text-xs',
         vertical ? 'items-center gap-2' : 'flex-row gap-3',
       )}
     >
