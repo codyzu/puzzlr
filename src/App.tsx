@@ -13,11 +13,13 @@ import Inventory from './Inventory';
 import HelpButton from './HelpButton';
 import LevelIndicator from './LevelIndicator';
 import ResetButton from './ResetButton';
+import useCubeLayout from './use-cube-layout';
 
 const AssembledCube3D = lazy(async () => import('./AssembedCube3D'));
 const RotatingPieces3D = lazy(async () => import('./RotatingPieces3D'));
 const Canvas3D = lazy(async () => import('./Canvas3D'));
 const HelpPage = lazy(async () => import('./HelpPage'));
+const WinBanner = lazy(async () => import('./WinBanner'));
 
 function App() {
   useEffect(() => {
@@ -109,6 +111,8 @@ Have you ever thought about working for a company like NearForm? Check us out on
     };
   }, [search, setSearch]);
 
+  const cubeLayout = useCubeLayout(help);
+
   const cubeRef = useRef<HTMLDivElement>(null!);
   const pieceRefs = usePieceRefs();
   const controlsRef = useRef<HTMLDivElement>(null!);
@@ -118,20 +122,33 @@ Have you ever thought about working for a company like NearForm? Check us out on
     localStorage.setItem('helpDone', String(true));
   }
 
-  return help ? (
-    <HelpPage
-      onClose={() => {
-        onHelpClose();
-      }}
-    />
-  ) : (
+  if (help) {
+    return (
+      <HelpPage
+        cubeLayout={cubeLayout}
+        onClose={() => {
+          onHelpClose();
+        }}
+      />
+    );
+  }
+
+  if (cubeLayout.isComplete) {
+    return <WinBanner cubeLayout={cubeLayout} />;
+  }
+
+  return (
     // TODO: is 100dvh fully compatible? Should there be a fallback?
     <div className="relative w-full min-h-[100dvh] touch-pan-y">
       <div className="relative w-full h-full flex-grow-1">
         <div ref={cubeRef} className="absolute w-full h-full top-0 left-0">
           <Suspense>
             <Canvas3D>
-              <AssembledCube3D cubeRef={cubeRef} controlsRef={controlsRef} />
+              <AssembledCube3D
+                cubeRef={cubeRef}
+                controlsRef={controlsRef}
+                {...cubeLayout}
+              />
             </Canvas3D>
           </Suspense>
         </div>

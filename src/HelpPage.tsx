@@ -5,12 +5,19 @@ import usePieceRefs from './use-piece-refs';
 import logoNodeConf from './assets/nc-logo.png';
 import NearFormLove from './NearFormLove';
 import Inventory from './Inventory';
+import {type CubeLayout} from './use-cube-layout';
 
 const AssembledCube3D = lazy(async () => import('./AssembedCube3D'));
 const RotatingPieces3D = lazy(async () => import('./RotatingPieces3D'));
 const Canvas3D = lazy(async () => import('./Canvas3D'));
 
-export default function HelpPage({onClose}: {onClose: () => void}) {
+export default function HelpPage({
+  onClose,
+  cubeLayout,
+}: {
+  onClose: () => void;
+  cubeLayout: CubeLayout;
+}) {
   const parallaxRef = useRef<IParallax>(null);
   console.log(parallaxRef.current?.current);
   const [showClose, setShowClose] = useState(false);
@@ -201,7 +208,7 @@ export default function HelpPage({onClose}: {onClose: () => void}) {
       <div className="absolute top-0 left-0">
         <Suspense>
           <Canvas3D className="">
-            <AssembledCube3D demo cubeRef={cubeRef} />
+            <AssembledCube3D demo cubeRef={cubeRef} {...cubeLayout} />
           </Canvas3D>
         </Suspense>
       </div>
