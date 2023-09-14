@@ -197,7 +197,7 @@ export default function Generator() {
                 ref={svgRef}
                 className="h-auto max-w-full w-full"
                 value={url}
-                Size={256}
+                size={256}
                 version={1.1}
                 title={`Add ${piece} piece`}
               />

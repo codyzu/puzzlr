@@ -100,5 +100,37 @@ export default defineConfig({
     breakpoints: {
       sm: '480px',
     },
+    animation: {
+      keyframes: {
+        emoji: `{
+          from,to {
+            transform: translate3d(0,0,0);
+          }
+          0% {
+            bottom: -100px;
+            opacity: 1;
+          }
+          10%,30%,50%,70%,90% {
+            transform: translate3d(calc(var(--reaction-bounce-distance) * -1),0,0);
+          }
+          20%,40%,60%,80% {
+            transform: translate3d(var(--reaction-bounce-distance),0,0);
+          }
+          60% {
+            opacity: 1;
+          }
+          100% {
+            bottom: 90vh;
+            opacity: 0;
+          }
+        }`,
+      },
+      durations: {
+        emoji: 'var(--reaction-duration)',
+      },
+      timingFns: {
+        emoji: 'ease-out',
+      },
+    },
   },
 });

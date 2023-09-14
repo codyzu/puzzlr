@@ -1,90 +1,24 @@
 import {useEffect, type MutableRefObject, useState, useRef} from 'react';
 import {OrbitControls, PerspectiveCamera, View} from '@react-three/drei';
-import {useLiveQuery} from 'dexie-react-hooks';
 import {Box3, MathUtils, type Group, Sphere, Vector3} from 'three';
 import {useSpring, animated, config, easings} from '@react-spring/three';
 import {useThree} from '@react-three/fiber';
-import {db} from './db';
-import {
-  type LayerPoint,
-  pieceLayout,
-  placedToCubeColorMap,
-  type PlacedPiece,
-} from './piece-layout';
+import {type CubeColorMap} from './piece-layout';
 import CubeLayer3D from './CubeLayer3D';
-import {type PieceColor} from './piece-types';
-
-const colorWeights: Array<[PieceColor, number]> = [
-  ['pink', 0.15],
-  ['orange', 0.3],
-  ['green', 0.5],
-  ['blue', 0.75],
-  ['purple', 1],
-];
-
-function generateRandomCubePieces() {
-  const pieces: Array<{color: PieceColor}> = [];
-
-  function isComplete(laidOutPieces: PlacedPiece[][]) {
-    const cubeColorMap = placedToCubeColorMap(laidOutPieces);
-
-    // Determine if the cube is complete by checking that every point is defined
-    const nextIsComplete =
-      cubeColorMap.length === 4 &&
-      cubeColorMap.every((layer) => layer.flat().every(Boolean));
-
-    return nextIsComplete;
-  }
-
-  function tryPiece() {
-    const randomColor = colorWeights.find(
-      ([_, maxWeight]) => Math.random() <= maxWeight,
-    )?.[0];
-
-    const piece = {
-      color: randomColor ?? 'purple',
-    };
-
-    const attemptedPieces = [...pieces, piece];
-    const laidOutPieces = pieceLayout(
-      attemptedPieces.map((piece) => piece.color),
-    );
-
-    if (laidOutPieces.flat(2).length === pieces.length + 1) {
-      pieces.push(piece);
-    }
-
-    return laidOutPieces;
-  }
-
-  let laidOutPieces: PlacedPiece[][] = [[]];
-  while (!isComplete(laidOutPieces)) {
-    laidOutPieces = tryPiece();
-    pieces.push();
-  }
-
-  return pieces;
-}
 
 export default function AssembledCube3D({
   cubeRef,
   controlsRef,
   demo,
+  isComplete,
+  cube,
 }: {
   cubeRef: MutableRefObject<HTMLDivElement>;
   controlsRef?: MutableRefObject<HTMLDivElement>;
   demo?: boolean;
+  isComplete: boolean;
+  cube: CubeColorMap;
 }) {
-  const placedPieces = useLiveQuery(async () =>
-    db.pieces.where('placement').aboveOrEqual(0).sortBy('placement'),
-  );
-
-  const [layers, setLayers] = useState<
-    Array<Array<Array<undefined | LayerPoint>>>
-  >([[]]);
-
-  const [isComplete, setIsComplete] = useState(false);
-
   const [{rotateX, rotateY, rotateZ}, api] = useSpring(
     () => ({
       from: {
@@ -106,33 +40,6 @@ export default function AssembledCube3D({
     }),
     [isComplete],
   );
-
-  useEffect(() => {
-    if (placedPieces === undefined) {
-      return;
-    }
-
-    const laidOutPieces = pieceLayout(
-      (demo ? generateRandomCubePieces() : placedPieces)?.map(
-        (piece) => piece.color,
-      ) ?? [],
-    );
-    const cubeColorMap = placedToCubeColorMap(laidOutPieces);
-
-    // Determine if the cube is complete by checking that every point is defined
-    const nextIsComplete =
-      cubeColorMap.length === 4 &&
-      cubeColorMap.every((layer) => layer.flat().every(Boolean));
-    setIsComplete(nextIsComplete);
-
-    if (nextIsComplete) {
-      for (const point of cubeColorMap.flat(2)) {
-        point!.highlight = true;
-      }
-    }
-
-    setLayers(cubeColorMap);
-  }, [placedPieces, demo]);
 
   useEffect(() => {
     if (!isComplete) {
@@ -169,8 +76,13 @@ export default function AssembledCube3D({
   const [radius, setRadius] = useState<number>();
   const [scale, setScale] = useState<number>(1);
 
+  const [firstRender, setFirstRender] = useState(true);
   useEffect(() => {
-    if (layers.flat(2).length === 0) {
+    setFirstRender(false);
+  }, []);
+
+  useEffect(() => {
+    if (firstRender) {
       return;
     }
 
@@ -191,7 +103,7 @@ export default function AssembledCube3D({
 
     setRadius(sphere.radius);
     setCentered(true);
-  }, [layers, centered]);
+  }, [cube, centered, firstRender]);
 
   useEffect(() => {
     if (centered) {
@@ -213,7 +125,7 @@ export default function AssembledCube3D({
       // bbox.getBoundingSphere(sphere);
       // setRadius(sphere.radius);
     }
-  }, [layers, centered]);
+  }, [cube, centered]);
 
   const {viewport} = useThree();
 
@@ -247,7 +159,7 @@ export default function AssembledCube3D({
         scale={scale}
       >
         <group ref={piecesRef}>
-          {layers.map((layer, index) => (
+          {cube.map((layer, index) => (
             // eslint-disable-next-line react/no-array-index-key
             <CubeLayer3D key={`layer-${index}`} layer={layer} z={index} />
           ))}
