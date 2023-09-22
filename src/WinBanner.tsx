@@ -1,4 +1,4 @@
-import {Suspense, lazy, useEffect, useRef} from 'react';
+import {Suspense, lazy, useEffect, useRef, useState} from 'react';
 import {Reactions} from './reactions/Reactions';
 import useReactions from './reactions/use-reactions';
 import reactionsIconMap from './reactions/reaction-icons-map';
@@ -12,6 +12,10 @@ const Canvas3D = lazy(async () => import('./Canvas3D'));
 
 export default function WinBanner({cubeLayout}: {cubeLayout: CubeLayout}) {
   const {addReactions, reactions, removeReaction} = useReactions();
+  const [winTimestamp, setWinTimestamp] = useState<string>();
+  useEffect(() => {
+    setWinTimestamp(Date.now().toFixed(0));
+  }, []);
 
   useEffect(() => {
     let handle: number | undefined;
@@ -73,6 +77,9 @@ export default function WinBanner({cubeLayout}: {cubeLayout: CubeLayout}) {
         <NearFormLove />
       </div>
       <Reactions reactions={reactions} removeReaction={removeReaction} />
+      <div className="text-xs opacity-40 self-end mr--3 mb--4">
+        {winTimestamp}
+      </div>
     </div>
   );
 }
