@@ -2,6 +2,10 @@
 
 Interactive networking app for creating real-world connections.
 
+## Branches
+* `main`: NodeConf EU 2023 version
+* `ghc`: Grace Hopper Celebration 2023 version
+
 ## See also
 - https://stackoverflow.com/q/1213394
 - https://en.wikipedia.org/wiki/Packing_problems
