@@ -8,7 +8,7 @@ const levelMessages = [
 export default function LevelIndicator({layerCount}: {layerCount: number}) {
   return (
     <div className="text-sm">
-      Level {layerCount}: {levelMessages[layerCount - 1]}
+      Level {layerCount}/4: {levelMessages[layerCount - 1]}
     </div>
   );
 }
