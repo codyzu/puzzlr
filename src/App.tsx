@@ -14,6 +14,7 @@ import HelpButton from './HelpButton';
 import LevelIndicator from './LevelIndicator';
 import ResetButton from './ResetButton';
 import useCubeLayout from './use-cube-layout';
+import MissingPiece from './MissingPiece';
 
 const AssembledCube3D = lazy(async () => import('./AssembedCube3D'));
 const RotatingPieces3D = lazy(async () => import('./RotatingPieces3D'));
@@ -177,6 +178,7 @@ Have you ever thought about working for a company like NearForm? Check us out on
               <div className="flex-row items-stretch">
                 <div className="info-container justify-center">
                   <LevelIndicator layerCount={layerCount} />
+                  <MissingPiece className="text-sm items-start self-start" />
                 </div>
                 <div className="justify-center">
                   <ResetButton />
