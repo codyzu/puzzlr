@@ -3,6 +3,7 @@ import {ParallaxLayer, Parallax, type IParallax} from '@react-spring/parallax';
 import {Suspense, lazy, useEffect, useRef, useState} from 'react';
 import usePieceRefs from './use-piece-refs';
 import logoNodeConf from './assets/nc-logo.svg';
+import nearformLogo from './assets/nf-logo-horizontal.svg';
 import NearFormLove from './NearFormLove';
 import Inventory from './Inventory';
 import {type CubeLayout} from './use-cube-layout';
@@ -182,6 +183,14 @@ export default function HelpPage({
           </div>
         </ParallaxLayer>
       </Parallax>
+      <a
+        className="absolute top-0 flex flex-row items-center text-xs gap-1"
+        href="https://github.com/nearform-oss/puzzlr"
+      >
+        <img className="h-1em" src={nearformLogo} />
+        <div className="mt-1 font-bold">Open Source</div>
+        <div className="i-tabler-brand-github h-4 w-4" />
+      </a>
       <div
         className={clsx(
           'absolute bottom-0 animate-bounce transition-opacity ease-out duration-800 pointer-events-none',
