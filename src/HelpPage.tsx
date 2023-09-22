@@ -178,6 +178,7 @@ export default function HelpPage({
               </a>
               .
             </div>
+            {/* <MissingPiece className="items-end text-right" /> */}
           </div>
         </ParallaxLayer>
       </Parallax>

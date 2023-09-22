@@ -6,6 +6,7 @@ import {type CubeLayout} from './use-cube-layout';
 import ResetButton from './ResetButton';
 import NearFormLove from './NearFormLove';
 import Header from './Header';
+import MissingPiece from './MissingPiece';
 
 const AssembledCube3D = lazy(async () => import('./AssembedCube3D'));
 const Canvas3D = lazy(async () => import('./Canvas3D'));
@@ -74,6 +75,7 @@ export default function WinBanner({cubeLayout}: {cubeLayout: CubeLayout}) {
 
       <div className="relative flex-row-reverse justify-center flex-wrap gap-2">
         <ResetButton />
+        <MissingPiece />
         <NearFormLove />
       </div>
       <Reactions reactions={reactions} removeReaction={removeReaction} />
