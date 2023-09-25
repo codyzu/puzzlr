@@ -3,7 +3,6 @@ import {ParallaxLayer, Parallax, type IParallax} from '@react-spring/parallax';
 import {Suspense, lazy, useEffect, useRef, useState} from 'react';
 import usePieceRefs from './use-piece-refs';
 import logoNodeConf from './assets/nc-logo.svg';
-import nearformLogo from './assets/nf-logo-horizontal.svg';
 import NearFormLove from './NearFormLove';
 import Inventory from './Inventory';
 import {type CubeLayout} from './use-cube-layout';
