@@ -183,14 +183,6 @@ export default function HelpPage({
           </div>
         </ParallaxLayer>
       </Parallax>
-      <a
-        className="absolute top-0 flex flex-row items-center text-xs gap-1"
-        href="https://github.com/nearform-oss/puzzlr"
-      >
-        <img className="h-1em" src={nearformLogo} />
-        <div className="mt-1 font-bold">Open Source</div>
-        <div className="i-tabler-brand-github h-4 w-4" />
-      </a>
       <div
         className={clsx(
           'absolute bottom-0 animate-bounce transition-opacity ease-out duration-800 pointer-events-none',
@@ -222,6 +214,14 @@ export default function HelpPage({
           </Canvas3D>
         </Suspense>
       </div>
+      <a
+        className="absolute top-0 flex flex-row items-center justify-center text-xs gap-1 bg-white text-dark-violet w-full"
+        href="https://github.com/nearform-oss/puzzlr"
+      >
+        <div className="i-logos-nf-logo-horizontal w-21" />
+        <div className="mt-1 font-bold">Open Source</div>
+        <div className="i-tabler-brand-github h-4 w-4" />
+      </a>
     </div>
   );
 }

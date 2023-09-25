@@ -178,15 +178,17 @@ Have you ever thought about working for a company like NearForm? Check us out on
               <div className="flex-row items-stretch">
                 <div className="info-container justify-center">
                   <LevelIndicator layerCount={layerCount} />
-                  <MissingPiece className="text-sm items-start self-start" />
                 </div>
                 <div className="justify-center">
                   <ResetButton />
                 </div>
               </div>
             </div>
-            <NearFormLove />
           </div>
+        </div>
+        <MissingPiece />
+        <div className="px-2 py-2">
+          <NearFormLove />
         </div>
       </div>
       <Suspense>

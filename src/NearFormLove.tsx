@@ -11,7 +11,7 @@ export default function NearFormLove({vertical}: {vertical?: boolean}) {
       )}
     >
       <div className="flex-row justify-center flex-shrink-0 items-center gap-1">
-        <div className="">made with</div>
+        <div className="">Made with</div>
         <div className="i-tabler-heart-filled w-5 h-5" />
         <div>by</div>
       </div>
