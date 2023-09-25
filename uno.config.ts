@@ -5,11 +5,18 @@ import presetIcons from '@unocss/preset-icons';
 import transformerVariantGroup from '@unocss/transformer-variant-group';
 import transformerDirectives from '@unocss/transformer-directives';
 import presetWebFonts from '@unocss/preset-web-fonts';
+import {FileSystemIconLoader} from '@iconify/utils/lib/loader/node-loaders';
 
 export default defineConfig({
   presets: [
     presetUno(),
     presetIcons({
+      collections: {
+        // eslint-disable-next-line new-cap
+        logos: FileSystemIconLoader('./src/assets', (svg) =>
+          svg.replace(/#fff/, 'currentColor'),
+        ),
+      },
       extraProperties: {
         display: 'inline-block',
         'vertical-align': 'middle',
@@ -65,9 +72,12 @@ export default defineConfig({
     'admin-header': 'text-lg font-semibold mt-4',
     'help-icon': 'w-16 h-16 flex-shrink-1',
     'help-header': 'text-lg font-semibold flex-shrink-3',
-    'help-container': 'justify-center px-2 h-full w-50% gap-3',
-    'help-container-left': 'help-container self-start items-end text-right',
-    'help-container-right': 'help-container self-end items-start',
+    'help-container-common': 'justify-center h-full w-50% gap-3',
+    'help-container': 'help-container-common px-2',
+    'help-container-left':
+      'help-container-common self-start items-end text-right pr-2 pl-3',
+    'help-container-right':
+      'help-container-common self-end items-start pr-3 pl-2',
   },
   theme: {
     colors: {

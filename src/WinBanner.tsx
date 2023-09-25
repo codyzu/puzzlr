@@ -42,7 +42,7 @@ export default function WinBanner({cubeLayout}: {cubeLayout: CubeLayout}) {
   const controlsRef = useRef<HTMLDivElement>(null!);
 
   return (
-    <div className="relative w-full h-[100dvh] justify-between p-4 from-magenta to-sapphire bg-gradient-to-br bg-gradient-from-opacity-75 bg-gradient-to-opacity-75 items-stretch">
+    <div className="relative w-full h-[100dvh] justify-between from-magenta to-sapphire bg-gradient-to-br bg-gradient-from-opacity-75 bg-gradient-to-opacity-75 items-stretch">
       <div ref={cubeRef} className="absolute w-full h-full top-0 left-0">
         <Suspense>
           <Canvas3D className="">
@@ -56,7 +56,7 @@ export default function WinBanner({cubeLayout}: {cubeLayout: CubeLayout}) {
         </Suspense>
       </div>
       <Header />
-      <div className="mt-7 backdrop-blur-lg backdrop-filter z-1 animate-bounce p-2 self-center rounded">
+      <div className="mt-7 backdrop-blur-lg backdrop-filter z-1 animate-bounce py-2 px-4 mx-1 self-center rounded">
         <div className="relative text-4xl font-bold animate-bounce-in-left">
           Congratulations!
         </div>
@@ -79,7 +79,7 @@ export default function WinBanner({cubeLayout}: {cubeLayout: CubeLayout}) {
         <NearFormLove />
       </div>
       <Reactions reactions={reactions} removeReaction={removeReaction} />
-      <div className="text-xs opacity-40 self-end mr--3 mb--4">
+      <div className="text-xs opacity-40 self-end pb-1 pr-1">
         {winTimestamp}
       </div>
     </div>
