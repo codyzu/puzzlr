@@ -7,6 +7,7 @@ import {RouterProvider, createBrowserRouter} from 'react-router-dom';
 import App from './App.tsx';
 import './index.css';
 import Reset from './Reset.tsx';
+import ErrorPage from './ErrorPage.tsx';
 
 const Admin = lazy(async () => import('./Admin.tsx'));
 
@@ -15,14 +16,22 @@ const router = createBrowserRouter(
     {
       path: '/',
       element: <App />,
+      errorElement: <ErrorPage />,
     },
     {
       path: '/secret-admin',
       element: <Admin />,
+      errorElement: <ErrorPage />,
     },
     {
       path: '/secret-reset',
       element: <Reset />,
+      errorElement: <ErrorPage />,
+    },
+    {
+      path: '*',
+      element: <ErrorPage />,
+      errorElement: <ErrorPage />,
     },
   ],
   {basename: import.meta.env.BASE_URL},
