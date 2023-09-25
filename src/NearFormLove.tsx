@@ -17,7 +17,7 @@ export default function NearFormLove({vertical}: {vertical?: boolean}) {
       </div>
       <div className={vertical ? 'px-8' : ''}>
         <img
-          className={vertical ? 'max-w-60 w-full' : 'h-6'}
+          className={vertical ? 'max-w-60 w-full' : 'h-4'}
           src={vertical ? neaformLogoStacked : neaformLogoHorizontal}
         />
       </div>
