@@ -1,4 +1,4 @@
-import logo from './assets/logo.png';
+import logo from './assets/nc-logo.svg';
 
 export default function Header() {
   return (
