@@ -78,6 +78,7 @@ export default defineConfig({
       'help-container-common self-start items-end text-right pr-2 pl-3',
     'help-container-right':
       'help-container-common self-end items-start pr-3 pl-2',
+    'missing-piece': 'text-dark-pink bg-white',
   },
   theme: {
     colors: {
