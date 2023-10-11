@@ -57,7 +57,6 @@ export default defineConfig({
     btn: 'bg-pink rounded-lg p-4 font-heading tracking-[2px] font-semibold text-base uppercase hover:bg-dark-pink disabled:bg-gray-600',
     'help-border': 'z-1 border-pink border-3 rounded-lg',
     body: 'bg-black',
-      'absolute hidden p-4 flex-row justify-end items-start pointer-events-none gap-2 text-white case-normal font-normal tracking-normal font-sans text-base',
     highlight: 'text-pink font-bold',
     'shape-container': 'bg-gray-800 rounded-lg bg-opacity-80',
     'info-container':
