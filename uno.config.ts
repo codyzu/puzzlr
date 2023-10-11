@@ -56,12 +56,8 @@ export default defineConfig({
     'input-control': 'rounded-md p-2 bg-gray-200 text-black',
     btn: 'bg-pink rounded-lg p-4 font-heading tracking-[2px] font-semibold text-base uppercase hover:bg-dark-pink disabled:bg-gray-600',
     'help-border': 'z-1 border-pink border-3 rounded-lg',
-    wizard: 'bg-gray-800 bg-opacity-95',
     body: 'bg-black',
-    'wizard-highlight': 'text-pink',
-    'wizard-container':
       'absolute hidden p-4 flex-row justify-end items-start pointer-events-none gap-2 text-white case-normal font-normal tracking-normal font-sans text-base',
-    'wizard-overlay': 'bg-gray-800',
     highlight: 'text-pink font-bold',
     'shape-container': 'bg-gray-800 rounded-lg bg-opacity-80',
     'info-container':
@@ -79,11 +75,21 @@ export default defineConfig({
     'help-container-right':
       'help-container-common self-end items-start pr-3 pl-2',
     'missing-piece': 'text-dark-pink bg-white',
+    hiring: 'bg-white text-dark-pink ',
+    'help-bg-0': 'bg-purplish',
+    'help-bg-1': 'bg-orange',
+    'help-bg-2': 'bg-green',
+    'help-bg-3': 'bg-purple',
   },
   theme: {
     colors: {
       pink: '#f08',
       'dark-pink': '#c51774',
+      purplish: '#D92CB6',
+      green: '#369A54',
+      orange: '#E68C00',
+      'dark-orange': '#AB1F0F',
+      purple: '#9752BB',
     },
     breakpoints: {
       sm: '480px',

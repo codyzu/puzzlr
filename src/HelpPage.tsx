@@ -48,11 +48,11 @@ export default function HelpPage({
   }, []);
 
   return (
-    <div className="absolute w-full top-0 left-0 h-[100dvh] wizard">
+    <div className="absolute w-full top-0 left-0 h-[100dvh] help-bg-0">
       <Parallax ref={parallaxRef} config={{}} pages={6} className="">
-        <ParallaxLayer className="bg-magenta" offset={1} speed={1} />
-        <ParallaxLayer className="bg-tangerine" offset={3} speed={1} />
-        <ParallaxLayer className="bg-violet" offset={5} speed={1} />
+        <ParallaxLayer className="help-bg-1" offset={1} speed={1} />
+        <ParallaxLayer className="help-bg-2" offset={3} speed={1} />
+        <ParallaxLayer className="help-bg-3" offset={5} speed={1} />
         <ParallaxLayer offset={0} speed={2} className="justify-start p4">
           <div className="min-h-70% gap-3 justify-center">
             <div className="i-tabler-cube w-40 h-40" />
@@ -214,7 +214,7 @@ export default function HelpPage({
         </Suspense>
       </div>
       <a
-        className="absolute top-0 flex flex-row items-center justify-center text-xs gap-1 bg-white text-dark-violet w-full"
+        className="hiring absolute top-0 flex flex-row items-center justify-center text-xs gap-1 w-full"
         href="https://github.com/nearform-oss/puzzlr"
       >
         <div className="i-logos-nf-logo-horizontal w-21" />
