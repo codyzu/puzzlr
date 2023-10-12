@@ -12,7 +12,7 @@ export default function NearFormLove({vertical}: {vertical?: boolean}) {
     >
       <div className="flex-row justify-center flex-shrink-0 items-center gap-1">
         <div className="">Made with</div>
-        <div className="i-tabler-heart-filled w-5 h-5" />
+        <div className="i-tabler-heart-filled w-5 h-5 text-pink animate-pulse" />
         <div>by</div>
       </div>
       <div className={vertical ? 'px-8' : ''}>
