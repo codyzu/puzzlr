@@ -219,7 +219,7 @@ export default function HelpPage({
         </Suspense>
       </div>
       <a
-        className="hiring absolute top-0 flex flex-row items-center justify-center text-xs gap-1 w-full"
+        className="opensource absolute top-0 flex flex-row items-center justify-center text-xs gap-1 w-full"
         href="https://github.com/nearform-oss/puzzlr"
       >
         <div className="i-logos-nf-logo-horizontal w-21" />

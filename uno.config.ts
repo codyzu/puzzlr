@@ -73,8 +73,8 @@ export default defineConfig({
       'help-container-common self-start items-end text-right pr-2 pl-3',
     'help-container-right':
       'help-container-common self-end items-start pr-3 pl-2',
-    'missing-piece': 'text-dark-pink bg-white',
-    hiring: 'bg-white text-dark-pink ',
+    'missing-piece': 'bg-pink text-white',
+    opensource: 'bg-pink text-white',
     'help-bg-0': 'bg-black',
     'help-bg-1': 'bg-white',
     'help-bg-2': 'bg-white',
