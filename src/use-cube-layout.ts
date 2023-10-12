@@ -6,6 +6,7 @@ import {
   pieceLayout,
   placedToCubeColorMap,
   type CubeColorMap,
+  cubeLength,
 } from './piece-layout';
 import {type PieceColor} from './piece-types';
 
@@ -44,7 +45,7 @@ export default function useCubeLayout(demo?: boolean): CubeLayout {
 
     // Determine if the cube is complete by checking that every point is defined
     const nextIsComplete =
-      cubeColorMap.length === 4 &&
+      cubeColorMap.length === cubeLength &&
       cubeColorMap.every((layer) => layer.flat().every(Boolean));
     setIsComplete(nextIsComplete);
 
@@ -68,7 +69,7 @@ function generateRandomCubePieces() {
 
     // Determine if the cube is complete by checking that every point is defined
     const nextIsComplete =
-      cubeColorMap.length === 4 &&
+      cubeColorMap.length === cubeLength &&
       cubeColorMap.every((layer) => layer.flat().every(Boolean));
 
     return nextIsComplete;

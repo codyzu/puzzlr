@@ -20,7 +20,11 @@ export type LayerPoint = {
   highlight: boolean;
 };
 
-export type CubeColorMap = Array<Array<Array<undefined | LayerPoint>>>;
+export type LayerColorMap = Array<Array<undefined | LayerPoint>>;
+
+export type CubeColorMap = LayerColorMap[];
+
+export const cubeLength = 3;
 
 export function pieceLayout(pieces: PieceColor[]): PlacedPiece[][] {
   let remainingPieces: PieceMeta[] = pieces.map((color, index) => ({
@@ -34,7 +38,8 @@ export function pieceLayout(pieces: PieceColor[]): PlacedPiece[][] {
 
   const layers: PlacedPiece[][] = [];
 
-  for (let i = 0; i < 4; i++) {
+  // Layout layer by layer
+  for (let i = 0; i < cubeLength; i++) {
     const layerPlaced = layoutLayer(remainingPieces, lastPiece!);
     remainingPieces = remainingPieces.filter(
       (piece) =>
@@ -62,11 +67,14 @@ export function placedToCubeColorMap(
   const layerMaps = placedPieces.map((layer) => placedToColorMap(layer));
 
   // Push an empty layer if the last layer was complete
-  if (layerMaps.length < 4 && layerMaps.at(-1)!.flat().every(Boolean)) {
+  if (
+    layerMaps.length < cubeLength &&
+    layerMaps.at(-1)!.flat().every(Boolean)
+  ) {
     layerMaps.push(
       Array.from({
-        length: 4,
-      }).map(() => Array.from({length: 4}).map(() => undefined)),
+        length: cubeLength,
+      }).map(() => Array.from({length: cubeLength}).map(() => undefined)),
     );
   }
 
@@ -74,20 +82,24 @@ export function placedToCubeColorMap(
 }
 
 function layoutLayer(availablePieces: PieceMeta[], lastPiece: PieceMeta) {
+  // The longest edge of a piece is 3. In order to try all possible position, start testing at -2
+  const possiblePositionCount = cubeLength + 2;
   const placedPieces: PlacedPiece[] = [];
 
-  let layer = Array.from({length: 4}).map(() =>
-    Array.from({length: 4}).map(() => 0),
+  let layer = Array.from({length: cubeLength}).map(() =>
+    Array.from({length: cubeLength}).map(() => 0),
   );
 
   for (const piece of availablePieces) {
-    const positions = Array.from({length: 6 * 6}).map((_, index) => index);
+    const positions = Array.from({length: possiblePositionCount ** 2}).map(
+      (_, index) => index,
+    );
 
     let placed = false;
 
     for (const positionIndex of positions) {
-      const x = (positionIndex % 6) - 2;
-      const y = Math.floor(positionIndex / 6) - 2;
+      const x = (positionIndex % possiblePositionCount) - 2;
+      const y = Math.floor(positionIndex / possiblePositionCount) - 2;
 
       const rotations = Array.from({length: 4}).map((_, index) => index);
 
@@ -130,9 +142,9 @@ function layoutLayer(availablePieces: PieceMeta[], lastPiece: PieceMeta) {
 }
 
 function placedToColorMap(pieces: PlacedPiece[]) {
-  const layer: Array<Array<undefined | LayerPoint>> = Array.from({
-    length: 4,
-  }).map(() => Array.from({length: 4}).map(() => undefined));
+  const layer: LayerColorMap = Array.from({
+    length: cubeLength,
+  }).map(() => Array.from({length: cubeLength}).map(() => undefined));
 
   for (const piece of pieces) {
     const rotatedPieceMap = rotateMatrixTimes(piece.piece, piece.rotation);

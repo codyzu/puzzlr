@@ -1,14 +1,14 @@
 import WireframeSegment3D from './WireframeSegement3D';
 import {pieceColorValues} from './GenricPieces';
 import Segment3D from './Segment3D';
-import {type LayerPoint} from './piece-layout';
+import {type LayerColorMap} from './piece-layout';
 import {type PieceColor} from './piece-types';
 
 export default function CubeLayer3D({
   layer,
   z,
 }: {
-  layer: Array<Array<undefined | LayerPoint>>;
+  layer: LayerColorMap;
   z: number;
 }) {
   return (

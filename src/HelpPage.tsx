@@ -19,7 +19,6 @@ export default function HelpPage({
   cubeLayout: CubeLayout;
 }) {
   const parallaxRef = useRef<IParallax>(null);
-  console.log(parallaxRef.current?.current);
   const [showClose, setShowClose] = useState(false);
   const pieceRefs = usePieceRefs();
   const cubeRef = useRef<HTMLDivElement>(null!);
