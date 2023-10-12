@@ -101,7 +101,7 @@ function layoutLayer(availablePieces: PieceMeta[], lastPiece: PieceMeta) {
       const x = (positionIndex % possiblePositionCount) - 2;
       const y = Math.floor(positionIndex / possiblePositionCount) - 2;
 
-      const rotations = Array.from({length: 4}).map((_, index) => index);
+      const rotations = Array.from({length: 360 / 90}).map((_, index) => index);
 
       for (const rotation of rotations) {
         const rotated = rotateMatrixTimes(piece.piece, rotation);
