@@ -224,7 +224,7 @@ export default function HelpPage({
       >
         <div className="i-logos-nf-logo-horizontal w-21" />
         <div className="mt-1 font-bold">Open Source</div>
-        <div className="i-tabler-brand-github h-4 w-4" />
+        <div className="i-line-md-github-loop h-4 w-4" />
       </a>
     </div>
   );
