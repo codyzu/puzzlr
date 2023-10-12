@@ -48,12 +48,16 @@ export default function HelpPage({
   }, []);
 
   return (
-    <div className="absolute w-full top-0 left-0 h-[100dvh] help-bg-0">
+    <div className="absolute w-screen overflow-hidden top-0 left-0 h-[100dvh] help-bg-0">
       <Parallax ref={parallaxRef} config={{}} pages={6} className="">
         <ParallaxLayer className="help-bg-1" offset={1} speed={1} />
         <ParallaxLayer className="help-bg-2" offset={3} speed={1} />
         <ParallaxLayer className="help-bg-3" offset={5} speed={1} />
-        <ParallaxLayer offset={0} speed={2} className="justify-start p4">
+        <ParallaxLayer
+          offset={0}
+          speed={2}
+          className="justify-start p4 mix-blend-difference"
+        >
           <div className="min-h-70% gap-3 justify-center">
             <div className="i-tabler-cube w-40 h-40" />
             <div className="text-center text-xl font-bold">
@@ -78,7 +82,7 @@ export default function HelpPage({
             <Inventory pieceRefs={pieceRefs} />
           </div>
         </ParallaxLayer>
-        <ParallaxLayer offset={1} speed={0}>
+        <ParallaxLayer offset={1} speed={0} className="mix-blend-difference">
           <div className="help-container-right">
             <div className="gap-2 items-start">
               <div className="i-tabler-puzzle help-icon ml--2" />
@@ -91,7 +95,7 @@ export default function HelpPage({
             </div>
           </div>
         </ParallaxLayer>
-        <ParallaxLayer offset={2} speed={0}>
+        <ParallaxLayer offset={2} speed={0} className="mix-blend-difference">
           <div className="help-container-right">
             <div className="gap-2 items-start">
               <div className="i-tabler-shape help-icon ml--2" />
@@ -113,7 +117,7 @@ export default function HelpPage({
             />
           </div>
         </ParallaxLayer>
-        <ParallaxLayer offset={3} speed={0}>
+        <ParallaxLayer offset={3} speed={0} className="mix-blend-difference">
           <div className="help-container-left">
             <div className="gap-2 items-end">
               <div className="i-tabler-crane help-icon" />
@@ -132,7 +136,7 @@ export default function HelpPage({
             <NearFormLove vertical />
           </div>
         </ParallaxLayer>
-        <ParallaxLayer offset={4}>
+        <ParallaxLayer offset={4} className="mix-blend-difference">
           <div className="help-container-right">
             <div className="gap-2 items-start">
               <div className="i-tabler-brand-twitter help-icon" />
@@ -161,6 +165,7 @@ export default function HelpPage({
         </ParallaxLayer>
         <ParallaxLayer
           offset={5}
+          className="mix-blend-difference"
           onClick={() => {
             onClose();
           }}
@@ -184,7 +189,7 @@ export default function HelpPage({
       </Parallax>
       <div
         className={clsx(
-          'absolute bottom-0 animate-bounce transition-opacity ease-out duration-800 pointer-events-none',
+          'absolute bottom-0 animate-bounce transition-opacity ease-out duration-800 pointer-events-none mix-blend-difference',
           showClose ? 'opacity-0' : 'opacity-100',
         )}
       >
@@ -192,7 +197,7 @@ export default function HelpPage({
       </div>
       <div
         className={clsx(
-          'absolute bottom-0 transition-opacity ease-out duration-800 pointer-events-none pb-1',
+          'absolute bottom-0 transition-opacity ease-out duration-800 pointer-events-none pb-1 mix-blend-difference',
           showClose ? 'animate-wobble opacity-100' : 'opacity-0',
         )}
       >

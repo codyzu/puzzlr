@@ -75,10 +75,10 @@ export default defineConfig({
       'help-container-common self-end items-start pr-3 pl-2',
     'missing-piece': 'text-dark-pink bg-white',
     hiring: 'bg-white text-dark-pink ',
-    'help-bg-0': 'bg-purplish',
-    'help-bg-1': 'bg-orange',
-    'help-bg-2': 'bg-green',
-    'help-bg-3': 'bg-purple',
+    'help-bg-0': 'bg-black',
+    'help-bg-1': 'bg-white',
+    'help-bg-2': 'bg-white',
+    'help-bg-3': 'bg-white',
   },
   theme: {
     colors: {
