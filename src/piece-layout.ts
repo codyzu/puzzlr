@@ -71,11 +71,7 @@ export function placedToCubeColorMap(
     layerMaps.length < cubeLength &&
     layerMaps.at(-1)!.flat().every(Boolean)
   ) {
-    layerMaps.push(
-      Array.from({
-        length: cubeLength,
-      }).map(() => Array.from({length: cubeLength}).map(() => undefined)),
-    );
+    layerMaps.push(emptyLayer(undefined));
   }
 
   return layerMaps;
@@ -86,9 +82,7 @@ function layoutLayer(availablePieces: PieceMeta[], lastPiece: PieceMeta) {
   const possiblePositionCount = cubeLength + 2;
   const placedPieces: PlacedPiece[] = [];
 
-  let layer = Array.from({length: cubeLength}).map(() =>
-    Array.from({length: cubeLength}).map(() => 0),
-  );
+  let layer = emptyLayer(0);
 
   for (const piece of availablePieces) {
     const positions = Array.from({length: possiblePositionCount ** 2}).map(
@@ -142,9 +136,7 @@ function layoutLayer(availablePieces: PieceMeta[], lastPiece: PieceMeta) {
 }
 
 function placedToColorMap(pieces: PlacedPiece[]) {
-  const layer: LayerColorMap = Array.from({
-    length: cubeLength,
-  }).map(() => Array.from({length: cubeLength}).map(() => undefined));
+  const layer: LayerColorMap = emptyLayer(undefined);
 
   for (const piece of pieces) {
     const rotatedPieceMap = rotateMatrixTimes(piece.piece, piece.rotation);
@@ -163,6 +155,12 @@ function placedToColorMap(pieces: PlacedPiece[]) {
   }
 
   return layer;
+}
+
+function emptyLayer<T>(value: T): T[][] {
+  return Array.from({
+    length: cubeLength,
+  }).map(() => Array.from({length: cubeLength}).map(() => value));
 }
 
 function matrixCount(matrix: number[][]) {
