@@ -64,9 +64,14 @@ export function pieceLayout(pieces: PieceColor[]): PlacedPiece[][] {
 export function placedToCubeColorMap(
   placedPieces: PlacedPiece[][],
 ): CubeColorMap {
+  // No pieces, return an empty cube that will be wire-framed
+  if (placedPieces.flat().length === 0) {
+    return Array.from({length: cubeLength}).map(() => emptyLayer(undefined));
+  }
+
   const layerMaps = placedPieces.map((layer) => placedToColorMap(layer));
 
-  // Push an empty layer if the last layer was complete
+  // Push an empty layer (that will be wire-framed) if the last layer was complete
   if (
     layerMaps.length < cubeLength &&
     layerMaps.at(-1)!.flat().every(Boolean)
