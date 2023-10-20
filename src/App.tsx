@@ -1,12 +1,10 @@
 import {useRef, lazy, useEffect, Suspense, useState} from 'react';
 import {useSearchParams} from 'react-router-dom';
 import clsx from 'clsx';
-import {useLiveQuery} from 'dexie-react-hooks';
 import {db} from './db';
 import {isPieceColor, type PieceColor} from './piece-types';
 import usePieceRefs from './use-piece-refs';
 import Popover from './Popover';
-import {pieceLayout, placedToCubeColorMap} from './piece-layout';
 import Header from './Header';
 import NearFormLove from './NearFormLove';
 import Inventory from './Inventory';
@@ -46,23 +44,6 @@ Have you ever thought about working for a company like NearForm? Check us out on
   const [message, setMessage] = useState('');
   const [imageSource, setImageSource] = useState('');
   const [help, setHelp] = useState(false);
-
-  const placedPieces = useLiveQuery(async () =>
-    db.pieces.where('placement').aboveOrEqual(0).sortBy('placement'),
-  );
-
-  const [layerCount, setLayerCount] = useState(0);
-  useEffect(() => {
-    if (placedPieces === undefined) {
-      return;
-    }
-
-    const laidOutPieces = pieceLayout(
-      placedPieces?.map((piece) => piece.color) ?? [],
-    );
-    const cubeColorMap = placedToCubeColorMap(laidOutPieces);
-    setLayerCount(cubeColorMap.length);
-  }, [placedPieces]);
 
   useEffect(() => {
     if (!localStorage.getItem('helpDone')) {
@@ -177,7 +158,7 @@ Have you ever thought about working for a company like NearForm? Check us out on
             <div className="flex-row flex-grow-1 justify-center">
               <div className="flex-row items-stretch">
                 <div className="info-container justify-center">
-                  <LevelIndicator layerCount={layerCount} />
+                  <LevelIndicator layerCount={cubeLayout.cube.length} />
                 </div>
                 <div className="justify-center">
                   <ResetButton />
