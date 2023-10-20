@@ -2,6 +2,8 @@
 
 Interactive networking app for creating real-world connections.
 
+![win screenshot](./win-sreenshot.png)
+
 ## Branches
 * `main`: NodeConf EU 2023 version
 * `ghc`: Grace Hopper Celebration 2023 version
