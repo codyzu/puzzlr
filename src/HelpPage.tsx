@@ -58,10 +58,10 @@ export default function HelpPage({
         <ParallaxLayer className="help-bg-2" offset={5} speed={1} />
         <ParallaxLayer className="help-bg-3" offset={7} speed={1} />
         <ParallaxLayer sticky={{start: 0, end: 2}}>
-          <div className="justify-start w-full h-full mt--20%">
+          <div className="justify-start w-full h-100dvh mt--20%">
             <div
               ref={firstCube ? cubeRef : null}
-              className="w-150% aspect-square"
+              className="w-125% aspect-square"
             />
           </div>
         </ParallaxLayer>
@@ -156,22 +156,27 @@ export default function HelpPage({
         <ParallaxLayer offset={6} className="mix-blend-difference">
           <div className="help-container-right">
             <div className="gap-2 items-start">
-              <div className="i-tabler-brand-twitter help-icon" />
-              <div className="help-header">Tweet Your Success</div>
+              <div className="i-tabler-brand-x help-icon ml--2" />
+              <div className="help-header">Share Your Success</div>
             </div>
-            <div className="inline">
-              Once your cube is complete, shout it out to the world! Tweet a
-              screenshot of your masterpiece to{' '}
-              <a
-                className="underline font-semibold"
-                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-                  'I just completed my Puzzlr cube challenge by @NearForm at the @AnitaB_org #GHC23!',
-                )}`}
-              >
-                @NearForm
-              </a>
-              . Exciting prizes await the first 100 people to tweet a completed
-              cube.
+            <div className="gap-3">
+              <div className="inline">
+                Once your cube is complete, shout it out to the world! Tweet a
+                screenshot of your masterpiece to{' '}
+                <a
+                  className="underline font-semibold"
+                  href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                    'I just completed my Puzzlr cube challenge by @NearForm at @NodeConfEU',
+                  )}`}
+                >
+                  @NearForm
+                </a>
+                .
+              </div>
+              <div>
+                Exciting prizes await the first 10 people that show their cube
+                at the NearForm booth.
+              </div>
             </div>
           </div>
         </ParallaxLayer>
@@ -190,17 +195,25 @@ export default function HelpPage({
           <div className="help-container-left">
             <div className="gap-2 items-end">
               <div className="i-tabler-sparkles help-icon mr--2" />
-              <div className="help-header">Join Us at NodeConf EU</div>
+              <div className="help-header">Go Farther</div>
             </div>
             <div className="inline">
-              Don&apos;t stop at the cube; there&apos;s more puzzling excitement
-              waiting for you at{' '}
-              <a className="underline font-semibold" href="https://nodeconf.eu">
-                NodeConf EU
+              Don&apos;t stop at the cube; check out the source code on{' '}
+              <a
+                className="underline font-semibold"
+                href="https://github.com/nearform-oss/puzzlr"
+              >
+                <div className="i-line-md-github-loop h-4 w-4" /> GitHub
+              </a>{' '}
+              and be sure to sign up for the{' '}
+              <a
+                className="underline font-semibold"
+                href="https://www.nearform.com/newsletter/"
+              >
+                NearForm newsletter
               </a>
               .
             </div>
-            {/* <MissingPiece className="items-end text-right" /> */}
           </div>
         </ParallaxLayer>
       </Parallax>
