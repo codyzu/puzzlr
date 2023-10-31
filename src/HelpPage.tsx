@@ -22,16 +22,21 @@ export default function HelpPage({
   const [showClose, setShowClose] = useState(false);
   const pieceRefs = usePieceRefs();
   const cubeRef = useRef<HTMLDivElement>(null!);
+  const [firstCube, setFirstCube] = useState(true);
 
   useEffect(() => {
     function handleScroll() {
       if (parallaxRef.current) {
         // Console.log(parallaxRef.current.current);
-        if (parallaxRef.current.current / parallaxRef.current.space > 4) {
+        if (parallaxRef.current.current / parallaxRef.current.space > 6) {
           setShowClose(true);
         } else {
           setShowClose(false);
         }
+
+        setFirstCube(
+          parallaxRef.current.current / parallaxRef.current.space < 4,
+        );
       }
     }
 
@@ -48,40 +53,53 @@ export default function HelpPage({
 
   return (
     <div className="absolute w-screen overflow-hidden top-0 left-0 h-[100dvh] help-bg-0">
-      <Parallax ref={parallaxRef} config={{}} pages={6} className="">
-        <ParallaxLayer className="help-bg-1" offset={1} speed={1} />
-        <ParallaxLayer className="help-bg-2" offset={3} speed={1} />
-        <ParallaxLayer className="help-bg-3" offset={5} speed={1} />
-        <ParallaxLayer
-          offset={0}
-          speed={2}
-          className="justify-start p4 mix-blend-difference"
-        >
-          <div className="min-h-70% gap-3 justify-center">
-            <div className="i-tabler-cube w-40 h-40" />
-            <div className="text-center text-xl font-bold">
-              Welcome to Puzzlr!
-            </div>
-            <div className="text-xl text-center">
-              The Ultimate Cube-Building Challenge!
-            </div>
-            <div className="text-center">
+      <Parallax ref={parallaxRef} config={{}} pages={8} className="">
+        <ParallaxLayer className="help-bg-1" offset={3} speed={1} />
+        <ParallaxLayer className="help-bg-2" offset={5} speed={1} />
+        <ParallaxLayer className="help-bg-3" offset={7} speed={1} />
+        <ParallaxLayer sticky={{start: 0, end: 2}}>
+          <div className="justify-start w-full h-full mt--20%">
+            <div
+              ref={firstCube ? cubeRef : null}
+              className="w-150% aspect-square"
+            />
+          </div>
+        </ParallaxLayer>
+        <ParallaxLayer sticky={{start: 0, end: 1.5}} className="justify-center">
+          <div className="items-center justify-end self-center gap-2 text-center h-100dvh px-3 pb-66">
+            <div className="text-xl font-bold">Welcome to Puzzlr!</div>
+            <div className="text-xl">The Ultimate Cube-Building Challenge!</div>
+            <div className="font-bold">Want a chance to win x,y, or z?</div>
+          </div>
+        </ParallaxLayer>
+        <ParallaxLayer sticky={{start: 0, end: 0.5}} speed={1}>
+          <div className="h-100dvh justify-end text-center px-3 pb-50">
+            <div className="">
               Your mission is simple: collect puzzle pieces and construct your
-              very own unique cube. Learn how it all comes together...
+              very own unique cube.
             </div>
+          </div>
+        </ParallaxLayer>
+        <ParallaxLayer sticky={{start: 0.5, end: 1.5}}>
+          <div className="h-100dvh justify-end text-center px-3 pb-36 gap-3">
+            <div className="">
+              But act fast - you need to be one of the first 10 people to show
+              your completed cube at the NearForm booth to collect your prize.
+            </div>
+            <div>Learn how it all comes together...</div>
           </div>
         </ParallaxLayer>
         <ParallaxLayer
           offset={1}
           speed={1}
-          sticky={{start: 1, end: 2}}
+          sticky={{start: 3, end: 4}}
           className="justify-center"
         >
           <div className="w-50% self-start">
             <Inventory pieceRefs={pieceRefs} />
           </div>
         </ParallaxLayer>
-        <ParallaxLayer offset={1} speed={0} className="mix-blend-difference">
+        <ParallaxLayer offset={3} speed={0} className="mix-blend-difference">
           <div className="help-container-right">
             <div className="gap-2 items-start">
               <div className="i-tabler-puzzle help-icon ml--2" />
@@ -94,7 +112,7 @@ export default function HelpPage({
             </div>
           </div>
         </ParallaxLayer>
-        <ParallaxLayer offset={2} speed={0} className="mix-blend-difference">
+        <ParallaxLayer offset={4} speed={0} className="mix-blend-difference">
           <div className="help-container-right">
             <div className="gap-2 items-start">
               <div className="i-tabler-shape help-icon ml--2" />
@@ -108,15 +126,15 @@ export default function HelpPage({
             </div>
           </div>
         </ParallaxLayer>
-        <ParallaxLayer offset={3} speed={1}>
+        <ParallaxLayer offset={5} speed={1}>
           <div className="help-container self-end w-100% mr--25%">
             <div
-              ref={cubeRef}
+              ref={firstCube ? null : cubeRef}
               className="w-full max-w-[min(100vh,calc(100vw_*_0.75))] aspect-square"
             />
           </div>
         </ParallaxLayer>
-        <ParallaxLayer offset={3} speed={0} className="mix-blend-difference">
+        <ParallaxLayer offset={5} speed={0} className="mix-blend-difference">
           <div className="help-container-left">
             <div className="gap-2 items-end">
               <div className="i-tabler-crane help-icon" />
@@ -130,12 +148,12 @@ export default function HelpPage({
             </div>
           </div>
         </ParallaxLayer>
-        <ParallaxLayer offset={4} speed={1}>
+        <ParallaxLayer offset={6} speed={1}>
           <div className="help-container-left">
             <NearFormLove vertical />
           </div>
         </ParallaxLayer>
-        <ParallaxLayer offset={4} className="mix-blend-difference">
+        <ParallaxLayer offset={6} className="mix-blend-difference">
           <div className="help-container-right">
             <div className="gap-2 items-start">
               <div className="i-tabler-brand-twitter help-icon" />
@@ -157,13 +175,13 @@ export default function HelpPage({
             </div>
           </div>
         </ParallaxLayer>
-        <ParallaxLayer offset={5} speed={1}>
+        <ParallaxLayer offset={7} speed={1}>
           <div className="help-container-right p-4 items-center">
             <img src={logoNodeConf} className="max-w-60 w-full" />
           </div>
         </ParallaxLayer>
         <ParallaxLayer
-          offset={5}
+          offset={7}
           className="mix-blend-difference"
           onClick={() => {
             onClose();
