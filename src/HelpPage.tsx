@@ -11,6 +11,7 @@ const AssembledCube3D = lazy(async () => import('./AssembedCube3D'));
 const RotatingPieces3D = lazy(async () => import('./RotatingPieces3D'));
 const Canvas3D = lazy(async () => import('./Canvas3D'));
 
+// eslint-disable-next-line complexity
 export default function HelpPage({
   onClose,
   cubeLayout,
@@ -19,24 +20,35 @@ export default function HelpPage({
   cubeLayout: CubeLayout;
 }) {
   const parallaxRef = useRef<IParallax>(null);
-  const [showClose, setShowClose] = useState(false);
   const pieceRefs = usePieceRefs();
   const cubeRef = useRef<HTMLDivElement>(null!);
-  const [firstCube, setFirstCube] = useState(true);
+  const [page, setPage] = useState(0);
+  const [m1Shown, setM1Shown] = useState(false);
+  const [m2Shown, setM2Shown] = useState(false);
+  const [scrollDown, setScrollDown] = useState(true);
 
   useEffect(() => {
     function handleScroll() {
       if (parallaxRef.current) {
-        // Console.log(parallaxRef.current.current);
-        if (parallaxRef.current.current / parallaxRef.current.space > 6) {
-          setShowClose(true);
-        } else {
-          setShowClose(false);
+        const nextPage =
+          Math.round(
+            (parallaxRef.current.current * 10) / parallaxRef.current.space,
+          ) / 10;
+
+        if (nextPage !== page) {
+          console.log('p', page, 'next', nextPage);
+          setScrollDown(nextPage > page);
         }
 
-        setFirstCube(
-          parallaxRef.current.current / parallaxRef.current.space < 4,
-        );
+        setPage(nextPage);
+
+        if (nextPage >= 0.5) {
+          setM1Shown(true);
+        }
+
+        if (nextPage >= 1) {
+          setM2Shown(true);
+        }
       }
     }
 
@@ -49,7 +61,7 @@ export default function HelpPage({
     return () => {
       current?.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [page]);
 
   return (
     <div className="absolute w-screen overflow-hidden top-0 left-0 h-[100dvh] help-bg-0">
@@ -60,37 +72,55 @@ export default function HelpPage({
         <ParallaxLayer sticky={{start: 0, end: 3}}>
           <div className="justify-start w-full h-100dvh mt--30% lt-xs:mt--20%">
             <div
-              ref={firstCube ? cubeRef : null}
+              ref={page < 4 ? cubeRef : null}
               className="w-180% lt-xs:w-100% aspect-square"
             />
           </div>
         </ParallaxLayer>
         <ParallaxLayer sticky={{start: 0, end: 2.5}} className="justify-center">
-          <div className="items-center justify-end self-center gap-2 text-center h-100dvh px-3 pb-46">
+          <div className="items-center justify-start self-center gap-2 text-center h-100dvh px-3 pt-50dvh">
             <div className="text-xl font-bold">Welcome to Puzzlr!</div>
             <div className="text-xl">The Ultimate Cube-Building Challenge!</div>
             <div className="font-bold">Want a chance to win x,y, or z?</div>
-          </div>
-        </ParallaxLayer>
-        <ParallaxLayer sticky={{start: 0, end: 0.5}} speed={1}>
-          <div className="h-100dvh justify-end text-center px-3 pb-24">
-            <div className="">
-              Your mission is simple: collect puzzle pieces and construct your
-              very own unique cube.
+            <div className="relative gap-2 items-center w-full">
+              <div
+                className={clsx(
+                  'absolute top-0 animate-forwards animate-duration-200',
+                  page >= 0.5 && 'animate-slide-out-left',
+                  m1Shown && page < 0.5 && 'animate-slide-in-left',
+                )}
+              >
+                Your mission is simple: collect puzzle pieces and construct your
+                very own unique cube.
+              </div>
+              <div
+                className={clsx(
+                  'absolute top-0 animate-forwards animate-duration-200',
+                  !m1Shown && 'hidden',
+                  m1Shown &&
+                    page >= 0.5 &&
+                    page < 1 &&
+                    (scrollDown
+                      ? 'animate-slide-in-right'
+                      : 'animate-slide-in-left'),
+                  m1Shown && page < 0.5 && 'animate-slide-out-right',
+                  m1Shown && page >= 1 && 'animate-slide-out-left',
+                )}
+              >
+                But act fast - you need to be one of the first 10 people to show
+                your completed cube at the NearForm booth to collect your prize.
+              </div>
+              <div
+                className={clsx(
+                  'absolute top-0 animate-forwards animate-duration-200',
+                  !m2Shown && 'hidden',
+                  m2Shown && page >= 1 && 'animate-slide-in-right',
+                  m2Shown && page < 1 && 'animate-slide-out-right',
+                )}
+              >
+                Learn how it all comes together...
+              </div>
             </div>
-          </div>
-        </ParallaxLayer>
-        <ParallaxLayer sticky={{start: 0.5, end: 1.5}}>
-          <div className="h-100dvh justify-end text-center px-3 pb-24 gap-3">
-            <div className="">
-              But act fast - you need to be one of the first 10 people to show
-              your completed cube at the NearForm booth to collect your prize.
-            </div>
-          </div>
-        </ParallaxLayer>
-        <ParallaxLayer sticky={{start: 1.5, end: 2.5}}>
-          <div className="h-100dvh justify-end text-center px-3 pb-24 gap-3">
-            <div>Learn how it all comes together...</div>
           </div>
         </ParallaxLayer>
         <ParallaxLayer
@@ -133,7 +163,7 @@ export default function HelpPage({
         <ParallaxLayer offset={6} speed={1}>
           <div className="help-container self-end w-100% mr--25%">
             <div
-              ref={firstCube ? null : cubeRef}
+              ref={page >= 4 ? cubeRef : null}
               className="w-full max-w-[min(100vh,calc(100vw_*_0.75))] aspect-square"
             />
           </div>
@@ -224,7 +254,7 @@ export default function HelpPage({
       <div
         className={clsx(
           'absolute bottom-0 animate-bounce transition-opacity ease-out duration-800 pointer-events-none mix-blend-difference',
-          showClose ? 'opacity-0' : 'opacity-100',
+          page < 6 ? 'opacity-100' : 'opacity-0',
         )}
       >
         <div className="i-tabler-chevron-compact-down w-24 h-24" />
@@ -232,7 +262,7 @@ export default function HelpPage({
       <div
         className={clsx(
           'absolute bottom-0 transition-opacity ease-out duration-800 pointer-events-none pb-1 mix-blend-difference',
-          showClose ? 'animate-wobble opacity-100' : 'opacity-0',
+          page >= 6 ? 'animate-wobble opacity-100' : 'opacity-0',
         )}
       >
         <div className="w-16 h-16 i-tabler-square-rounded-check" />
