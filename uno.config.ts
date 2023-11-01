@@ -92,6 +92,7 @@ export default defineConfig({
     },
     breakpoints: {
       sm: '480px',
+      xs: '380px',
     },
     animation: {
       keyframes: {
