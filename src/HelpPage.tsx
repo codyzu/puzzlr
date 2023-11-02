@@ -70,7 +70,7 @@ export default function HelpPage({
         <ParallaxLayer className="help-bg-2" offset={6} speed={1} />
         <ParallaxLayer className="help-bg-3" offset={8} speed={1} />
         <ParallaxLayer sticky={{start: 0, end: 3}}>
-          <div className="justify-start w-full h-100dvh mt--30% lt-xs:mt--20%">
+          <div className="justify-start w-full h-100dvh mt--35% lt-xs:mt--20%">
             <div
               ref={page < 4 ? cubeRef : null}
               className="w-180% lt-xs:w-100% aspect-square"
@@ -78,7 +78,7 @@ export default function HelpPage({
           </div>
         </ParallaxLayer>
         <ParallaxLayer sticky={{start: 0, end: 2.5}} className="justify-center">
-          <div className="items-center justify-start self-center gap-2 text-center h-100dvh px-3 pt-50dvh">
+          <div className="items-center justify-start self-center gap-2 text-center h-100dvh px-3 pt-60dvh">
             <div className="text-xl font-bold">Welcome to Puzzlr!</div>
             <div className="text-xl">The Ultimate Cube-Building Challenge!</div>
             <div className="font-bold">Want a chance to win x,y, or z?</div>
