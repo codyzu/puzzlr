@@ -78,7 +78,7 @@ export default function HelpPage({
           </div>
         </ParallaxLayer>
         <ParallaxLayer sticky={{start: 0, end: 2.5}} className="justify-center">
-          <div className="items-center justify-start self-center gap-2 text-center h-100dvh px-3 pt-60dvh">
+          <div className="items-center justify-start self-center gap-2 text-center h-100dvh px-3 pt-60dvh lt-xs:pt-45dvh">
             <div className="text-xl font-bold">Welcome to Puzzlr!</div>
             <div className="text-xl">The Ultimate Cube-Building Challenge!</div>
             <div className="font-bold">Want a chance to win x,y, or z?</div>
