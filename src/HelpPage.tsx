@@ -86,8 +86,8 @@ export default function HelpPage({
               <div
                 className={clsx(
                   'absolute top-0 animate-forwards animate-duration-200',
-                  page >= 0.5 && 'animate-slide-out-left',
-                  m1Shown && page < 0.5 && 'animate-slide-in-left',
+                  page >= 0.5 && 'animate-fade-out-up',
+                  m1Shown && page < 0.5 && 'animate-fade-in-down',
                 )}
               >
                 Your mission is simple: collect puzzle pieces and construct your
@@ -101,10 +101,10 @@ export default function HelpPage({
                     page >= 0.5 &&
                     page < 1 &&
                     (scrollDown
-                      ? 'animate-slide-in-right'
-                      : 'animate-slide-in-left'),
-                  m1Shown && page < 0.5 && 'animate-slide-out-right',
-                  m1Shown && page >= 1 && 'animate-slide-out-left',
+                      ? 'animate-fade-in-up'
+                      : 'animate-fade-in-down'),
+                  m1Shown && page < 0.5 && 'animate-fade-out-down',
+                  m1Shown && page >= 1 && 'animate-fade-out-up',
                 )}
               >
                 But act fast - you need to be one of the first 10 people to show
@@ -114,8 +114,8 @@ export default function HelpPage({
                 className={clsx(
                   'absolute top-0 animate-forwards animate-duration-200',
                   !m2Shown && 'hidden',
-                  m2Shown && page >= 1 && 'animate-slide-in-right',
-                  m2Shown && page < 1 && 'animate-slide-out-right',
+                  m2Shown && page >= 1 && 'animate-fade-in-up',
+                  m2Shown && page < 1 && 'animate-fade-out-down',
                 )}
               >
                 Learn how it all comes together...
