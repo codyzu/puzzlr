@@ -128,7 +128,8 @@ export default function HelpPage({
               >
                 <div>
                   The lucky winner will be announced before this years
-                  conference concludes on 08/11/23
+                  conference concludes on{' '}
+                  {new Date(Date.UTC(2023, 11, 8)).toLocaleDateString()}
                 </div>
                 <a
                   className="text-pink inline"
