@@ -70,7 +70,7 @@ export default function HelpPage({
         <ParallaxLayer className="help-bg-2" offset={6} speed={1} />
         <ParallaxLayer className="help-bg-3" offset={8} speed={1} />
         <ParallaxLayer sticky={{start: 0, end: 3}}>
-          <div className="justify-start w-full h-100dvh mt--35% lt-xs:mt--20%">
+          <div className="justify-start w-full h-100dvh mt--35% lt-xs:mt--15%">
             <div
               ref={page < 4 ? cubeRef : null}
               className="w-180% lt-xs:w-100% aspect-square"
@@ -78,24 +78,26 @@ export default function HelpPage({
           </div>
         </ParallaxLayer>
         <ParallaxLayer sticky={{start: 0, end: 2.5}} className="justify-center">
-          <div className="items-center justify-start self-center gap-2 text-center h-100dvh px-3 pt-60dvh lt-xs:pt-45dvh">
-            <div className="text-xl font-bold">Welcome to Puzzlr!</div>
-            <div className="text-xl">The Ultimate Cube-Building Challenge!</div>
-            <div className="font-bold">Want a chance to win x,y, or z?</div>
-            <div className="relative gap-2 items-center w-full">
+          <div className="items-center justify-start self-center text-center h-100dvh px-6 pt-50dvh lt-xs:pt-50dvh w-full">
+            <div className="relative w-full h-full">
               <div
                 className={clsx(
-                  'absolute top-0 animate-forwards animate-duration-200',
+                  'gap-4 absolute top-0 animate-forwards animate-duration-200',
                   page >= 0.5 && 'animate-fade-out-up',
                   m1Shown && page < 0.5 && 'animate-fade-in-down',
                 )}
               >
-                Your mission is simple: collect puzzle pieces and construct your
-                very own unique cube.
+                <div className="text-xl font-bold">Welcome to Puzzlr!</div>
+                <div className="text-xl">
+                  The Ultimate Cube-Building Challenge!
+                </div>
+                <div className="highlight">
+                  Unlock your chance to win a ticket to NodeConf EU 2024
+                </div>
               </div>
               <div
                 className={clsx(
-                  'absolute top-0 animate-forwards animate-duration-200',
+                  'gap-4 absolute top-0 animate-forwards animate-duration-200',
                   !m1Shown && 'hidden',
                   m1Shown &&
                     page >= 0.5 &&
@@ -107,18 +109,36 @@ export default function HelpPage({
                   m1Shown && page >= 1 && 'animate-fade-out-up',
                 )}
               >
-                But act fast - you need to be one of the first 10 people to show
-                your completed cube at the NearForm booth to collect your prize.
+                <div>
+                  Show your completed cube at the NearForm booth and be entered
+                  into the draw...
+                </div>
+                <div>
+                  And that&apos;s not all - completing your cube also earns you
+                  an &quot;Open Source - is Art&quot; t-shirt from our booth
+                </div>
               </div>
               <div
                 className={clsx(
-                  'absolute top-0 animate-forwards animate-duration-200',
+                  'gap-4 absolute top-0 animate-forwards animate-duration-200',
                   !m2Shown && 'hidden',
                   m2Shown && page >= 1 && 'animate-fade-in-up',
                   m2Shown && page < 1 && 'animate-fade-out-down',
                 )}
               >
-                Learn how it all comes together...
+                <div>
+                  The lucky winner will be announced before this years
+                  conference concludes on 08/11/23
+                </div>
+                <a
+                  className="text-pink inline"
+                  href="https://www.youtube.com/nearform"
+                >
+                  <span className="underline">
+                    Click to watch how it all comes together
+                  </span>{' '}
+                  <div className="i-tabler-brand-youtube-filled w-8 h-8" />
+                </a>
               </div>
             </div>
           </div>
