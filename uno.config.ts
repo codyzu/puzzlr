@@ -59,8 +59,7 @@ export default defineConfig({
     body: 'bg-black',
     highlight: 'text-pink font-bold',
     'shape-container': 'bg-gray-800 rounded-lg bg-opacity-80',
-    'info-container':
-      'bg-black bg-opacity-70 rounded-lg p-3 pointer-events-auto',
+    'info-container': 'bg-black bg-opacity-70 rounded-lg pointer-events-auto',
     'bg-popover': 'text-xl bg-gray-800 bg-opacity-85',
     'popover-container':
       'bg-black rounded-md shadow-gray-300 shadow-xl border-3 border-gray-700 bg-opacity-60',
