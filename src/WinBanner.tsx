@@ -61,7 +61,7 @@ export default function WinBanner({cubeLayout}: {cubeLayout: CubeLayout}) {
           Congratulations!
         </div>
         <div className="text-center animate-bounce-in-right inline-block">
-          You&apos;ve completed the Puzzlr challenge. Tweet a screen capture of
+          You&apos;ve completed the Puzzlr challenge. Share a screen capture of
           this page and tag{' '}
           <a
             className="font-bold pointer-events-auto"
@@ -71,7 +71,7 @@ export default function WinBanner({cubeLayout}: {cubeLayout: CubeLayout}) {
           >
             @NearForm
           </a>{' '}
-          to claim your prize.
+          and pass by our booth to claim your prize.
         </div>
       </div>
       <div className="flex-grow-1 px-6 py-2 pointer-events-auto items-center">
