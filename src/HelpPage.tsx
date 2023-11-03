@@ -70,10 +70,10 @@ export default function HelpPage({
         <ParallaxLayer className="help-bg-2" offset={6} speed={1} />
         <ParallaxLayer className="help-bg-3" offset={8} speed={1} />
         <ParallaxLayer sticky={{start: 0, end: 3}}>
-          <div className="justify-start w-full h-100dvh mt--35% lt-xs:mt--15%">
+          <div className="justify-start w-full h-100dvh mt--35% lt-xs:mt--15% sm:mt-2%">
             <div
               ref={page < 4 ? cubeRef : null}
-              className="w-180% lt-xs:w-100% aspect-square"
+              className="w-180% lt-xs:w-100% aspect-square sm:max-h-50dvh"
             />
           </div>
         </ParallaxLayer>
