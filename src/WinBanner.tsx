@@ -62,8 +62,16 @@ export default function WinBanner({cubeLayout}: {cubeLayout: CubeLayout}) {
         </div>
         <div className="text-center animate-bounce-in-right inline-block">
           You&apos;ve completed the Puzzlr challenge. Tweet a screen capture of
-          this page and tag <span className="font-bold">@NearForm</span> to
-          claim your prize.
+          this page and tag{' '}
+          <a
+            className="font-bold pointer-events-auto"
+            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+              'I just completed my Puzzlr cube challenge by @NearForm at @NodeConfEU',
+            )}`}
+          >
+            @NearForm
+          </a>{' '}
+          to claim your prize.
         </div>
       </div>
       <div className="flex-grow-1 px-6 py-2 pointer-events-auto items-center">
