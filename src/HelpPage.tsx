@@ -228,10 +228,6 @@ export default function HelpPage({
                 </a>
                 .
               </div>
-              <div>
-                Exciting prizes await the first 10 people that show their cube
-                at the NearForm booth.
-              </div>
             </div>
           </div>
         </ParallaxLayer>
@@ -275,7 +271,7 @@ export default function HelpPage({
       <div
         className={clsx(
           'absolute bottom-0 animate-bounce transition-opacity ease-out duration-800 pointer-events-none mix-blend-difference',
-          page < 6 ? 'opacity-100' : 'opacity-0',
+          page <= 7 ? 'opacity-100' : 'opacity-0',
         )}
       >
         <div className="i-tabler-chevron-compact-down w-24 h-24" />
@@ -283,7 +279,7 @@ export default function HelpPage({
       <div
         className={clsx(
           'absolute bottom-0 transition-opacity ease-out duration-800 pointer-events-none pb-1 mix-blend-difference',
-          page >= 6 ? 'animate-wobble opacity-100' : 'opacity-0',
+          page > 7 ? 'animate-wobble opacity-100' : 'opacity-0',
         )}
       >
         <div className="w-16 h-16 i-tabler-square-rounded-check" />
