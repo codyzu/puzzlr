@@ -25,5 +25,6 @@ dist-ssr
 
 public/*.png
 public/*.ico
+!public/card.png
 
 .firebase/*
