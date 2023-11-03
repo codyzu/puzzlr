@@ -133,7 +133,7 @@ export default function HelpPage({
                 </div>
                 <a
                   className="text-pink inline"
-                  href="https://www.youtube.com/nearform"
+                  href="https://youtu.be/2xNfP2mz5TY"
                 >
                   <span className="underline">
                     Click to watch how it all comes together
