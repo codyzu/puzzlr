@@ -9,7 +9,7 @@ const levelMessages = [
 
 export default function LevelIndicator({layerCount}: {layerCount: number}) {
   return (
-    <div className="text-sm p-3">
+    <div className="text-sm">
       Level {layerCount}/{cubeLength}: {levelMessages[layerCount - 1]}
     </div>
   );
