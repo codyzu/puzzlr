@@ -135,7 +135,9 @@ Have you ever thought about working for a company like NearForm? Check us out on
           </Suspense>
         </div>
         <div className="relative w-full flex-grow-1 p-2 gap-1 items-stretch pointer-events-none">
-          <Header />
+          <div className="mx--2">
+            <Header />
+          </div>
           <div className="flex-row items-stretch gap-2 flex-grow-1">
             <div className="justify-start h-auto self-start">
               <Inventory pieceRefs={pieceRefs} />
