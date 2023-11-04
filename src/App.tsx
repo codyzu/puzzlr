@@ -121,7 +121,7 @@ Have you ever thought about working for a company like NearForm? Check us out on
 
   return (
     // TODO: is 100dvh fully compatible? Should there be a fallback?
-    <div className="relative w-full min-h-[100dvh] touch-pan-y">
+    <div className="relative w-full min-h-[100dvh] touch-pan-y select-none">
       <div className="relative w-full h-full flex-grow-1">
         <div ref={cubeRef} className="absolute w-full h-full top-0 left-0">
           <Suspense>
@@ -182,7 +182,7 @@ Have you ever thought about working for a company like NearForm? Check us out on
       <div
         className={clsx(
           !message && !imageSource && 'hidden',
-          'absolute top-0 left-0 w-full h-full',
+          'absolute top-0 left-0 w-full h-full select-auto',
         )}
         onClick={() => {
           setMessage('');
